@@ -1,0 +1,52 @@
+{
+  "arrays": [
+    {
+      "id": "001",
+      "category": "javascript array methods",
+      "tip": "The `at()` method takes an integer value and returns the item at that index, allowing for positive and negative integers. Negative integers count back from the last item in the array. E.g. array[array.length-1] for the last item, you can call array.at(-1).",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at"
+    },
+    {
+      "id": "002",
+      "category": "javascript array methods",
+      "tip": "The `concat()` method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"
+    },
+    {
+      "id": "003",
+      "category": "javascript array methods",
+      "tip": " The `copyWithin()` method shallow copies part of an array to another location in the same array and returns it without modifying its length.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin"
+    },
+    {
+      "id": "004",
+      "category": "javascript array methods",
+      "tip": "The `entries()` method returns a new Array Iterator object that contains the key/value pairs for each index in the array.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries"
+    },
+    {
+      "id": "005",
+      "category": "javascript array methods",
+      "tip": " The `every()` method tests whether all elements in the array pass the test implemented by the provided function. It returns a Boolean value.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every"
+    },
+    {
+      "id": "006",
+      "category": "javascript array methods",
+      "tip": "The `fill()` method changes all elements in an array to a static value, from a start index (default 0) to an end index (default array.length). It returns the modified array. ",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"
+    },
+    {
+      "id": "007",
+      "category": "javascript array methods",
+      "tip": "The `filter()` method creates a new array with all elements that pass the test implemented by the provided function.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+    },
+    {
+      "id": "008",
+      "category": "javascript array methods",
+      "tip": "The `find()` method returns the value of the first element in the provided array that satisfies the provided testing function. If no values satisfy the testing function, undefined is returned. ",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"
+    }
+  ]
+}
