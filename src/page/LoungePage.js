@@ -1,5 +1,5 @@
 import './LoungePage.scss';
-import UserNavigation from '../components/UserNav/UserNav';
+import UserNav from '../components/UserNav/UserNav';
 
 export default function LoungePage() {
   return (
@@ -10,7 +10,7 @@ export default function LoungePage() {
         <div></div>
       </section>
       <section className="user">
-        <UserNavigation />
+        <UserNav />
       </section>
       <section className="gifs">
         <img src="https://dc85enhu9zukf.cloudfront.net/gifs/4oHyOIBIt57ag.gif" alt="gifs" className="background-gif" />

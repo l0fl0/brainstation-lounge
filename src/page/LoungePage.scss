@@ -19,11 +19,18 @@ main {
 
   &__navigation {
     display: flex;
+  }
 
-    &-icon {
-      margin-right: 1rem;
-      cursor: pointer;
-    }
+  &__icon-container {
+    position: relative;
+    padding: 0.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  &__icon-title {
+    position: absolute;
+    margin-left: -0.8rem;
   }
 }
 
