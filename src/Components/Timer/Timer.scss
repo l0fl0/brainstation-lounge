@@ -1,7 +1,12 @@
-.TimerInput {
+.timer {
     display: flex;
+    flex-direction: column;
     align-items: center;
     color: white;
+
+    &__input {
+        width: 2rem;
+    }
 }
 
 .timer-container {
