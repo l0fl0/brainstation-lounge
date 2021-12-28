@@ -1,5 +1,8 @@
 import './LoungePage.scss';
-import UserNav from '../Components/UserNav/UserNav'
+
+import UserNav from '../Components/UserNav/UserNav';
+import TimerInput from '../Components/TimerInput/TimerInput';
+
 
 export default function LoungePage() {
   return (
@@ -19,7 +22,9 @@ export default function LoungePage() {
       <section className="random-tip-container">
       </section>
       <section className="audio-controller">
-
+      </section>
+      <section className="timer-container">
+        <TimerInput />
       </section>
     </main>
   );
