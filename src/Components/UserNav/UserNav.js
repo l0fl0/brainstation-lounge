@@ -2,7 +2,7 @@ import './UserNav.scss';
 import { useState } from "react";
 
 
-export default function UserNav() {
+export default function UserNav({ showTimer }) {
   const [showTitleNotes, setShowTitleNotes] = useState(false);
   const [showTitleTimer, setShowTitleTimer] = useState(false);
   const [showTitleTasks, setShowTitleTasks] = useState(false);
@@ -22,7 +22,7 @@ export default function UserNav() {
       </div>
 
       <div className="user__icon-container" onMouseOver={() => (handleTitleToggle(showTitleTimer, setShowTitleTimer))}>
-        <i className="far fa-clock user__icon" />
+        <i onClick={showTimer} className="far fa-clock user__icon" />
         {showTitleTimer ? <p className="user__icon-title">Timer</p> : null}
       </div>
 

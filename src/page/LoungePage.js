@@ -1,10 +1,17 @@
 import './LoungePage.scss';
-
+import { useState } from 'react';
 import UserNav from '../Components/UserNav/UserNav';
 import Timer from '../Components/Timer/Timer';
 
 
 export default function LoungePage() {
+  
+  const [isShowTimer, setShowTimer] = useState(false);
+
+  const renderTimer = () => {
+    setShowTimer(!isShowTimer);
+  }
+
   return (
     <main>
       <section className="students">
@@ -13,7 +20,7 @@ export default function LoungePage() {
         <div></div>
       </section>
       <section className="user">
-        <UserNav />
+        <UserNav showTimer={renderTimer}/>
       </section>
       <section className="gifs">
         <img src="https://dc85enhu9zukf.cloudfront.net/gifs/4oHyOIBIt57ag.gif" alt="gifs" className="background-gif" />
@@ -24,7 +31,7 @@ export default function LoungePage() {
       <section className="audio-controller">
       </section>
       <section className="timer-container">
-        <Timer />
+        {isShowTimer ? <Timer />: <></>}
       </section>
     </main>
   );
