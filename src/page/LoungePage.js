@@ -1,5 +1,5 @@
 import './LoungePage.scss';
-import UserNav from '../components/UserNav/UserNav';
+import UserNav from '../Components/UserNav/UserNav'
 
 export default function LoungePage() {
   return (
