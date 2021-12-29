@@ -16,7 +16,7 @@ export default function LoungePage() {
   return (
     <main>
       <section className="students">
-        <h2>Listening: 5</h2>
+        <h2 className="students__count">Listening: 5</h2>
         {/* Open live chat onClick */}
         <div></div>
       </section>
@@ -34,7 +34,7 @@ export default function LoungePage() {
       <section className="timer-container">
         {isShowTimer ? <Timer />: <></>}
       </section>
-      <section className='radio'>
+      <section className='radio-container'>
         <Radio />
       </section>
     </main>

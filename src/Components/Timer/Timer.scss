@@ -1,8 +1,11 @@
+@use '../../sass/partials/variables' as *;
+
 .timer {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #ccc;
+    text-shadow: $text-shadow-white;
 
     &__form {
         position: relative;
@@ -16,7 +19,9 @@
         top: .3rem;
         left: 2.5rem;
         font-size: 1.2rem;
+        font-weight: bold;
         color: #333;
+        text-shadow: $text-shadow-dark;
     }
 
     &__input {
@@ -37,6 +42,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #333;
+            text-shadow: $text-shadow-dark;
         }
     }
 
@@ -51,6 +57,7 @@
         font-size: 1.2rem;
         font-weight: bold;
         cursor: pointer;
+        text-shadow: $text-shadow-dark;
 
         &:hover {
             background-color: rgba($color: rgb(204, 204, 204), $alpha: .75);
