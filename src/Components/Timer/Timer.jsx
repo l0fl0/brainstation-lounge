@@ -55,9 +55,11 @@ function Timer() {
                 </div>
         )
     }
+    let mins = String(Math.floor(state.time / 60)).padStart(2, '0');
+    let secs = String(state.time % 60).padStart(2, '0');
     return (
         <div className="timer">
-            <h1 className='timer__time'>{Math.floor(state.time / 60)}:{state.time % 60}</h1>
+            <h1 className='timer__time'>{mins}:{secs}</h1>
             <button className='timer__button' onClick={cancelTimer}>Cancel</button>
         </div>
     )
