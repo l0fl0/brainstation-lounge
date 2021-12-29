@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react/cjs/react.development';
 import './Stack.scss';
 import axios from 'axios';
+import StackBtn from '../StackBtn/StackBtn';
 
 export default function Stack() {
     const initialSearch = {
@@ -13,32 +14,37 @@ export default function Stack() {
     }
 
     const tags = [{
+        name: 'React',
         tag: 'reactjs',
         key: 'hasReact'
     },
     {
+        name: 'CSS',
         tag: 'CSS',
         key: 'hasCSS'
     },
     {
+        name: 'Node.js',
         tag: 'node.js',
         key: 'hasNodejs'
     },
     {
+        name: 'Express',
         tag: 'express',
         key: 'hasExpress'
     },
     {
+        name: 'JS',
         tag: 'javascript',
         key: 'hasJS'
     }]
 
     const [search, setSearch] = useState(initialSearch);
 
-    const selectTag = tag => {
+    const selectTag = key => {
         setSearch(prevSearch => {
             const newSearch = {...prevSearch}
-            newSearch[tag] = !prevSearch[tag]
+            newSearch[key] = !prevSearch[key]
             return newSearch
         })
     }
@@ -49,7 +55,7 @@ export default function Stack() {
                 if (search[tag.key]) return tag;
             })
             .map(tag => tag.tag)
-            .join('%3')
+            .join(';')
     }
 
     let from = '1638316800';
@@ -67,26 +73,8 @@ export default function Stack() {
         <div className='stack'>
             <h1 className="stack__title">Top 5 Stack Overflow Questions</h1>
             <div className="stack__button-container">
-                <button 
-                    className={search.hasReact ? "stack__button stack__button--selected" : "stack__button"}
-                    onClick={() => selectTag('hasReact')}
-                >React</button>
-                <button 
-                    className={search.hasCSS ? "stack__button stack__button--selected" : "stack__button"}
-                    onClick={() => selectTag('hasCSS')}
-                >SASS</button>
-                <button 
-                    className={search.hasNodejs ? "stack__button stack__button--selected" : "stack__button"}
-                    onClick={() => selectTag('hasNodejs')}
-                >Node.js</button>
-                <button 
-                    className={search.hasExpress ? "stack__button stack__button--selected" : "stack__button"}
-                    onClick={() => selectTag('hasExpress')}
-                >Express</button>
-                <button 
-                    className={search.hasJS ? "stack__button stack__button--selected" : "stack__button"}
-                    onClick={() => selectTag('hasJS')}
-                >JS</button>
+                {tags.map((tag, i) => <StackBtn key={i} isSelected={search[tag.key]} name={tag.name} clickHandler={() => selectTag(tag.key)}/>)}
+                
             </div>
             <button className="stack__button" onClick={() => getQuestions(tagBuilder(tags), from, to)}>Get Posts</button>
         </div>
