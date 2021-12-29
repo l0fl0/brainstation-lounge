@@ -51,6 +51,12 @@ main {
     position: absolute;
     top: 1rem;
     left: calc(50vw - (600px / 2));
-  
+}
+
+.stack-container {
+  position: absolute;
+  top: 10rem;
+  // left: calc(50vw - (400px / 2));
+  left: 0;
 }
 

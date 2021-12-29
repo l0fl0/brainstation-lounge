@@ -3,6 +3,7 @@ import { useState } from 'react';
 import UserNav from '../Components/UserNav/UserNav';
 import Timer from '../Components/Timer/Timer';
 import Radio from '../Components/Radio/Radio';
+import Stack from '../Components/Stack/Stack';
 
 
 export default function LoungePage() {
@@ -43,6 +44,9 @@ export default function LoungePage() {
       </section>
       <section className='radio-container'>
         {isShowRadio ? <Radio /> : <></>}
+      </section>
+      <section className='stack-container'>
+        <Stack />
       </section>
     </main>
   );
