@@ -8,9 +8,13 @@ import Radio from '../Components/Radio/Radio';
 export default function LoungePage() {
   
   const [isShowTimer, setShowTimer] = useState(true);
+  const [isShowRadio, setShowRadio] = useState(true);
 
-  const renderTimer = () => {
+  const showTimer = () => {
     setShowTimer(!isShowTimer);
+  }
+  const showRadio = () => {
+    setShowRadio(!isShowRadio);
   }
 
   return (
@@ -21,7 +25,10 @@ export default function LoungePage() {
         <div></div>
       </section>
       <section className="user">
-        <UserNav showTimer={renderTimer}/>
+        <UserNav 
+          showTimer={showTimer}
+          showRadio={showRadio}
+        />
       </section>
       <section className="gifs">
         <img src="https://dc85enhu9zukf.cloudfront.net/gifs/4oHyOIBIt57ag.gif" alt="gifs" className="background-gif" />
@@ -32,10 +39,10 @@ export default function LoungePage() {
       <section className="audio-controller">
       </section>
       <section className="timer-container">
-        {isShowTimer ? <Timer />: <></>}
+        {isShowTimer ? <Timer /> : <></>}
       </section>
       <section className='radio-container'>
-        <Radio />
+        {isShowRadio ? <Radio /> : <></>}
       </section>
     </main>
   );
