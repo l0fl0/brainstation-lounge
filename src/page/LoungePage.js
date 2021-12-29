@@ -2,6 +2,7 @@ import './LoungePage.scss';
 import { useState } from 'react';
 import UserNav from '../Components/UserNav/UserNav';
 import Timer from '../Components/Timer/Timer';
+import Radio from '../Components/Radio/Radio';
 
 
 export default function LoungePage() {
@@ -32,6 +33,9 @@ export default function LoungePage() {
       </section>
       <section className="timer-container">
         {isShowTimer ? <Timer />: <></>}
+      </section>
+      <section className='radio'>
+        <Radio />
       </section>
     </main>
   );
