@@ -6,7 +6,7 @@ import Timer from '../Components/Timer/Timer';
 
 export default function LoungePage() {
   
-  const [isShowTimer, setShowTimer] = useState(false);
+  const [isShowTimer, setShowTimer] = useState(true);
 
   const renderTimer = () => {
     setShowTimer(!isShowTimer);

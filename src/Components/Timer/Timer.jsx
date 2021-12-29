@@ -12,7 +12,7 @@ function Timer() {
 
     const setTimer = (event, initialTime) => {
         event.preventDefault();
-        let time = initialTime || event.target.time.value;
+        let time = initialTime || event.target.time.value || 15;
         
         console.log(time)
         // setinterval to run every 1s
@@ -44,20 +44,21 @@ function Timer() {
     if (!state.hasStarted) {
         return (
                 <div className='timer'>
-                    <h1>Timer</h1>
-                    <form onSubmit={setTimer}>
-                        <input className='timer__input' type="number" name="time" placeholder='5'/>
-                        <button type="submit">Set Timer</button>
+                    <h1 className='timer__title'>Timer</h1>
+                    <form className='timer__form' onSubmit={setTimer}>
+                        <span className='timer__span'>mins</span>
+                        <input className='timer__input' type="number" name="time" min='1' placeholder='15'/>
+                        <button className='timer__button' type="submit">Set</button>
                     </form>
-                    <button onClick={(event) => setTimer(event, 25)}>25 Min Study</button>
-                    <button onClick={(event) => setTimer(event, 5)}>5 Min Break</button>
+                    <button className='timer__button timer__button--study' onClick={(event) => setTimer(event, 25)}>25 Study</button>
+                    <button className='timer__button timer__button--break' onClick={(event) => setTimer(event, 5)}>5 Break</button>
                 </div>
         )
     }
     return (
         <div className="timer">
-            <h1>{Math.floor(state.time / 60)}:{state.time % 60}</h1>
-            <button onClick={cancelTimer}>Cancel Timer</button>
+            <h1 className='timer__time'>{Math.floor(state.time / 60)}:{state.time % 60}</h1>
+            <button className='timer__button' onClick={cancelTimer}>Cancel</button>
         </div>
     )
 
