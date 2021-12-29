@@ -8,6 +8,7 @@
     padding: .5rem;
 
     &__title {
+        margin-left: .25rem;
         color: white;
         text-shadow: $text-shadow-white;
     }
@@ -15,7 +16,7 @@
     &__button-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;    
+        justify-items: center;    
     }
 
     &__button {
