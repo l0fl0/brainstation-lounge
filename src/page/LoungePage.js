@@ -1,6 +1,7 @@
 import './LoungePage.scss';
 import UserNav from '../components/UserNav/UserNav';
-
+import UserNotes from '../components/UserNotes/UserNotes';
+import homerSimson from "../assets/gifs/homerSimson.gif"
 export default function LoungePage() {
   return (
     <main>
@@ -13,10 +14,11 @@ export default function LoungePage() {
         <UserNav />
       </section>
       <section className="gifs">
-        <img src="https://dc85enhu9zukf.cloudfront.net/gifs/4oHyOIBIt57ag.gif" alt="gifs" className="background-gif" />
+        <img src={homerSimson} alt="gifs" className="background-gif" />
         {/* <img src="" alt="gifs" className="background-gif" /> */}
       </section>
-      <section className="random-tip-container">
+      <section className="center">
+        <UserNotes />
       </section>
       <section className="audio-controller">
 
