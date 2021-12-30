@@ -1,4 +1,4 @@
-@use "../sass/partials/variables";
+@use "../sass/partials/variables" as *;
 
 main {
   position: relative;
@@ -9,6 +9,10 @@ main {
   left: 2rem;
   top: 3rem;
   z-index: 1;
+
+  &__count {
+    text-shadow: $text-shadow-white;
+  }
 }
 
 .user {
@@ -19,6 +23,7 @@ main {
 
   &__navigation {
     display: flex;
+    text-shadow: $text-shadow-white;
   }
 
   &__icon-container {
@@ -41,3 +46,11 @@ main {
   width: 100vw;
   height: 100vh;
 }
+
+.radio-container {
+    position: absolute;
+    top: 1rem;
+    left: calc(50vw - (600px / 2));
+  
+}
+
