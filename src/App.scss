@@ -5,10 +5,16 @@
 *::after {
   margin: 0;
   padding: 0;
+<<<<<<< HEAD
   outline: 2px solid greenyellow;
+=======
+  box-sizing: border-box;
+  font-family: inherit;
+>>>>>>> develop
 }
 
 body {
   background-color: variables.$black;
   color: variables.$white;
+  font-family: monospace;
 }

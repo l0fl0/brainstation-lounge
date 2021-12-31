@@ -1,0 +1,80 @@
+@use '../../sass/partials/variables' as *;
+
+.timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ccc;
+    text-shadow: $text-shadow-white;
+
+    &__form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__span {
+        position: absolute;
+        top: .3rem;
+        left: 2.5rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        text-shadow: $text-shadow-dark;
+    }
+
+    &__input {
+        padding: .5rem;
+        font-size: 1.2rem;
+        width: 6.5rem;
+        height: 2rem;
+        border: none;
+        border-radius: 3px;
+        background-color: rgba($color: #CCC, $alpha: .5);
+        color: #333;
+
+        &:focus, &:focus-visible {
+            outline: none;
+        }
+
+        &::placeholder {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            text-shadow: $text-shadow-dark;
+        }
+    }
+
+    &__button {
+        padding: 0 .5rem;
+        margin-top: .25rem;
+        width: 6.5rem;
+        height: 2rem;
+        border: none;
+        border-radius: 3px;
+        background-color: rgba($color: #ccc, $alpha: .25);
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        text-shadow: $text-shadow-dark;
+
+        &:hover {
+            background-color: rgba($color: rgb(204, 204, 204), $alpha: .75);
+        }
+
+        &--study {
+            background-color: rgba($color: rgb(141, 44, 44), $alpha: .75);
+        }
+
+        &--break {
+            background-color: rgba($color: rgb(19, 107, 24), $alpha: .75);
+        }
+    }
+}
+
+.timer-container {
+    position: absolute;
+    top: 10rem;
+    right: 1rem;
+  }
