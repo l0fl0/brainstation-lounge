@@ -29,14 +29,14 @@ export default function CurrentTime() {
 
       if (twelveHourFormat) {
         hours = hours > 12 ? hours - 12 : hours;
-
+        if (hours === "00") hours = 12;
         let time12hrFormat = `${hours}:${minutes}:${seconds} ${meridiem}`;
         setCurrentTime(time12hrFormat);
       }
     }, 1000);
 
     return () => clearInterval(getTime);
-  }, []);
+  }, [twelveHourFormat]);
 
   return <div className="toolbar__time">{currentTime}</div>;
 }
