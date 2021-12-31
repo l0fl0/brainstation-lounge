@@ -9,3 +9,10 @@ function App() {
 }
 
 export default App;
+
+
+/**
+ * 
+ * Huge shoutout to https://www.lofi.cafe/.
+ * 
+ */
