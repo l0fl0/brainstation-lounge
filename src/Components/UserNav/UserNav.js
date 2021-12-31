@@ -8,9 +8,9 @@ export default function UserNav({ showTimer, showRadio }) {
   const [showTitleTimer, setShowTitleTimer] = useState(false);
   const [showTitleTasks, setShowTitleTasks] = useState(false);
   const [showTitleSettings, setShowTitleSettings] = useState(false);
-  
 
-  // Hover effect doesnt work exactly how expected,but will need refactor but it works
+
+
   const handleTitleToggle = (set, bool) => {
     setTimeout(() => set(bool), 100)
   }
@@ -18,8 +18,8 @@ export default function UserNav({ showTimer, showRadio }) {
   return (
     <nav className="user__navigation">
 
-      <div 
-        className="user__icon-container" 
+      <div
+        className="user__icon-container"
         onClick={showRadio}
         onMouseEnter={() => (handleTitleToggle(setShowTitleRadio, true))}
         onMouseLeave={() => (handleTitleToggle(setShowTitleRadio, false))}
@@ -28,8 +28,8 @@ export default function UserNav({ showTimer, showRadio }) {
         {showTitleRadio ? <p className="user__icon-title">Radio</p> : null}
       </div>
 
-      <div 
-        className="user__icon-container" 
+      <div
+        className="user__icon-container"
         onMouseEnter={() => (handleTitleToggle(setShowTitleNotes, true))}
         onMouseLeave={() => (handleTitleToggle(setShowTitleNotes, false))}
       >
@@ -37,8 +37,8 @@ export default function UserNav({ showTimer, showRadio }) {
         {showTitleNotes ? <p className="user__icon-title">Notes</p> : null}
       </div>
 
-      <div 
-        className="user__icon-container" 
+      <div
+        className="user__icon-container"
         onClick={showTimer}
         onMouseEnter={() => (handleTitleToggle(setShowTitleTimer, true))}
         onMouseLeave={() => (handleTitleToggle(setShowTitleTimer, false))}
@@ -47,8 +47,8 @@ export default function UserNav({ showTimer, showRadio }) {
         {showTitleTimer ? <p className="user__icon-title">Timer</p> : null}
       </div>
 
-      <div 
-        className="user__icon-container" 
+      <div
+        className="user__icon-container"
         onMouseEnter={() => (handleTitleToggle(setShowTitleTasks, true))}
         onMouseLeave={() => (handleTitleToggle(setShowTitleTasks, false))}
       >
@@ -56,8 +56,8 @@ export default function UserNav({ showTimer, showRadio }) {
         {showTitleTasks ? <p className="user__icon-title">Tasks</p> : null}
       </div>
 
-      <div 
-        className="user__icon-container" 
+      <div
+        className="user__icon-container"
         onMouseEnter={() => (handleTitleToggle(setShowTitleSettings, true))}
         onMouseLeave={() => (handleTitleToggle(setShowTitleSettings, false))}
       >
