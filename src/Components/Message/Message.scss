@@ -1,0 +1,16 @@
+.message {
+    width: 66%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+
+    &--self {
+        align-self: flex-end;
+    }
+
+    &__time {
+        width: 100%;
+        text-align: right;
+    }
+}

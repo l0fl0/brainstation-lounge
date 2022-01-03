@@ -5,6 +5,7 @@ import Timer from '../Components/Timer/Timer';
 import Radio from '../Components/Radio/Radio';
 import CurrentTime from "../Components/CurrentTime/CurrentTime";
 import Stack from '../Components/Stack/Stack';
+import Chat from '../Components/Chat/Chat';
 
 
 export default function LoungePage() {
@@ -56,6 +57,9 @@ export default function LoungePage() {
       </section>
       <section className='stack-container'>
         {isShowStack ? <Stack /> : <></>}
+      </section>
+      <section className='chat-container'>
+        <Chat />
       </section>
     </main>
   );
