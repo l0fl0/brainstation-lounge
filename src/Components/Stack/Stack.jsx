@@ -3,6 +3,7 @@ import { useState } from 'react/cjs/react.development';
 import './Stack.scss';
 import axios from 'axios';
 import StackBtn from '../StackBtn/StackBtn';
+import StackItems from '../StackItems/StackItems';
 
 export default function Stack() {
     const initialSearch = {
@@ -40,6 +41,8 @@ export default function Stack() {
     }]
 
     const [search, setSearch] = useState(initialSearch);
+    const [questions, setQuestions] = useState();
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const selectTag = key => {
         setSearch(prevSearch => {
@@ -65,7 +68,9 @@ export default function Stack() {
         axios
             .get(`https://api.stackexchange.com/2.3/search?page=1&pagesize=5&fromdate=${from}&todate=${to}&order=desc&sort=votes&tagged=${tags}&site=stackoverflow`)
             .then(response => {
-                console.log(response)
+                console.log(response.data.items);
+                setQuestions(response.data.items);
+                setIsLoaded(true);
             })
     }
 
@@ -77,6 +82,7 @@ export default function Stack() {
                 
             </div>
             <button className="stack__button" onClick={() => getQuestions(tagBuilder(tags), from, to)}>Get Posts</button>
+            {isLoaded ? <StackItems questions={questions} /> : <></>}
         </div>
     )
 }

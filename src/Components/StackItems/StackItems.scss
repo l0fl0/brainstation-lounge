@@ -1,0 +1,17 @@
+@use '../../sass/partials/variables' as *;
+
+.stacklist {
+    padding-left: 2rem;
+
+    &__item {
+        color: black;
+        font-size: 1.2rem;
+        text-shadow: $text-shadow-dark;
+    }
+
+    &__link {
+        text-decoration: none;
+        color: black;
+
+    }
+}
