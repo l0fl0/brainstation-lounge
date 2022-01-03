@@ -2,12 +2,13 @@ import './UserNav.scss';
 import { useState } from "react";
 
 
-export default function UserNav({ showTimer, showRadio }) {
+export default function UserNav({ showTimer, showRadio, showStack }) {
   const [showTitleRadio, setShowTitleRadio] = useState(false);
   const [showTitleNotes, setShowTitleNotes] = useState(false);
   const [showTitleTimer, setShowTitleTimer] = useState(false);
   const [showTitleTasks, setShowTitleTasks] = useState(false);
   const [showTitleSettings, setShowTitleSettings] = useState(false);
+  const [showTitleStack, setShowTitleStack] = useState(false);
   
 
   // Hover effect doesnt work exactly how expected,but will need refactor but it works
@@ -17,6 +18,16 @@ export default function UserNav({ showTimer, showRadio }) {
 
   return (
     <nav className="user__navigation">
+
+      <div 
+        className="user__icon-container" 
+        onClick={showStack}
+        onMouseEnter={() => (handleTitleToggle(setShowTitleStack, true))}
+        onMouseLeave={() => (handleTitleToggle(setShowTitleStack, false))}
+      >
+        <i className="fas fa-question user__icon" />
+        {showTitleStack ? <p className="user__icon-title">Stack Overflow</p> : null}
+      </div>
 
       <div 
         className="user__icon-container" 
