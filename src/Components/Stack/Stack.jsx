@@ -78,6 +78,7 @@ export default function Stack() {
         <div className='stack'>
             <h1 className="stack__title">Top 5 Stack Overflow Questions</h1>
             <div className="stack__button-container">
+                tags:
                 {tags.map((tag, i) => <StackBtn key={i} isSelected={search[tag.key]} name={tag.name} clickHandler={() => selectTag(tag.key)}/>)}
                 
             </div>

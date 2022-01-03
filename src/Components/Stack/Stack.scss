@@ -1,7 +1,6 @@
 @use '../../sass/partials/variables' as *;
 
 .stack {
-    // width: 400px;
     background-color: rgba($color: #ccc, $alpha: .5);
     border-radius: 3px;
     padding: .5rem;
@@ -14,8 +13,9 @@
 
     &__button-container {
         display: flex;
-        flex-wrap: wrap;
-        justify-items: center;    
+        align-items: center;
+        font-size: 1.2rem;
+        text-shadow: $text-shadow-white;
     }
 
     &__button {
