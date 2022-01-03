@@ -1,10 +1,9 @@
 @use '../../sass/partials/variables' as *;
 
 .radio {
-    width: 600px;
     position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     
@@ -14,13 +13,13 @@
     }
 
     &__title {
-        width: 100%;
         text-align: center;
         text-shadow: $text-shadow-white;
     }
 }
 
 .button {
+    margin-right: .5rem;
     padding: 0 .5rem;
     width: 6.5rem;
     height: 2rem;

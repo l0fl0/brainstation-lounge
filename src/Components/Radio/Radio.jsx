@@ -5,10 +5,7 @@ export default function Radio() {
     const [ autoplay, setAutoPlay ] = useState(0);
     const [ station, setStation ] = useState(0);
     
-    const stations = [{
-        url: "https://www.youtube.com/embed/dS1zX9g4R5I?controls=0&autoplay=",
-        title: "Christmas 24/7",
-    },
+    const stations = [
     {
         url: "https://www.youtube.com/embed/MCkTebktHVc?controls=0&autoplay=",
         title: "24/7 lofi hip hop radio",
@@ -47,10 +44,12 @@ export default function Radio() {
         <div className="radio">
             <iframe className="radio__player" title="Brain Station Radio" width="100" height="100" src={stations[station].url+autoplay} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <h1 className="radio__title">{stations[station].title}</h1>
-            <button className="button" onClick={prevStation}>Previous</button>
-            {autoplay === 1 ? <button className="button" onClick={pauseStation}>Pause</button> : <></>}
-            {autoplay === 0 ? <button className="button" onClick={playStation}>Play</button> : <></>}
-            <button className="button" onClick={nextStation}>Next</button>
+            <div>
+                <button className="button" onClick={prevStation}>Previous</button>
+                {autoplay === 1 ? <button className="button" onClick={pauseStation}>Pause</button> : <></>}
+                {autoplay === 0 ? <button className="button" onClick={playStation}>Play</button> : <></>}
+                <button className="button" onClick={nextStation}>Next</button>
+            </div>
         </div>
     )
 }

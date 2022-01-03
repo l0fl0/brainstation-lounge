@@ -11,6 +11,7 @@ export default function LoungePage() {
 
   const [isShowTimer, setShowTimer] = useState(true);
   const [isShowRadio, setShowRadio] = useState(true);
+  const [isShowStack, setShowStack] = useState(true);
 
   const showTimer = () => {
     setShowTimer(!isShowTimer);
@@ -19,6 +20,9 @@ export default function LoungePage() {
     setShowRadio(!isShowRadio);
   }
 
+  const showStack = () => {
+    setShowStack(!isShowStack);
+  }
 
   return (
     <main>
@@ -35,6 +39,7 @@ export default function LoungePage() {
         <UserNav
           showTimer={showTimer}
           showRadio={showRadio}
+          showStack={showStack}
         />
 
       </header>
@@ -50,7 +55,7 @@ export default function LoungePage() {
         {isShowRadio ? <Radio /> : <></>}
       </section>
       <section className='stack-container'>
-        <Stack />
+        {isShowStack ? <Stack /> : <></>}
       </section>
     </main>
   );
