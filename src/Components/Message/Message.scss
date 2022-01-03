@@ -1,16 +1,33 @@
 .message {
     width: 66%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: .5rem;
 
     &--self {
+        align-items: flex-end;
         align-self: flex-end;
     }
 
     &__time {
-        width: 100%;
+        margin-top: .25rem;
         text-align: right;
+    }
+
+    &__user {
+        font-size: .825rem;
+        background-color: #333;
+        padding: .25rem;
+        border-radius: 3px;
+        margin-bottom: .3333rem;
+    }
+
+    &__text {
+        font-size: 1rem;
+        background-color: #fff;
+        color: #333;
+        padding: .25rem;
+        border-radius: 3px;
     }
 }

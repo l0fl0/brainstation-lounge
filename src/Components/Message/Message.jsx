@@ -7,7 +7,6 @@ export default function Message({ message, isSelf }) {
             <p className="message__user">{user}</p>
             <p className="message__text">{text}</p>
             <p className="message__time">{timestamp}</p>
-            
         </div>
     )
 }

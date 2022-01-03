@@ -13,7 +13,6 @@ export default function Chat() {
 
     const addMessage = (event) => {
         event.preventDefault();
-        console.log(event.target.chatText.value)
         setMsgs(prevMsgs => {
             const newMsgs = [...prevMsgs];
             newMsgs.push({
@@ -22,6 +21,7 @@ export default function Chat() {
                 text: event.target.chatText.value,
                 timestamp: formatTime(Date())
             })
+            event.target.reset();
             return newMsgs;
         })
     }
