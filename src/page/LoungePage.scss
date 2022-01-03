@@ -32,7 +32,14 @@ main {
 }
 
 .radio-container {
+    position: absolute;
+    top: 1rem;
+    left: calc(50vw - (600px / 2));
+}
+
+.stack-container {
   position: absolute;
-  top: 1rem;
-  left: calc(50vw - (600px / 2));
+  top: 75vh;
+  // left: calc(50vw - (400px / 2));
+  left: 1rem;
 }
