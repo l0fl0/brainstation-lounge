@@ -15,6 +15,7 @@ main {
 
   &__students-listening {
     text-shadow: $text-shadow-white;
+    cursor: pointer;
   }
 
   &__time {
@@ -53,4 +54,16 @@ main {
   position: absolute;
   top: 6rem;
   left: 1rem;
+}
+
+.bg-selector {
+  position: absolute;
+  top: 95vh;
+  right: 1rem;
+  font-size: 1.2rem;
+  text-shadow: $text-shadow-white;
+
+  &__icon {
+    cursor: pointer;
+  }
 }

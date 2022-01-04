@@ -1,5 +1,10 @@
 import './LoungePage.scss';
-import { useEffect, useState } from 'react';
+import homer from '../assets/gifs/4oHyOIBIt57ag.gif';
+import cruising from '../assets/gifs/cruising.gif';
+import google from '../assets/gifs/googling.gif';
+import photos from '../assets/gifs/photos.gif';
+import study from '../assets/gifs/studying.gif';
+import { useState } from 'react';
 import UserNav from '../components/UserNav/UserNav';
 import Timer from '../components/Timer/Timer';
 import Radio from '../components/Radio/Radio';
@@ -13,7 +18,24 @@ export default function LoungePage() {
   const [isShowTimer, setShowTimer] = useState(false);
   const [isShowRadio, setShowRadio] = useState(true);
   const [isShowStack, setShowStack] = useState(false);
-  const [isShowChat, setShowChat] = useState(true)
+  const [isShowChat, setShowChat] = useState(true);
+
+  const gifs = [homer, cruising, google, photos, study]
+
+  const [gifIndex, setGifIndex] = useState(0);
+
+  const nextGif = () => {
+    setGifIndex(prevIndex => {
+      return (prevIndex + 1) % gifs.length;
+    })
+  }
+
+  const prevGif = () => {
+    setGifIndex(prevIndex => {
+      if (prevIndex === 0) return gifs.length - 1;
+      return (prevIndex - 1) % gifs.length;
+    })
+  }
 
   const showTimer = () => {
     setShowTimer(!isShowTimer);
@@ -35,7 +57,7 @@ export default function LoungePage() {
       <header className="toolbar">
 
         <section className="toolbar__students-social">
-          <h2 className="toolbar__students-listening">Listening: 5</h2>
+          <h2 onClick={showChat} className="toolbar__students-listening">Listening: 5</h2>
           {/* Open live chat onClick */}
           <div></div>
         </section>
@@ -52,8 +74,7 @@ export default function LoungePage() {
       </header>
 
       <section className="gifs">
-        <img src="https://dc85enhu9zukf.cloudfront.net/gifs/4oHyOIBIt57ag.gif" alt="gifs" className="background-gif" />
-        {/* <img src="" alt="gifs" className="background-gif" /> */}
+        <img src={gifs[gifIndex]} alt="gifs" className="background-gif" />
       </section>
       <section className="timer-container">
         {isShowTimer ? <Timer /> : <></>}
@@ -66,6 +87,11 @@ export default function LoungePage() {
       </section>
       <section className='chat-container'>
         {isShowChat ? <Chat /> : <></>}
+      </section>
+      <section className='bg-selector'>
+        <i onClick={prevGif} class="fas fa-arrow-left bg-selector__icon"></i>
+        {' change your vibe '} 
+        <i onClick={nextGif} class="fas fa-arrow-right bg-selector__icon"></i>
       </section>
     </main>
   );
