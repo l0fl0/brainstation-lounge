@@ -58,6 +58,9 @@ export default function LoungePage() {
 
   return (
     <main className="parent-container">
+      <section className="gifs">
+        <img src={gifs[gifIndex]} alt="gifs" className="background-gif" />
+      </section>
       <header className="toolbar">
         <section className="toolbar__students-social">
           <h2 onClick={showChat} className="toolbar__students-listening">
@@ -76,9 +79,6 @@ export default function LoungePage() {
         />
       </header>
 
-      <section className="gifs">
-        <img src={gifs[gifIndex]} alt="gifs" className="background-gif" />
-      </section>
       <section className="timer-container">
         {isShowTimer ? <Timer /> : <></>}
       </section>
