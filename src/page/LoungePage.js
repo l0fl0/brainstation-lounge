@@ -1,5 +1,5 @@
 import './LoungePage.scss';
-import homer from '../assets/gifs/4oHyOIBIt57ag.gif';
+import homer from '../assets/gifs/homer.gif';
 import cruising from '../assets/gifs/cruising.gif';
 import google from '../assets/gifs/googling.gif';
 import photos from '../assets/gifs/photos.gif';
