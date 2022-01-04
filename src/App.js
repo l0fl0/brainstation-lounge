@@ -1,5 +1,5 @@
 import './App.scss';
-import Lounge from './page/LoungePage';
+import Lounge from "./page/LoungePage";
 
 
 function App() {
@@ -9,3 +9,10 @@ function App() {
 }
 
 export default App;
+
+
+/**
+ * 
+ * Huge shoutout to https://www.lofi.cafe/.
+ * 
+ */

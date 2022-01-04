@@ -1,19 +1,28 @@
 @use "../sass/partials/variables" as *;
 
-main {
+.parent-container {
   position: relative;
+}
+
+.background-gif {
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .toolbar {
   display: flex;
-  position: absolute;
+  position: relative;
   justify-content: space-between;
   align-items: center;
-  z-index: 2;
+  z-index: 1;
   width: 100%;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
+  max-height: 6.875rem;
 
-  &__students-listening {
+  &__social-listening {
     text-shadow: $text-shadow-white;
     cursor: pointer;
   }
@@ -24,12 +33,10 @@ main {
   }
 }
 
-.background-gif {
-  position: absolute;
-  object-fit: cover;
-  z-index: 0;
-  width: 100vw;
-  height: 100vh;
+.popup-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .timer-container {
