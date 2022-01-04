@@ -1,12 +1,17 @@
 @use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
 
 .note-section {
-  width: 100%;
-
+  position: relative;
+  margin: 0 2rem;
+  max-height: 100vh;
+  @include tablet-breakpoint {
+    margin: 0 10%;
+  }
   &__form {
     display: flex;
     flex-direction: column;
-    max-width: 50rem;
+    // max-width: 50rem;
     margin: 0 auto;
     padding: 0.5rem 1rem;
     background-color: $black;
@@ -38,9 +43,44 @@
     padding: 1rem;
     height: 20rem;
   }
+
   &__save-note {
     position: absolute;
-    right: 0;
+    right: 2rem;
+    text-shadow: $text-shadow-white;
+
+    &:hover {
+      scale: 1.1;
+      color: green;
+    }
+  }
+
+  &__show-archive {
+    position: absolute;
+    z-index: 1;
+    right: 1rem;
+    top: 0.5rem;
+    text-shadow: $text-shadow-white;
+  }
+
+  .fa-archive {
+    &:hover {
+      scale: 1.1;
+      color: green;
+    }
+  }
+
+  .fa-times {
+    &:hover {
+      color: #df1717;
+    }
+  }
+
+  &__history {
+    max-height: 70vh;
+    overflow-y: scroll;
+    background-color: $black;
+    opacity: 0.8;
   }
 }
 
@@ -54,11 +94,29 @@
   width: 1rem;
 
   i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+}
+
+.note-card {
+  padding: 1rem 2rem 0.5rem 1rem;
+  position: relative;
+
+  &__title {
+    margin-bottom: 0.5rem;
   }
 
-  &:hover {
-    scale: 1.1;
-    color: green;
+  &__timestamp {
+    font-size: 0.8rem;
+    text-shadow: $text-shadow-white;
+  }
+
+  &__delete {
+    font-size: 0.8rem;
+    text-shadow: $text-shadow-white;
+    cursor: pointer;
+    &:hover {
+      color: #df1717;
+    }
   }
 }

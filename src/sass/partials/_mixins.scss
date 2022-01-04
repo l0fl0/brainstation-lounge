@@ -1,0 +1,5 @@
+@mixin tablet-breakpoint {
+  @media (min-width: 780px) {
+    @content;
+  }
+}
