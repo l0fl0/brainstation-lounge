@@ -1,5 +1,5 @@
 import "./LoungePage.scss";
-import homer from "../assets/gifs/4oHyOIBIt57ag.gif";
+import homer from "../assets/gifs/homer.gif";
 import cruising from "../assets/gifs/cruising.gif";
 import google from "../assets/gifs/googling.gif";
 import photos from "../assets/gifs/photos.gif";
@@ -11,12 +11,14 @@ import Radio from "../components/Radio/Radio";
 import CurrentTime from "../components/CurrentTime/CurrentTime";
 import Stack from "../components/Stack/Stack";
 import Chat from "../components/Chat/Chat";
+import Notes from "../components/Notes/Notes";
 
 export default function LoungePage() {
   const [isShowTimer, setShowTimer] = useState(false);
   const [isShowRadio, setShowRadio] = useState(true);
   const [isShowStack, setShowStack] = useState(false);
-  const [isShowChat, setShowChat] = useState(true);
+  const [isShowChat, setShowChat] = useState(false);
+  const [isShowNotes, setShowNotes] = useState(false);
 
   const gifs = [homer, cruising, google, photos, study];
 
@@ -50,15 +52,17 @@ export default function LoungePage() {
     setShowChat(!isShowChat);
   };
 
+  const showNotes = () => {
+    setShowNotes(!isShowNotes);
+  };
+
   return (
-    <main>
+    <main className="parent-container">
       <header className="toolbar">
         <section className="toolbar__students-social">
           <h2 onClick={showChat} className="toolbar__students-listening">
             Listening: 5
           </h2>
-          {/* Open live chat onClick */}
-          <div></div>
         </section>
 
         <CurrentTime />
@@ -68,6 +72,7 @@ export default function LoungePage() {
           showRadio={showRadio}
           showStack={showStack}
           showChat={showChat}
+          showNotes={showNotes}
         />
       </header>
 
@@ -85,6 +90,9 @@ export default function LoungePage() {
       </section>
       <section className="chat-container">
         {isShowChat ? <Chat /> : <></>}
+      </section>
+      <section className="notes-container">
+        {isShowNotes ? <Notes /> : <></>}
       </section>
       <section className="bg-selector">
         <i onClick={prevGif} class="fas fa-arrow-left bg-selector__icon"></i>
