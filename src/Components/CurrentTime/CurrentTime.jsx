@@ -1,12 +1,31 @@
+import "./CurrentTime.scss";
 import { useState, useEffect } from "react";
 
 export default function CurrentTime() {
   const [currentTime, setCurrentTime] = useState("00:00:00");
+  const [dayOfWeek, setDayOfWeek] = useState("Dayday");
   const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 
   useEffect(() => {
     const getTime = setInterval(() => {
       const date = new Date();
+      let day = date.getDay();
+      if (day) {
+        day === 0
+          ? setDayOfWeek("Sunday")
+          : day === 1
+          ? setDayOfWeek("Monday")
+          : day === 2
+          ? setDayOfWeek("Tuesday")
+          : day === 3
+          ? setDayOfWeek("Wednesday")
+          : day === 4
+          ? setDayOfWeek("Thursday")
+          : day === 5
+          ? setDayOfWeek("Friday")
+          : setDayOfWeek("Saturday");
+      }
+
       let hours = date.getHours();
       let minutes = date.getMinutes();
       let seconds = date.getSeconds();
@@ -38,5 +57,10 @@ export default function CurrentTime() {
     return () => clearInterval(getTime);
   }, [twelveHourFormat]);
 
-  return <div className="toolbar__time">{currentTime}</div>;
+  return (
+    <div>
+      <h2 className="toolbar__time">{currentTime}</h2>
+      <div className="toolbar__day">{dayOfWeek}</div>
+    </div>
+  );
 }
