@@ -11,6 +11,7 @@
     padding: 0.5rem 1rem;
     background-color: $black;
     border-radius: 0.25rem;
+    opacity: 0.8;
   }
 
   &__title {
@@ -19,7 +20,13 @@
     border: none;
     border-bottom: ridge $white 2px;
     outline: none;
+    font-size: 1.1rem;
     padding: 0.3rem 1rem;
+    width: 100%;
+
+    &-container {
+      position: relative;
+    }
   }
 
   &__note {
@@ -31,11 +38,27 @@
     padding: 1rem;
     height: 20rem;
   }
+  &__save-note {
+    position: absolute;
+    right: 0;
+  }
 }
 
-button {
+.btn {
   border: none;
   width: auto;
   color: $white;
-  background-color: none;
+  background-color: inherit;
+  margin: 0 0.3rem;
+  padding: 0.3rem;
+  width: 1rem;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    scale: 1.1;
+    color: green;
+  }
 }
