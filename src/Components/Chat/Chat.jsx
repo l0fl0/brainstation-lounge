@@ -1,27 +1,82 @@
-import { useState } from 'react/cjs/react.development'
+import { useState, useEffect } from 'react/cjs/react.development'
 import './Chat.scss';
 import formatTime from '../../utils/formatDate';
 import Message from '../Message/Message';
 
 export default function Chat() {
+    const randomMessages = [{
+        user: 'Jeff',
+        text: 'This is rad'
+    },{
+        user: 'Elliot',
+        text: 'Great Vibes'
+    },{
+        user: 'Ginger',
+        text: 'lofi homer is my favorit homer'
+    },{
+        user: 'Bridget',
+        text: 'One more Pomodoro break anyone?'
+    },{
+        user: 'Bella',
+        text: 'I\'m stoked for Node.js'
+    },{
+        user: 'Kimberly',
+        text: 'the aesthetic is R e A l'
+    },{
+        user: 'Max',
+        text: 'We need more radio stations'
+    },{
+        user: 'Bart',
+        text: 'I will not useState I will not useState I will not useState'
+    }]
+
     const [msgs, setMsgs] = useState([{
-        user: 'Louis',
+        user: 'Daniel',
         currentUser: false,
-        text: 'This is a test message',
+        text: 'Welcome to BrainStation Lounge',
         timestamp: formatTime(Date())
     }]);
 
+    const [msgInput, setMsgInput] = useState();
+
+    const updateInput = (event) => {
+        setMsgInput(event.target.value)
+    }
+
+    useEffect(() => {
+        const randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
+        const id = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * randomMessages.length); 
+            const {user, text} = randomMessages[randomIndex]
+            setMsgs(prevMsgs => {
+                const newMsgs = [...prevMsgs];
+                newMsgs.unshift({
+                    user: user,
+                    currentUser: false,
+                    text: text,
+                    timestamp: formatTime(Date())
+                })
+                return newMsgs;
+            })
+            randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
+        }, randomTime)
+    }, [])
+
     const addMessage = (event) => {
         event.preventDefault();
+        const message = msgInput;
+        if (!message) return;
+
         setMsgs(prevMsgs => {
             const newMsgs = [...prevMsgs];
-            newMsgs.push({
+            newMsgs.unshift({
                 user: 'Daniel',
                 currentUser: true,
-                text: event.target.chatText.value,
+                text: message,
                 timestamp: formatTime(Date())
             })
-            event.target.reset();
+            event.target.chatText.value = '';
+            setMsgInput('');
             return newMsgs;
         })
     }
@@ -45,7 +100,7 @@ export default function Chat() {
                     className="chat__form"
                     autoComplete="off"
                 >
-                    <input name="chatText" className="chat__input-field" type="text" />
+                    <input onChange={updateInput} name="chatText" className="chat__input-field" type="text" />
                     <button type="submit" className="button button-chat">send</button>
                 </form>
             </div>

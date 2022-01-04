@@ -12,8 +12,9 @@
 
     &__text {
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         padding: .5rem;
+        overflow: hidden;
     }
 
     &__form {

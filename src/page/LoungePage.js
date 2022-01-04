@@ -1,11 +1,11 @@
 import './LoungePage.scss';
 import { useEffect, useState } from 'react';
-import UserNav from '../Components/UserNav/UserNav';
-import Timer from '../Components/Timer/Timer';
-import Radio from '../Components/Radio/Radio';
-import CurrentTime from "../Components/CurrentTime/CurrentTime";
-import Stack from '../Components/Stack/Stack';
-import Chat from '../Components/Chat/Chat';
+import UserNav from '../components/UserNav/UserNav';
+import Timer from '../components/Timer/Timer';
+import Radio from '../components/Radio/Radio';
+import CurrentTime from "../components/CurrentTime/CurrentTime";
+import Stack from '../components/Stack/Stack';
+import Chat from '../components/Chat/Chat';
 
 
 export default function LoungePage() {
