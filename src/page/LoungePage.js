@@ -10,9 +10,10 @@ import Chat from '../components/Chat/Chat';
 
 export default function LoungePage() {
 
-  const [isShowTimer, setShowTimer] = useState(true);
+  const [isShowTimer, setShowTimer] = useState(false);
   const [isShowRadio, setShowRadio] = useState(true);
-  const [isShowStack, setShowStack] = useState(true);
+  const [isShowStack, setShowStack] = useState(false);
+  const [isShowChat, setShowChat] = useState(true)
 
   const showTimer = () => {
     setShowTimer(!isShowTimer);
@@ -23,6 +24,10 @@ export default function LoungePage() {
 
   const showStack = () => {
     setShowStack(!isShowStack);
+  }
+
+  const showChat = () => {
+    setShowChat(!isShowChat);
   }
 
   return (
@@ -41,6 +46,7 @@ export default function LoungePage() {
           showTimer={showTimer}
           showRadio={showRadio}
           showStack={showStack}
+          showChat={showChat}
         />
 
       </header>
@@ -59,7 +65,7 @@ export default function LoungePage() {
         {isShowStack ? <Stack /> : <></>}
       </section>
       <section className='chat-container'>
-        <Chat />
+        {isShowChat ? <Chat /> : <></>}
       </section>
     </main>
   );

@@ -2,16 +2,14 @@ import './UserNav.scss';
 import { useState } from "react";
 
 
-export default function UserNav({ showTimer, showRadio, showStack }) {
+export default function UserNav({ showTimer, showRadio, showStack, showChat }) {
   const [showTitleRadio, setShowTitleRadio] = useState(false);
   const [showTitleNotes, setShowTitleNotes] = useState(false);
   const [showTitleTimer, setShowTitleTimer] = useState(false);
   const [showTitleTasks, setShowTitleTasks] = useState(false);
   const [showTitleSettings, setShowTitleSettings] = useState(false);
   const [showTitleStack, setShowTitleStack] = useState(false);
-  
-
-
+  const [showTitleChat, setShowTitleChat] = useState(false);
 
   const handleTitleToggle = (set, bool) => {
     setTimeout(() => set(bool), 100)
@@ -19,6 +17,15 @@ export default function UserNav({ showTimer, showRadio, showStack }) {
 
   return (
     <nav className="user__navigation">
+      <div 
+        className="user__icon-container" 
+        onClick={showChat}
+        onMouseEnter={() => (handleTitleToggle(setShowTitleChat, true))}
+        onMouseLeave={() => (handleTitleToggle(setShowTitleChat, false))}
+      >
+        <i className="fas fa-comment-dots user__icon" />
+        {showTitleChat ? <p className="user__icon-title">Chat</p> : null}
+      </div>
 
       <div 
         className="user__icon-container" 
