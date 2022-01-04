@@ -7,6 +7,8 @@ export default function UserNav({
   showStack,
   showChat,
   showNotes,
+  showTasks,
+  showSettings,
 }) {
   const [showTitleRadio, setShowTitleRadio] = useState(false);
   const [showTitleNotes, setShowTitleNotes] = useState(false);
@@ -76,6 +78,7 @@ export default function UserNav({
 
       <div
         className="user__icon-container"
+        onClick={showTasks}
         onMouseEnter={() => handleTitleToggle(setShowTitleTasks, true)}
         onMouseLeave={() => handleTitleToggle(setShowTitleTasks, false)}
       >
@@ -85,6 +88,7 @@ export default function UserNav({
 
       <div
         className="user__icon-container"
+        onClick={showSettings}
         onMouseEnter={() => handleTitleToggle(setShowTitleSettings, true)}
         onMouseLeave={() => handleTitleToggle(setShowTitleSettings, false)}
       >

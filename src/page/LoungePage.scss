@@ -39,6 +39,16 @@
   height: 100%;
 }
 
+.tasks-container {
+  position: absolute;
+  top: 10rem;
+  right: 1.5rem;
+}
+.settings-container {
+  position: absolute;
+  top: 10rem;
+  right: 1.5rem;
+}
 .timer-container {
   position: absolute;
   top: 10rem;
@@ -47,7 +57,7 @@
 
 .radio-container {
   position: absolute;
-  top: 6rem;
+  bottom: -85vh;
   right: 1rem;
 }
 
@@ -61,16 +71,4 @@
   position: absolute;
   top: 6rem;
   left: 1rem;
-}
-
-.bg-selector {
-  position: absolute;
-  top: 95vh;
-  right: 1rem;
-  font-size: 1.2rem;
-  text-shadow: $text-shadow-white;
-
-  &__icon {
-    cursor: pointer;
-  }
 }

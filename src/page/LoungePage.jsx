@@ -12,6 +12,8 @@ import CurrentTime from "../components/CurrentTime/CurrentTime";
 import Stack from "../components/Stack/Stack";
 import Chat from "../components/Chat/Chat";
 import Notes from "../components/Notes/Notes";
+import Tasks from "../components/Tasks/Tasks";
+import Settings from "../components/Settings/Settings";
 
 export default function LoungePage() {
   const [isShowTimer, setShowTimer] = useState(false);
@@ -19,6 +21,9 @@ export default function LoungePage() {
   const [isShowStack, setShowStack] = useState(false);
   const [isShowChat, setShowChat] = useState(false);
   const [isShowNotes, setShowNotes] = useState(false);
+  const [isShowTasks, setShowTasks] = useState(false);
+  const [isShowSettings, setShowSettings] = useState(false);
+  const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 
   const gifs = [homer, cruising, google, photos, study];
 
@@ -56,6 +61,14 @@ export default function LoungePage() {
     setShowNotes(!isShowNotes);
   };
 
+  const showTasks = () => {
+    setShowTasks(!isShowTasks);
+  };
+
+  const showSettings = () => {
+    setShowSettings(!isShowSettings);
+  };
+
   return (
     <main className="parent-container">
       <section className="gifs">
@@ -68,7 +81,7 @@ export default function LoungePage() {
           </h2>
         </section>
 
-        <CurrentTime />
+        <CurrentTime twelveHourFormat={twelveHourFormat} />
 
         <UserNav
           showTimer={showTimer}
@@ -76,9 +89,10 @@ export default function LoungePage() {
           showStack={showStack}
           showChat={showChat}
           showNotes={showNotes}
+          showTasks={showTasks}
+          showSettings={showSettings}
         />
       </header>
-
       <section className="timer-container">
         {isShowTimer ? <Timer /> : <></>}
       </section>
@@ -94,10 +108,19 @@ export default function LoungePage() {
       <section className="notes-container">
         {isShowNotes ? <Notes /> : <></>}
       </section>
-      <section className="bg-selector">
-        <i onClick={prevGif} class="fas fa-arrow-left bg-selector__icon"></i>
-        {" change your vibe "}
-        <i onClick={nextGif} class="fas fa-arrow-right bg-selector__icon"></i>
+      <section className="tasks-container">
+        {isShowTasks ? <Tasks /> : <></>}
+      </section>
+      <section className="settings-container">
+        {isShowSettings ? (
+          <Settings
+            prevGif={prevGif}
+            nextGif={nextGif}
+            setTwelveHourFormat={setTwelveHourFormat}
+          />
+        ) : (
+          <></>
+        )}
       </section>
     </main>
   );

@@ -1,10 +1,9 @@
 import "./CurrentTime.scss";
 import { useState, useEffect } from "react";
 
-export default function CurrentTime() {
+export default function CurrentTime({ twelveHourFormat }) {
   const [currentTime, setCurrentTime] = useState("00:00:00");
   const [dayOfWeek, setDayOfWeek] = useState("Dayday");
-  const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 
   useEffect(() => {
     const getTime = setInterval(() => {
