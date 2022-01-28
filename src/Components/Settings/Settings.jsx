@@ -18,6 +18,7 @@ export default function Settings({ prevGif, nextGif, setTwelveHourFormat }) {
         {" change your vibe "}
         <i onClick={nextGif} class="fas fa-arrow-right bg-selector__icon"></i>
       </section>
+      <div>Sign Out</div>
     </div>
   );
 }
