@@ -1,42 +1,44 @@
-# Features
+# BrainStation Lounge
 
-- Notes
+An open source collaborative project where students are incouraged to make pull requests, add unique features, and collaborate with former/currents BrainStation students.
 
-  - note history
+## Features
 
-- Timer
+![Top nav](./assets/top-bar.png "user nav")
 
-  - Pomodoro
-  - regular
+#### Notes
 
-- Live Radio
+- create/save/delete/update notes
 
-  - Spotify
-  - Youtube live radio
+![Notes Feature](./assets/notes.png "notes")
 
-- Chat ("Live")
+#### Timer
 
-  - display name and time sent
-  - chat with other students in the lounge
+- Pomodoro/regular
+- customizable
 
-- Programming tips
+#### Live Radio
 
-  - on timer across screen
-  - link to get more info
+- Spotify
+  - oauth needed
+- Youtube live radio
 
-- Slack
+![radio Feature](./assets/music-player.png "music player")
 
-  - Show Announcement chat
+#### Chat ("Live")
 
-- Student login
-- to save note info and verify slack / spotify
+- display name and time sent
 - activity monitor (i.e. _daniel_ is working on bandsite-sprint-3)
+- chat with other students in the lounge
 
-## Style
+![Chat Feature](./assets/chat.png "live chat")
 
-- Font ?
-- Gifs ?
-- Theme
-  - lofi
-  - solar punk
-  - future scapes
+#### Programming tips
+
+- across screen slideshow
+- links to get more info
+
+#### Slack
+
+- Oauth Needed
+- Show Announcement chat
