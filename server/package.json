@@ -4,8 +4,18 @@
 	"description": "server to run the BSTN Lounge",
 	"main": "server.js",
 	"scripts": {
-		"dev": "nodemon server.js"
+		"start": "cross-env NODE_ENV=production node server.js",
+		"dev": "cross-env NODE_ENV=development nodemon server.js"
 	},
 	"author": "BSLounge dev team",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.0.0",
+		"express": "^4.17.2",
+		"socket.io": "^4.4.1"
+	},
+	"devDependencies": {
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.15"
+	}
 }
