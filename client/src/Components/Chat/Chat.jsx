@@ -7,11 +7,11 @@ import Message from "../Message/Message";
 export default function Chat() {
 	const [msgs, setMsgs] = useState([]);
 	const [msgInput, setMsgInput] = useState("");
+	const [socket, setSocket] = useState(io("http://localhost:8080"));
 
 	// Like a componentDidMount lifecycle method
 	useEffect(() => {
 		let username = null;
-
 		// sets username on Component mount for chat / saves username per session
 		if (!sessionStorage.getItem("username")) {
 			username = prompt("What is your name? ");
@@ -24,9 +24,6 @@ export default function Chat() {
 					timestamp: formatTime(Date()),
 				},
 			]);
-
-			// TODO: socket is mounting twice lets bring it down to a one
-			const socket = io("http://localhost:8080");
 		} else {
 			username = sessionStorage.getItem("username");
 
@@ -37,10 +34,9 @@ export default function Chat() {
 					timestamp: formatTime(Date()),
 				},
 			]);
-
-			// TODO: socket is mounting twice lets bring it down to a one
-			const socket = io("http://localhost:8080");
 		}
+
+		return socket.disconnect();
 	}, []);
 
 	const addMessage = (event) => {
