@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { io } from "socket.io-client";
 import "./Chat.scss";
 import formatTime from "../../utils/formatDate";
 import Message from "../Message/Message";
@@ -6,29 +7,40 @@ import Message from "../Message/Message";
 export default function Chat() {
 	const [msgs, setMsgs] = useState([]);
 	const [msgInput, setMsgInput] = useState("");
-	let username = null;
-
-	const onChangeHandler = (event) => {
-		setMsgInput(event.target.value);
-	};
 
 	// Like a componentDidMount lifecycle method
 	useEffect(() => {
+		let username = null;
+
 		// sets username on Component mount for chat / saves username per session
 		if (!sessionStorage.getItem("username")) {
 			username = prompt("What is your name? ");
 			sessionStorage.setItem("username", username);
+
+			// send welcome message when user opens chatroom
+			setMsgs([
+				{
+					text: "Welcome " + sessionStorage.getItem("username"),
+					timestamp: formatTime(Date()),
+				},
+			]);
+
+			// TODO: socket is mounting twice lets bring it down to a one
+			const socket = io("http://localhost:8080");
 		} else {
 			username = sessionStorage.getItem("username");
+
+			// send welcome message when user opens chatroom
+			setMsgs([
+				{
+					text: "Welcome Back " + sessionStorage.getItem("username"),
+					timestamp: formatTime(Date()),
+				},
+			]);
+
+			// TODO: socket is mounting twice lets bring it down to a one
+			const socket = io("http://localhost:8080");
 		}
-		// send welcome message when user opens chatroom
-		setMsgs([
-			...msgs,
-			{
-				text: "Welcome " + sessionStorage.getItem("username"),
-				timestamp: formatTime(Date()),
-			},
-		]);
 	}, []);
 
 	const addMessage = (event) => {
@@ -36,6 +48,7 @@ export default function Chat() {
 		// if no txt then return
 		//TODO: add regex validation for white space input
 		if (!msgInput || !event.target.chatText.value) return;
+
 		// user input messages sends obj after array of msgs
 		setMsgs([
 			{
@@ -58,6 +71,9 @@ export default function Chat() {
 		return messageList;
 	};
 
+	const onChangeHandler = (event) => {
+		setMsgInput(event.target.value);
+	};
 	return (
 		<div className="chat">
 			<div className="chat__text">{messageBuilder(msgs)}</div>
