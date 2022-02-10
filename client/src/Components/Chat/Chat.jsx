@@ -1,48 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import "./Chat.scss";
 import formatTime from "../../utils/formatDate";
 import Message from "../Message/Message";
+// set a global immutable for the socket connection
+const socket = io("http://localhost:8080");
+let username = null;
 
 export default function Chat() {
 	const [msgs, setMsgs] = useState([]);
 	const [msgInput, setMsgInput] = useState("");
-	const [socket, setSocket] = useState(io("http://localhost:8080"));
+
+	// sockets need to be global
+	// handle incomming message display
+	socket.on("chat-message", (data) => {
+		setMsgs([data, ...msgs]);
+	});
+	// handle user connected message display
+	socket.on("user-connected", (username) => {
+		setMsgs([
+			{
+				text: `${username} has joined the chat`,
+				timestamp: formatTime(Date()),
+			},
+			...msgs,
+		]);
+	});
 
 	// Like a componentDidMount lifecycle method
 	useEffect(() => {
-		let username = null;
 		// sets username on Component mount for chat / saves username per session
-		if (!sessionStorage.getItem("username")) {
-			username = prompt("What is your name? ");
-			sessionStorage.setItem("username", username);
 
-			// send welcome message when user opens chatroom
-			setMsgs([
-				{
-					text: "Welcome " + sessionStorage.getItem("username"),
-					timestamp: formatTime(Date()),
-				},
-			]);
-		} else {
-			username = sessionStorage.getItem("username");
-
-			// send welcome message when user opens chatroom
-			setMsgs([
-				{
-					text: "Welcome Back " + sessionStorage.getItem("username"),
-					timestamp: formatTime(Date()),
-				},
-			]);
-		}
-
-		return socket.disconnect();
+		username = prompt("What is your name? ");
+		sessionStorage.setItem("username", username);
+		setMsgs([
+			{
+				text: `Welcome to BSTN Chat ${username}`,
+				timestamp: formatTime(Date()),
+			},
+		]);
+		socket.emit("new-user", username);
 	}, []);
 
-	const addMessage = (event) => {
+	const sendMessage = (event) => {
 		event.preventDefault();
-		// if no txt then return
-		//TODO: add regex validation for white space input
 		if (!msgInput || !event.target.chatText.value) return;
 
 		// user input messages sends obj after array of msgs
@@ -55,27 +56,35 @@ export default function Chat() {
 			...msgs,
 		]);
 
+		// send message to broadcast listener
+		socket.emit("send-chat-message", {
+			user: username,
+			currentUser: false,
+			text: msgInput,
+			timestamp: formatTime(Date()),
+		});
+
 		// sets both state and form input to empty string no empty messages
 		event.target.chatText.value = "";
 		setMsgInput("");
 	};
 
-	const messageBuilder = (msgs) => {
-		const messageList = msgs.map((message, i) => {
-			return <Message key={i} message={message} isSelf={message.currentUser} />;
-		});
-		return messageList;
-	};
-
 	const onChangeHandler = (event) => {
 		setMsgInput(event.target.value);
 	};
+
 	return (
 		<div className="chat">
-			<div className="chat__text">{messageBuilder(msgs)}</div>
+			<div className="chat__text">
+				{msgs.map((message, i) => {
+					return (
+						<Message key={i} message={message} isSelf={message.currentUser} />
+					);
+				})}
+			</div>
 			<div className="chat__input">
 				<i className="fas fa-user" />
-				<form onSubmit={addMessage} className="chat__form" autoComplete="off">
+				<form onSubmit={sendMessage} className="chat__form" autoComplete="off">
 					<input
 						onChange={onChangeHandler}
 						name="chatText"
