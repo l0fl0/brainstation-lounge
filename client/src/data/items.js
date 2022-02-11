@@ -1,10 +1,10 @@
-import Chat from '../components/Frames/Main/Chat/Chat';
-import Notes from '../components/Frames/Side/Notes/Notes';
-import Radio from '../components/Frames/Information/Radio/Radio';
-import Settings from '../components/Frames/Modal/Settings/Settings';
-import Stack from '../components/Frames/Information/Stack/Stack';
-import Tasks from '../components/Frames/Side/Tasks/Tasks';
-import Timer from '../components/Frames/Side/Timer/Timer';
+import Chat from '../components/Chat/Chat';
+import Notes from '../components/Notes/Notes';
+import Radio from '../components/Radio/Radio';
+import Settings from '../components/Settings/Settings';
+import Stack from '../components/Stack/Stack';
+import Tasks from '../components/Tasks/Tasks';
+import Timer from '../components/Timer/Timer';
 
 export const items = [
 	{

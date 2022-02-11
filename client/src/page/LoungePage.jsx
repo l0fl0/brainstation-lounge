@@ -3,9 +3,9 @@ import { items } from '../data/items';
 import { gifs } from '../data/gifs';
 
 import './LoungePage.scss';
-import HeaderFrame from '../components/Frames/Header/HeaderFrame';
-import InformationFrame from '../components/Frames/Information/InformationFrame';
-import Settings from '../components/Frames/Modal/Settings/Settings';
+import HeaderFrame from '../Frames/Header/HeaderFrame';
+import InformationFrame from '../Frames/Information/InformationFrame';
+import Settings from '../components/Settings/Settings';
 
 export default function LoungePage() {
 	const [isShowItems, setShowItems] = useState({});
