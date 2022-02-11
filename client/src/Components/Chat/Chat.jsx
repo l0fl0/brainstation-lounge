@@ -11,11 +11,11 @@ export default function Chat() {
 	const [msgs, setMsgs] = useState([]);
 	const [msgInput, setMsgInput] = useState("");
 
-	// sockets need to be global
 	// handle incomming message display
 	socket.on("chat-message", (data) => {
 		setMsgs([data, ...msgs]);
 	});
+
 	// handle user connected message display
 	socket.on("user-connected", (username) => {
 		setMsgs([
@@ -27,7 +27,7 @@ export default function Chat() {
 		]);
 	});
 
-	// Like a componentDidMount lifecycle method
+	// Similar componentDidMount lifecycle method
 	useEffect(() => {
 		// sets username on Component mount for chat / saves username per session
 
@@ -46,7 +46,7 @@ export default function Chat() {
 		event.preventDefault();
 		if (!msgInput || !event.target.chatText.value) return;
 
-		// user input messages sends obj after array of msgs
+		// update user view with message
 		setMsgs([
 			{
 				currentUser: true,
@@ -56,7 +56,7 @@ export default function Chat() {
 			...msgs,
 		]);
 
-		// send message to broadcast listener
+		// send message to server for broadcast
 		socket.emit("send-chat-message", {
 			user: username,
 			currentUser: false,
