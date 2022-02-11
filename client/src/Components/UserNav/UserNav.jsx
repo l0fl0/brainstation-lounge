@@ -19,7 +19,7 @@ export default function UserNav(props) {
 					<div
 						key={i}
 						className='user__icon-container'
-						onClick={() => toggleItems(item.name)}
+						onClick={() => toggleItems(item.name, item.frame)}
 						onMouseEnter={() => toggleTitle(item.name, true)}
 						onMouseLeave={() => toggleTitle(item.name, false)}>
 						<i className={item.iconClass} />

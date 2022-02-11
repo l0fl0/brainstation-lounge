@@ -4,6 +4,16 @@
 	position: relative;
 }
 
+.gifs {
+	position: fixed;
+	top: 0;
+	left: 0;
+	object-fit: cover;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
+}
+
 .popup-container {
 	position: relative;
 	width: 100%;
