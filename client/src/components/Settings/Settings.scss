@@ -1,9 +1,7 @@
 @use '../../sass/partials/variables' as *;
 
 .bg-selector {
-	position: absolute;
 	font-size: 1.2rem;
-	right: 0;
 	text-shadow: $text-shadow-white;
 
 	&__icon {
@@ -12,8 +10,7 @@
 }
 
 .settings-wrapper {
-	width: 30rem;
-	text-align: right;
+	text-align: center;
 }
 
 .time-button {

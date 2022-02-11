@@ -1,7 +1,8 @@
 import './Settings.scss';
 import { gifLength } from '../../data/gifs';
 
-export default function Settings({ setGifIndex, setTwelveHourFormat }) {
+export default function Settings(props) {
+	const { setGifIndex, setTwelveHourFormat } = props;
 	const nextGif = () => {
 		setGifIndex((prevIndex) => {
 			return (prevIndex + 1) % gifLength;
