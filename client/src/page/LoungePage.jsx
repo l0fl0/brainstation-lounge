@@ -5,6 +5,9 @@ import { gifs } from '../data/gifs';
 import './LoungePage.scss';
 import HeaderFrame from '../Frames/Header/HeaderFrame';
 import InformationFrame from '../Frames/Information/InformationFrame';
+import MainFrame from '../Frames/Main/MainFrame';
+import SideFrame from '../Frames/Side/SideFrame';
+import UserFrame from '../Frames/User/UserFrame';
 import Settings from '../components/Settings/Settings';
 
 export default function LoungePage() {
@@ -32,9 +35,9 @@ export default function LoungePage() {
 		<main className='parent-container'>
 			<img src={gifs[gifIndex]} alt='gifs' className='gifs' />
 			<HeaderFrame gifIndex={gifIndex} toggleItems={toggleItems} />
-			{/* <MainFrame frames={frames['Main']} /> */}
-			{/* <SideFrame frames={frames['Side']/> */}
-			{/* <UserFrame frames={frames['User']/> */}
+			<MainFrame isShowItems={isShowItems} frames={frames['Main']} />
+			<SideFrame isShowItems={isShowItems} frames={frames['Side']} />
+			<UserFrame isShowItems={isShowItems} frames={frames['User']} />
 			<InformationFrame isShowItems={isShowItems} frames={frames['Information']} />
 			{/* <ModalFrame frames={frames['Modal']/> */}
 

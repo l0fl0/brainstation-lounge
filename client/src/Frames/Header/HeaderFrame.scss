@@ -1,7 +1,8 @@
 @use '../../sass/partials/variables' as *;
 
 .HeaderFrame {
-	background-color: rgba($color: grey, $alpha: 0.15);
+	background-color: rgba($color: red, $alpha: 0.35);
+	border: 2px dashed black;
 	position: fixed;
 	top: 0;
 	width: 100%;

@@ -71,7 +71,9 @@ export default function Chat() {
 			});
 			randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
 		}, randomTime);
-	}, []);
+
+		return clearInterval(id);
+	});
 
 	const addMessage = (event) => {
 		event.preventDefault();

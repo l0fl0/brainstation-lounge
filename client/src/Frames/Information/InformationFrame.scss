@@ -1,7 +1,8 @@
 @use '../../sass/partials/variables' as *;
 
 .InformationFrame {
-	background-color: rgba($color: grey, $alpha: 0.15);
+	background-color: rgba($color: blue, $alpha: 0.25);
+	border: 2px dashed black;
 	position: fixed;
 	bottom: 0;
 	width: 75%;

@@ -56,9 +56,7 @@ export default function Stack() {
 
 	const tagBuilder = (tags) => {
 		return tags
-			.filter((tag) => {
-				if (search[tag.key]) return tag;
-			})
+			.filter((tag) => search[tag.key])
 			.map((tag) => tag.tag)
 			.join(';');
 	};

@@ -1,0 +1,19 @@
+@use '../../sass/partials/variables' as *;
+
+.MainFrame {
+	// Style
+	background-color: rgba($color: grey, $alpha: 0.55);
+	border: 2px dashed black;
+
+	// Position
+	position: fixed;
+	top: 8vh;
+	z-index: 0;
+
+	// Size
+	width: 75%;
+	height: 76vh;
+
+	// Children
+	padding: 1rem;
+}

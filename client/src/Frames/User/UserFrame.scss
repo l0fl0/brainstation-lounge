@@ -1,0 +1,12 @@
+@use '../../sass/partials/variables' as *;
+
+.UserFrame {
+	background-color: rgba($color: yellow, $alpha: 0.25);
+	border: 2px dashed black;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 25%;
+	height: 27vh;
+	z-index: 0;
+}

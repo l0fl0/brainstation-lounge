@@ -1,0 +1,12 @@
+@use '../../sass/partials/variables' as *;
+
+.SideFrame {
+	background-color: rgba($color: green, $alpha: 0.2);
+	border: 2px dashed black;
+	position: fixed;
+	top: 8vh;
+	right: 0;
+	width: 25%;
+	height: 65vh;
+	z-index: 0;
+}
