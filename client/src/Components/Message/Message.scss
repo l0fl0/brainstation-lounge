@@ -1,33 +1,45 @@
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/animations" as *;
+
 .message {
-    width: 66%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: .5rem;
+	width: 66%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 0.5rem;
 
-    &--self {
-        align-items: flex-end;
-        align-self: flex-end;
-    }
+	&--self {
+		align-items: flex-end;
+		align-self: flex-end;
+	}
 
-    &__time {
-        margin-top: .25rem;
-        text-align: right;
-    }
+	&__time {
+		margin-top: 0.25rem;
+		text-align: right;
+	}
 
-    &__user {
-        font-size: .825rem;
-        background-color: #333;
-        padding: .25rem;
-        border-radius: 3px;
-        margin-bottom: .3333rem;
-    }
+	&__user {
+		font-size: 0.825rem;
+		background-color: #333;
+		padding: 0.25rem;
+		border-radius: 3px;
+		margin-bottom: 0.3333rem;
+	}
 
-    &__text {
-        font-size: 1rem;
-        background-color: #fff;
-        color: #333;
-        padding: .25rem;
-        border-radius: 3px;
-    }
+	&__text {
+		font-size: 1rem;
+		background-color: #fff;
+		color: #333;
+		padding: 0.25rem;
+		border-radius: 3px;
+	}
+
+	&__announcement {
+		font-size: 0.8rem;
+		text-shadow: $text-shadow-white;
+		color: $white;
+		font-style: italic;
+		padding: 0.25rem;
+		border-radius: 3px;
+	}
 }
