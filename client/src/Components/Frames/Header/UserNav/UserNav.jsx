@@ -1,6 +1,6 @@
 import './UserNav.scss';
 import { useState } from 'react';
-import { items } from '../../data/items';
+import { items } from '../../../../data/items';
 
 export default function UserNav(props) {
 	const { toggleItems } = props;

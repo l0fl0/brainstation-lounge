@@ -1,5 +1,5 @@
 import './Settings.scss';
-import { gifLength } from '../../data/gifs';
+import { gifLength } from '../../../../data/gifs';
 
 export default function Settings({ setGifIndex, setTwelveHourFormat }) {
 	const nextGif = () => {

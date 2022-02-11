@@ -1,13 +1,13 @@
 import './InformationFrame.scss';
 
 export default function InformationFrame({ frames, isShowItems }) {
-	// console.log(frames);
+	let frameItem = null;
 
-	return (
-		<div className='InformationFrame'>
-			{isShowItems['radio'] ? frames.radio.component(null) : <></>}
-			{isShowItems['stack'] ? frames.stack.component(null) : <></>}
-			InformationFrame
-		</div>
-	);
+	for (let bool in isShowItems) {
+		if (!frames[bool]) continue;
+		if (isShowItems[bool]) {
+			frameItem = frames[bool].component(null);
+		}
+	}
+	return <div className='InformationFrame'>{frameItem}</div>;
 }

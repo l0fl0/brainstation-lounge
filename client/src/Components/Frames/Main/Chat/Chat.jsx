@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react/cjs/react.development';
 import './Chat.scss';
-import formatTime from '../../utils/formatDate';
-import Message from '../Message/Message';
+import formatTime from '../../../../utils/formatDate';
+import Message from './Message/Message';
 
 export default function Chat() {
 	const randomMessages = [

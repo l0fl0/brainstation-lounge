@@ -5,7 +5,7 @@ import { gifs } from '../data/gifs';
 import './LoungePage.scss';
 import HeaderFrame from '../components/Frames/Header/HeaderFrame';
 import InformationFrame from '../components/Frames/Information/InformationFrame';
-import Settings from '../components/Settings/Settings';
+import Settings from '../components/Frames/Modal/Settings/Settings';
 
 export default function LoungePage() {
 	const [isShowItems, setShowItems] = useState({});
@@ -20,6 +20,7 @@ export default function LoungePage() {
 	const toggleItems = (item, frame) => {
 		const bools = { ...isShowItems };
 		for (let frameItem in frames[frame]) {
+			if (frameItem === item) continue;
 			bools[frameItem] = false;
 		}
 		if (!bools[item]) bools[item] = true;

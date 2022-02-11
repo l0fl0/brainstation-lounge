@@ -1,6 +1,6 @@
 import './HeaderFrame.scss';
-import CurrentTime from '../../CurrentTime/CurrentTime';
-import UserNav from '../../UserNav/UserNav';
+import CurrentTime from './CurrentTime/CurrentTime';
+import UserNav from './UserNav/UserNav';
 
 export default function HeaderFrame(props) {
 	const { toggleItems } = props;
