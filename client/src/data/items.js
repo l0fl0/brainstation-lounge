@@ -68,6 +68,6 @@ export const items = [
 		component: function render(props) {
 			return <Settings {...props} />;
 		},
-		frame: 'Modal',
+		frame: 'User',
 	},
 ];
