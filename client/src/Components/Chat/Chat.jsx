@@ -6,41 +6,48 @@ import Message from "../Message/Message";
 
 // set a global immutable for the socket connection
 const socket = io("http://localhost:8080");
-let username = null;
 
 export default function Chat() {
+	// State
 	const [msgs, setMsgs] = useState([]);
 	const [msgInput, setMsgInput] = useState("");
 
+	// Socket listeners
+	//
 	// handle incomming message display
+	socket.on("connect", () => {
+		console.log("connected");
+	});
 	socket.on("chat-message", (data) => {
 		setMsgs([data, ...msgs]);
 	});
 
-	// handle user connected message display
-	socket.on("user-connected", (username) => {
-		setMsgs([
-			{
-				text: `${username} has joined the chat`,
-				timestamp: formatTime(Date()),
-			},
-			...msgs,
-		]);
+	socket.on("disconnect", (reason) => {
+		console.log(reason);
+
+		if (reason === "io server disconnect") {
+			// the disconnection was initiated by the server, you need to reconnect manually
+			socket.connect();
+		}
+		if (reason === "transport close") {
+			// the disconnection was initiated by the server, you need to reconnect manually
+			socket.connect();
+		}
 	});
 
 	// Similar componentDidMount lifecycle method
 	useEffect(() => {
 		// sets username on Component mount for chat / saves username per session
+		if (!sessionStorage.getItem("username")) {
+			sessionStorage.setItem("username", prompt("What is your name? "));
+		}
+		// connect to the new user function
+		socket.emit("new-user", sessionStorage.getItem("username"));
 
-		username = prompt("What is your name? ");
-		sessionStorage.setItem("username", username);
-		setMsgs([
-			{
-				text: `Welcome to BSTN Chat ${username}`,
-				timestamp: formatTime(Date()),
-			},
-		]);
-		socket.emit("new-user", username);
+		// The return functions as the componentWillUnmount lifecycle method
+		return () => {
+			socket.disconnect();
+		};
 	}, []);
 
 	const sendMessage = (event) => {
@@ -59,7 +66,7 @@ export default function Chat() {
 
 		// send message to server for broadcast
 		socket.emit("send-chat-message", {
-			user: username,
+			user: sessionStorage.getItem("username"),
 			currentUser: false,
 			text: msgInput,
 			timestamp: formatTime(Date()),
