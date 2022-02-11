@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import "./Chat.scss";
 import formatTime from "../../utils/formatDate";
 import Message from "../Message/Message";
+
 // set a global immutable for the socket connection
 const socket = io("http://localhost:8080");
 let username = null;

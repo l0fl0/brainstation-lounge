@@ -19,7 +19,7 @@ export default function LoungePage() {
 	const [isShowTimer, setShowTimer] = useState(false);
 	const [isShowRadio, setShowRadio] = useState(false);
 	const [isShowStack, setShowStack] = useState(false);
-	const [isShowChat, setShowChat] = useState(true);
+	const [isShowChat, setShowChat] = useState(false);
 	const [isShowNotes, setShowNotes] = useState(false);
 	const [isShowTasks, setShowTasks] = useState(false);
 	const [isShowSettings, setShowSettings] = useState(false);
