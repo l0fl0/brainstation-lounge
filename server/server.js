@@ -28,6 +28,7 @@ let users = {};
 
 //Whenever someone connects this gets executed
 io.on('connection', (socket) => {
+  console.log(users)
 
   // attached to event "send-chat-message"
   socket.on("send-chat-message", message => {
@@ -38,17 +39,18 @@ io.on('connection', (socket) => {
   socket.on("new-user", username => {
     console.log(username, "joined the chat")
     users[socket.id] = username;
-    socket.broadcast.emit("user-connected", username)
+    socket.emit("chat-message", { text: `Welcome to the  Lounge Chat ${username}`, type: "server" })
+    socket.broadcast.emit("chat-message", { text: `${username} has joined the chat`, type: "server" })
   })
+
 
   // when disconnected then delete user from list and broadcast message to the chatroom
   socket.on('disconnect', () => {
-    console.log(users[socket.id], "left the chat")
-    socket.broadcast.emit("user-disconected", users[socket.id])
-    delete users[socket.id]
+    console.log(users[socket.id], "left the chat");
+    socket.broadcast.emit("chat-message", { text: `${users[socket.id]} left the chat`, type: "server" });
+    delete users[socket.id];
   });
 });
-
 
 
 
