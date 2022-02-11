@@ -4,7 +4,7 @@
 	position: relative;
 	width: 100%;
 	height: 8vh;
-	z-index: 1;
+	z-index: 0;
 
 	display: flex;
 	justify-content: space-between;
@@ -21,4 +21,14 @@
 }
 
 .banner {
+}
+
+.gifs {
+	position: fixed;
+	top: 0;
+	left: 0;
+	object-fit: cover;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
 }

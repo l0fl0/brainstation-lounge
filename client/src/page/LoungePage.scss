@@ -4,35 +4,6 @@
 	position: relative;
 }
 
-.background-gif {
-	position: absolute;
-	object-fit: cover;
-	z-index: 0;
-	width: 100vw;
-	height: 100vh;
-}
-
-.toolbar {
-	display: flex;
-	position: relative;
-	justify-content: space-between;
-	align-items: center;
-	z-index: 1;
-	width: 100%;
-	padding: 2rem 2rem;
-	max-height: 6.875rem;
-
-	&__social-listening {
-		text-shadow: $text-shadow-white;
-		cursor: pointer;
-	}
-
-	&__time {
-		font-size: 1.5rem;
-		text-shadow: $text-shadow-white;
-	}
-}
-
 .popup-container {
 	position: relative;
 	width: 100%;
