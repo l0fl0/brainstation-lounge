@@ -6,12 +6,12 @@ import Message from "./Message/Message";
 
 // set a global immutable for the socket connection
 const socket = io("http://localhost:8080");
+let messages = [];
 
 export default function Chat() {
 	// State
-	const [msgs, setMsgs] = useState([]);
+	let [message, setMessage] = useState(0);
 	const [msgInput, setMsgInput] = useState("");
-
 	// Socket listeners
 	//
 	// handle incomming message display
@@ -20,9 +20,8 @@ export default function Chat() {
 	});
 
 	socket.on("chat-message", (data) => {
-		setMsgs([data, ...msgs]);
+		messages.unshift(<Message message={data} isSelf={data.currentUser} />);
 	});
-
 	socket.on("disconnect", (reason) => {
 		console.log(reason);
 
@@ -36,7 +35,6 @@ export default function Chat() {
 		}
 	});
 
-	// Similar componentDidMount lifecycle method
 	useEffect(() => {
 		// sets username on Component mount for chat / saves username per session
 		if (!sessionStorage.getItem("username")) {
@@ -55,15 +53,15 @@ export default function Chat() {
 		event.preventDefault();
 		if (!msgInput || !event.target.chatText.value) return;
 
-		// update user view with message
-		setMsgs([
-			{
-				currentUser: true,
-				text: msgInput,
-				timestamp: formatTime(Date()),
-			},
-			...msgs,
-		]);
+		// update userview with message
+		const userMessage = {
+			currentUser: true,
+			text: msgInput,
+			timestamp: formatTime(Date()),
+		};
+		messages.unshift(
+			<Message message={userMessage} isSelf={userMessage.currentUser} />
+		);
 
 		// send message to server for broadcast
 		socket.emit("send-chat-message", {
@@ -72,26 +70,28 @@ export default function Chat() {
 			text: msgInput,
 			timestamp: formatTime(Date()),
 		});
+		// updatestate
+		// setMessage((message += 1));
 
 		// sets both state and form input to empty string no empty messages
 		event.target.chatText.value = "";
 		setMsgInput("");
+		event.target.chatText.focus();
 	};
 
 	const onChangeHandler = (event) => {
 		setMsgInput(event.target.value);
 	};
 
-	//TODO: scroll position tracking for chat close
 	return (
 		<div className="chat">
 			<div className="chat__text">
-				{/* //TODO: new mesage adds a new component to the array of messages */}
-				{msgs.map((message, i) => {
+				{messages}
+				{/* { msgs.map((message, i) => {
 					return (
 						<Message key={i} message={message} isSelf={message.currentUser} />
 					);
-				})}
+				})} */}
 			</div>
 			<div className="chat__input">
 				<i className="fas fa-user" />
