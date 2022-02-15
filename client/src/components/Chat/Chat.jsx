@@ -1,115 +1,105 @@
-import { useState, useEffect } from "react/cjs/react.development";
+import { useState, useEffect, useRef } from "react";
+import { io } from "socket.io-client";
 import "./Chat.scss";
 import formatTime from "../../utils/formatDate";
 import Message from "./Message/Message";
 
+// set a global immutable for the socket connection
+const socket = io("http://localhost:8080");
+
 export default function Chat() {
-	const randomMessages = [
-		{
-			user: "Jeff",
-			text: "This is rad",
-		},
-		{
-			user: "Elliot",
-			text: "Great Vibes",
-		},
-		{
-			user: "Ginger",
-			text: "lofi homer is my favorit homer",
-		},
-		{
-			user: "Bridget",
-			text: "One more Pomodoro break anyone?",
-		},
-		{
-			user: "Bella",
-			text: "I'm stoked for Node.js",
-		},
-		{
-			user: "Kimberly",
-			text: "the aesthetic is R e A l",
-		},
-		{
-			user: "Max",
-			text: "We need more radio stations",
-		},
-		{
-			user: "Bart",
-			text: "I will not useState I will not useState I will not useState",
-		},
-	];
+	// State
+	const [msgs, setMsgs] = useState([]);
+	const [msgInput, setMsgInput] = useState("");
 
-	const [msgs, setMsgs] = useState([
-		{
-			user: "Daniel",
+	// Socket listeners
+	//
+	// handle incomming message display
+	socket.on("connect", () => {
+		console.log("connected");
+	});
+
+	socket.on("chat-message", (data) => {
+		setMsgs([data, ...msgs]);
+	});
+
+	socket.on("disconnect", (reason) => {
+		console.log(reason);
+
+		if (reason === "io server disconnect") {
+			// the disconnection was initiated by the server, you need to reconnect manually
+			socket.connect();
+		}
+		if (reason === "transport close") {
+			// the disconnection was initiated by the server, you need to reconnect manually
+			socket.connect();
+		}
+	});
+
+	// Similar componentDidMount lifecycle method
+	useEffect(() => {
+		// sets username on Component mount for chat / saves username per session
+		if (!sessionStorage.getItem("username")) {
+			sessionStorage.setItem("username", prompt("What is your name? "));
+		}
+		// connect to the new user function
+		socket.emit("new-user", sessionStorage.getItem("username"));
+
+		// The return functions as the componentWillUnmount lifecycle method
+		return () => {
+			socket.disconnect();
+		};
+	}, []);
+
+	const sendMessage = (event) => {
+		event.preventDefault();
+		if (!msgInput || !event.target.chatText.value) return;
+
+		// update user view with message
+		setMsgs([
+			{
+				currentUser: true,
+				text: msgInput,
+				timestamp: formatTime(Date()),
+			},
+			...msgs,
+		]);
+
+		// send message to server for broadcast
+		socket.emit("send-chat-message", {
+			user: sessionStorage.getItem("username"),
 			currentUser: false,
-			text: "Welcome to BrainStation Lounge",
+			text: msgInput,
 			timestamp: formatTime(Date()),
-		},
-	]);
+		});
 
-	const [msgInput, setMsgInput] = useState();
+		// sets both state and form input to empty string no empty messages
+		event.target.chatText.value = "";
+		setMsgInput("");
+	};
 
-	const updateInput = (event) => {
+	const onChangeHandler = (event) => {
 		setMsgInput(event.target.value);
 	};
 
-	useEffect(() => {
-		let randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
-		const id = setInterval(() => {
-			const randomIndex = Math.floor(Math.random() * randomMessages.length);
-			const { user, text } = randomMessages[randomIndex];
-			setMsgs((prevMsgs) => {
-				const newMsgs = [...prevMsgs];
-				newMsgs.unshift({
-					user: user,
-					currentUser: false,
-					text: text,
-					timestamp: formatTime(Date()),
-				});
-				return newMsgs;
-			});
-			randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
-		}, randomTime);
-
-		return clearInterval(id);
-	});
-
-	const addMessage = (event) => {
-		event.preventDefault();
-		const message = msgInput;
-		if (!message) return;
-
-		setMsgs((prevMsgs) => {
-			const newMsgs = [...prevMsgs];
-			newMsgs.unshift({
-				user: "Daniel",
-				currentUser: true,
-				text: message,
-				timestamp: formatTime(Date()),
-			});
-			event.target.chatText.value = "";
-			setMsgInput("");
-			return newMsgs;
-		});
-	};
-
-	const messageBuilder = (msgs) => {
-		const messageList = msgs.map((message, i) => {
-			return <Message key={i} message={message} isSelf={message.currentUser} />;
-		});
-		return messageList;
-	};
-
+	//TODO: scroll position tracking for chat close
 	return (
 		<div className="chat">
-			<div className="chat__text">{messageBuilder(msgs)}</div>
+			<div className="chat__text">
+				{/* //TODO: new mesage adds a new component to the array of messages */}
+				{msgs.map((message, i) => {
+					return (
+						<Message key={i} message={message} isSelf={message.currentUser} />
+					);
+				})}
+			</div>
 			<div className="chat__input">
 				<i className="fas fa-user" />
-				<form onSubmit={addMessage} className="chat__form" autoComplete="off">
+				<form onSubmit={sendMessage} className="chat__form" autoComplete="off">
 					<input
-						onChange={updateInput}
+						onChange={onChangeHandler}
 						name="chatText"
+						id="chatText"
 						className="chat__input-field"
 						type="text"
 					/>
