@@ -42,7 +42,6 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("chat-message", { text: `${username} has joined the chat`, type: "server" })
   })
 
-
   // when disconnected then delete user from list and broadcast message to the chatroom
   socket.on('disconnect', () => {
     console.log(users[socket.id], "left the chat");
