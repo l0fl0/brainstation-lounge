@@ -1,0 +1,45 @@
+@use '../../sass/partials/variables' as *;
+
+.radio {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	&__player {
+		display: none;
+		position: absolute;
+	}
+
+	&__title {
+		text-align: center;
+		text-shadow: $text-shadow-white;
+	}
+}
+
+.button {
+	margin-right: 0.5rem;
+	padding: 0 0.5rem;
+	width: 6.5rem;
+	height: 2rem;
+	border: none;
+	border-radius: 3px;
+	background-color: rgba($color: #ccc, $alpha: 0.25);
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-shadow: $text-shadow-dark;
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgba($color: rgb(204, 204, 204), $alpha: 0.75);
+	}
+
+	&--study {
+		background-color: rgba($color: rgb(141, 44, 44), $alpha: 0.75);
+	}
+
+	&--break {
+		background-color: rgba($color: rgb(19, 107, 24), $alpha: 0.75);
+	}
+}
