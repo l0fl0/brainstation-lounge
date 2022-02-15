@@ -18,6 +18,7 @@ export default function Chat() {
 	socket.on("connect", () => {
 		console.log("connected");
 	});
+
 	socket.on("chat-message", (data) => {
 		setMsgs([data, ...msgs]);
 	});
@@ -81,9 +82,11 @@ export default function Chat() {
 		setMsgInput(event.target.value);
 	};
 
+	//TODO: scroll position tracking for chat close
 	return (
 		<div className="chat">
 			<div className="chat__text">
+				//TODO: new mesage adds a new component to the array of messages
 				{msgs.map((message, i) => {
 					return (
 						<Message key={i} message={message} isSelf={message.currentUser} />

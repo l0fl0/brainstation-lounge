@@ -28,7 +28,6 @@ let users = {};
 
 //Whenever someone connects this gets executed
 io.on('connection', (socket) => {
-  console.log(users)
 
   // attached to event "send-chat-message"
   socket.on("send-chat-message", message => {
