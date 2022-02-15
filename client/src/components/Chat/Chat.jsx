@@ -1,49 +1,49 @@
-import { useState, useEffect } from 'react/cjs/react.development';
-import './Chat.scss';
-import formatTime from '../../utils/formatDate';
-import Message from './Message/Message';
+import { useState, useEffect } from "react";
+import "./Chat.scss";
+import formatTime from "../../utils/formatDate";
+import Message from "./Message/Message";
 
 export default function Chat() {
 	const randomMessages = [
 		{
-			user: 'Jeff',
-			text: 'This is rad',
+			user: "Jeff",
+			text: "This is rad",
 		},
 		{
-			user: 'Elliot',
-			text: 'Great Vibes',
+			user: "Elliot",
+			text: "Great Vibes",
 		},
 		{
-			user: 'Ginger',
-			text: 'lofi homer is my favorit homer',
+			user: "Ginger",
+			text: "lofi homer is my favorit homer",
 		},
 		{
-			user: 'Bridget',
-			text: 'One more Pomodoro break anyone?',
+			user: "Bridget",
+			text: "One more Pomodoro break anyone?",
 		},
 		{
-			user: 'Bella',
+			user: "Bella",
 			text: "I'm stoked for Node.js",
 		},
 		{
-			user: 'Kimberly',
-			text: 'the aesthetic is R e A l',
+			user: "Kimberly",
+			text: "the aesthetic is R e A l",
 		},
 		{
-			user: 'Max',
-			text: 'We need more radio stations',
+			user: "Max",
+			text: "We need more radio stations",
 		},
 		{
-			user: 'Bart',
-			text: 'I will not useState I will not useState I will not useState',
+			user: "Bart",
+			text: "I will not useState I will not useState I will not useState",
 		},
 	];
 
 	const [msgs, setMsgs] = useState([
 		{
-			user: 'Daniel',
+			user: "Daniel",
 			currentUser: false,
-			text: 'Welcome to BrainStation Lounge',
+			text: "Welcome to BrainStation Lounge",
 			timestamp: formatTime(Date()),
 		},
 	]);
@@ -83,13 +83,13 @@ export default function Chat() {
 		setMsgs((prevMsgs) => {
 			const newMsgs = [...prevMsgs];
 			newMsgs.unshift({
-				user: 'Daniel',
+				user: "Daniel",
 				currentUser: true,
 				text: message,
 				timestamp: formatTime(Date()),
 			});
-			event.target.chatText.value = '';
-			setMsgInput('');
+			event.target.chatText.value = "";
+			setMsgInput("");
 			return newMsgs;
 		});
 	};
@@ -102,13 +102,18 @@ export default function Chat() {
 	};
 
 	return (
-		<div className='chat'>
-			<div className='chat__text'>{messageBuilder(msgs)}</div>
-			<div className='chat__input'>
-				<i className='fas fa-user' />
-				<form onSubmit={addMessage} className='chat__form' autoComplete='off'>
-					<input onChange={updateInput} name='chatText' className='chat__input-field' type='text' />
-					<button type='submit' className='button button-chat'>
+		<div className="chat">
+			<div className="chat__text">{messageBuilder(msgs)}</div>
+			<div className="chat__input">
+				<i className="fas fa-user" />
+				<form onSubmit={addMessage} className="chat__form" autoComplete="off">
+					<input
+						onChange={updateInput}
+						name="chatText"
+						className="chat__input-field"
+						type="text"
+					/>
+					<button type="submit" className="button button-chat">
 						send
 					</button>
 				</form>
