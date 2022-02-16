@@ -13,6 +13,6 @@
 
 # misc
 .DS_Store
-.env
+*.env
 client/.env
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require("http")
 const dotenv = require("dotenv");
+const { v4: uuidv4 } = require('uuid');
 const morgan = require("morgan");
 
 // config
@@ -25,7 +26,6 @@ if (process.env.NODE_ENV === "production") {
 
 // store users 
 let users = {};
-
 //Whenever someone connects this gets executed
 io.on('connection', (socket) => {
 
@@ -38,14 +38,14 @@ io.on('connection', (socket) => {
   socket.on("new-user", username => {
     console.log(username, "joined the chat")
     users[socket.id] = username;
-    socket.emit("chat-message", { text: `Welcome to the  Lounge Chat ${username}`, type: "server" })
-    socket.broadcast.emit("chat-message", { text: `${username} has joined the chat`, type: "server" })
+    socket.emit("chat-message", { key: uuidv4(), text: `Welcome to the  Lounge Chat ${username}`, type: "server" })
+    socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${username} has joined the chat`, type: "server" })
   })
 
   // when disconnected then delete user from list and broadcast message to the chatroom
   socket.on('disconnect', () => {
     console.log(users[socket.id], "left the chat");
-    socket.broadcast.emit("chat-message", { text: `${users[socket.id]} left the chat`, type: "server" });
+    socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${users[socket.id]} left the chat`, type: "server" });
     delete users[socket.id];
   });
 });
