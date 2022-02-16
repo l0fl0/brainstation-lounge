@@ -1,115 +1,127 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./Chat.scss";
 import formatTime from "../../utils/formatDate";
 import Message from "./Message/Message";
+import { SocketContext } from "../../context/socket";
 
 export default function Chat() {
-	const randomMessages = [
-		{
-			user: "Jeff",
-			text: "This is rad",
-		},
-		{
-			user: "Elliot",
-			text: "Great Vibes",
-		},
-		{
-			user: "Ginger",
-			text: "lofi homer is my favorit homer",
-		},
-		{
-			user: "Bridget",
-			text: "One more Pomodoro break anyone?",
-		},
-		{
-			user: "Bella",
-			text: "I'm stoked for Node.js",
-		},
-		{
-			user: "Kimberly",
-			text: "the aesthetic is R e A l",
-		},
-		{
-			user: "Max",
-			text: "We need more radio stations",
-		},
-		{
-			user: "Bart",
-			text: "I will not useState I will not useState I will not useState",
-		},
-	];
+	const socket = useContext(SocketContext);
 
-	const [msgs, setMsgs] = useState([
-		{
-			user: "Daniel",
-			currentUser: false,
-			text: "Welcome to BrainStation Lounge",
+	let [msgs, setMsgs] = useState([]);
+	const [msgInput, setMsgInput] = useState("");
+
+	const updateMessages = useCallback((message) => {
+		// local storage for messages
+		const oldMessages = JSON.parse(sessionStorage.getItem("messages"));
+
+		sessionStorage.setItem(
+			"messages",
+			JSON.stringify([message, ...oldMessages])
+		);
+
+		// live render of messages
+		let incommingMessage = (
+			<Message
+				key={message.key}
+				message={message}
+				isSelf={message.currentUser}
+			/>
+		);
+
+		setMsgs(JSON.parse(sessionStorage.getItem("messages")));
+	}, []);
+
+	const broadcastMessage = useCallback(
+		(message) => {
+			// send message to server for broadcast
+			socket.emit("send-chat-message", {
+				key: message.key,
+				user: sessionStorage.getItem("username"),
+				currentUser: false,
+				text: message.text,
+				timestamp: message.timestamp,
+			});
+		},
+		[socket]
+	);
+
+	const messageHandler = (event) => {
+		event.preventDefault();
+		if (!msgInput || !event.target.chatText.value) return;
+
+		// update userview with message
+		const userMessage = {
+			key: uuidv4(),
+			currentUser: true,
+			text: msgInput,
 			timestamp: formatTime(Date()),
-		},
-	]);
+		};
 
-	const [msgInput, setMsgInput] = useState();
+		updateMessages(userMessage);
+		broadcastMessage(userMessage);
 
-	const updateInput = (event) => {
+		// sets both state and form input to empty string no empty messages
+		event.target.chatText.value = "";
+		setMsgInput("");
+		event.target.chatText.focus();
+	};
+
+	const onChangeHandler = (event) => {
 		setMsgInput(event.target.value);
 	};
 
 	useEffect(() => {
-		let randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
-		const id = setInterval(() => {
-			const randomIndex = Math.floor(Math.random() * randomMessages.length);
-			const { user, text } = randomMessages[randomIndex];
-			setMsgs((prevMsgs) => {
-				const newMsgs = [...prevMsgs];
-				newMsgs.unshift({
-					user: user,
-					currentUser: false,
-					text: text,
-					timestamp: formatTime(Date()),
-				});
-				return newMsgs;
-			});
-			randomTime = (Math.floor(Math.random() * 5) + 6) * 1000;
-		}, randomTime);
+		if (!sessionStorage.getItem("messages")) {
+			sessionStorage.setItem("messages", "[]");
+		}
+		// sets username on component mount for chat / saves username per session
+		if (!sessionStorage.getItem("username")) {
+			sessionStorage.setItem("username", prompt("What is your name? "));
+		}
+		// send new user event
+		socket.emit("new-user", sessionStorage.getItem("username"));
 
-		return clearInterval(id);
-	});
-
-	const addMessage = (event) => {
-		event.preventDefault();
-		const message = msgInput;
-		if (!message) return;
-
-		setMsgs((prevMsgs) => {
-			const newMsgs = [...prevMsgs];
-			newMsgs.unshift({
-				user: "Daniel",
-				currentUser: true,
-				text: message,
-				timestamp: formatTime(Date()),
-			});
-			event.target.chatText.value = "";
-			setMsgInput("");
-			return newMsgs;
+		// Subscribe to events
+		socket.on("chat-message", (data) => {
+			updateMessages(data);
 		});
-	};
 
-	const messageBuilder = (msgs) => {
-		const messageList = msgs.map((message, i) => {
-			return <Message key={i} message={message} isSelf={message.currentUser} />;
-		});
-		return messageList;
-	};
+		return () => {
+			socket.off("chat-message");
+			socket.emit("unmount", sessionStorage.getItem("username"));
+		};
+	}, [socket]);
 
 	return (
 		<div className="chat">
-			<div className="chat__text">{messageBuilder(msgs)}</div>
+			<div
+				onClick={() => {
+					socket.emit("unmount", sessionStorage.getItem("username"));
+				}}
+			>
+				Close
+			</div>
+			<div className="chat__text">
+				{msgs.map((message) => (
+					<Message
+						key={message.key}
+						message={message}
+						isSelf={message.currentUser}
+					/>
+				))}
+			</div>
 			<div className="chat__input">
 				<i className="fas fa-user" />
-				<form onSubmit={addMessage} className="chat__form" autoComplete="off">
+				<form
+					onSubmit={messageHandler}
+					className="chat__form"
+					autoComplete="off"
+				>
 					<input
-						onChange={updateInput}
+						onChange={onChangeHandler}
 						name="chatText"
+						id="chatText"
 						className="chat__input-field"
 						type="text"
 					/>

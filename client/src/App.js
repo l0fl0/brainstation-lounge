@@ -1,10 +1,13 @@
 import './App.scss';
 import Lounge from "./page/LoungePage";
+import { SocketContext, socket } from './context/socket';
 
 
 function App() {
   return (
-    <Lounge />
+    <SocketContext.Provider value={socket}>
+      <Lounge />
+    </SocketContext.Provider>
   );
 }
 
