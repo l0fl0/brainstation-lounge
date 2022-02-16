@@ -15,7 +15,7 @@ const server = http.createServer(app)
 // initialize websocket to server
 const io = require("socket.io")(server,
   {
-    cors: { origin: process.env.LOCAL_DOMAIN }
+    cors: { origin: "https://bslounge.netlify.app" }
   });
 
 
@@ -54,8 +54,11 @@ io.on('connection', (socket) => {
     delete users[socket.id];
   });
 });
+// Routes
+app.get("/", (req, res) => {
 
-
+  res.send("You did it, im alive.")
+})
 
 
 // listen default to 8000 if env variable port is taken or busy
