@@ -13,13 +13,17 @@ const app = express();
 // initialize the http server
 const server = http.createServer(app)
 // initialize websocket to server
-const io = require("socket.io")(server);
+const io = require("socket.io")(server,
+  {
+    cors: { origin: process.env.LOCAL_DOMAIN }
+  });
 
 
 // Logger for development using cross-env to track the node environment
 if (process.env.NODE_ENV === "development") {
   app.use(morgan('dev'))
 }
+
 if (process.env.NODE_ENV === "production") {
   app.use(morgan('combined'))
 }
@@ -38,12 +42,13 @@ io.on('connection', (socket) => {
   socket.on("new-user", username => {
     users[socket.id] = username;
     console.log(users[socket.id], "joined the chat")
-    socket.emit("chat-message", { key: uuidv4(), text: `Welcome to the  Lounge Chat ${username}`, type: "server" })
-    socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${username} has joined the chat`, type: "server" })
+    socket.emit("chat-message", { key: uuidv4(), text: `Welcome to the  Lounge Chat ${users[socket.id]}`, type: "server" })
+    socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${users[socket.id]} has joined the chat`, type: "server" })
   })
 
   // when unmounted then delete user from list and broadcast message to the chatroom
   socket.on('unmount', (username) => {
+    console.log(users)
     console.log(users[socket.id], "left the chat");
     socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${users[socket.id]} left the chat`, type: "server" });
     delete users[socket.id];

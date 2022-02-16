@@ -95,6 +95,13 @@ export default function Chat() {
 
 	return (
 		<div className="chat">
+			<div
+				onClick={() => {
+					socket.emit("unmount", sessionStorage.getItem("username"));
+				}}
+			>
+				Close
+			</div>
 			<div className="chat__text">
 				{msgs.map((message) => (
 					<Message
