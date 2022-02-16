@@ -1,11 +1,9 @@
 @use "../../sass/partials/variables" as *;
 
 .chat {
-	width: 400px;
-	height: 600px;
+	height: 100%;
 	background-color: rgba($color: #ccc, $alpha: 0.5);
 	border-radius: 3px;
-
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
