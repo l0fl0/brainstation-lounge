@@ -5,8 +5,6 @@ import formatTime from "../../utils/formatDate";
 import Message from "./Message/Message";
 import { SocketContext } from "../../context/socket";
 
-// store the messages in memory
-
 export default function Chat() {
 	const socket = useContext(SocketContext);
 
@@ -14,6 +12,15 @@ export default function Chat() {
 	const [msgInput, setMsgInput] = useState("");
 
 	const updateMessages = useCallback((message) => {
+		// local storage for messages
+		const oldMessages = JSON.parse(sessionStorage.getItem("messages"));
+
+		sessionStorage.setItem(
+			"messages",
+			JSON.stringify([message, ...oldMessages])
+		);
+
+		// live render of messages
 		let incommingMessage = (
 			<Message
 				key={message.key}
@@ -22,7 +29,7 @@ export default function Chat() {
 			/>
 		);
 
-		setMsgs((messages) => [incommingMessage, ...messages]);
+		setMsgs(JSON.parse(sessionStorage.getItem("messages")));
 	}, []);
 
 	const broadcastMessage = useCallback(
@@ -65,6 +72,9 @@ export default function Chat() {
 	};
 
 	useEffect(() => {
+		if (!sessionStorage.getItem("messages")) {
+			sessionStorage.setItem("messages", "[]");
+		}
 		// sets username on component mount for chat / saves username per session
 		if (!sessionStorage.getItem("username")) {
 			sessionStorage.setItem("username", prompt("What is your name? "));
@@ -78,15 +88,22 @@ export default function Chat() {
 		});
 
 		return () => {
-			// before the component is destroyed
-			// unbind all event handlers used in this component
-			socket.disconnect();
+			socket.off("chat-message");
+			socket.emit("unmount", sessionStorage.getItem("username"));
 		};
 	}, [socket]);
 
 	return (
 		<div className="chat">
-			<div className="chat__text">{msgs}</div>
+			<div className="chat__text">
+				{msgs.map((message) => (
+					<Message
+						key={message.key}
+						message={message}
+						isSelf={message.currentUser}
+					/>
+				))}
+			</div>
 			<div className="chat__input">
 				<i className="fas fa-user" />
 				<form

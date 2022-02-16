@@ -36,14 +36,14 @@ io.on('connection', (socket) => {
 
   // listen for new user when chat component mounts 
   socket.on("new-user", username => {
-    console.log(username, "joined the chat")
     users[socket.id] = username;
+    console.log(users[socket.id], "joined the chat")
     socket.emit("chat-message", { key: uuidv4(), text: `Welcome to the  Lounge Chat ${username}`, type: "server" })
     socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${username} has joined the chat`, type: "server" })
   })
 
-  // when disconnected then delete user from list and broadcast message to the chatroom
-  socket.on('disconnect', () => {
+  // when unmounted then delete user from list and broadcast message to the chatroom
+  socket.on('unmount', (username) => {
     console.log(users[socket.id], "left the chat");
     socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${users[socket.id]} left the chat`, type: "server" });
     delete users[socket.id];
