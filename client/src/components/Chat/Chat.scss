@@ -1,11 +1,9 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
 
 .chat {
 	height: 100%;
-	width: 100%;
 	background-color: rgba($color: #ccc, $alpha: 0.5);
 	border-radius: 3px;
-
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -14,10 +12,14 @@
 		display: flex;
 		flex-direction: column-reverse;
 		padding: 0.5rem;
-		overflow: scroll;
-
+		overflow-y: scroll;
+		//firefox
+		scrollbar-width: none;
+		// Edge
+		-ms-overflow-style: none;
+		//chrome, safari, oprea
 		&::-webkit-scrollbar {
-			display: none;
+			width: 3rem;
 		}
 	}
 

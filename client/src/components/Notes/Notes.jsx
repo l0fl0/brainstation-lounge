@@ -1,18 +1,18 @@
-import './Notes.scss';
-import { useState } from 'react';
+import "./Notes.scss";
+import { useState } from "react";
 
 export default function Notes() {
-	const [currentNote, setCurrentNote] = useState('');
-	const [currentNoteTitle, setCurrentNoteTitle] = useState('N/A');
+	const [currentNote, setCurrentNote] = useState("");
+	const [currentNoteTitle, setCurrentNoteTitle] = useState("N/A");
 	const [noteHistory, setNoteHistory] = useState([]);
 	const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 	const [visibility, setVisibility] = useState(true);
 
 	const currentTime = new Date().getTime();
 
-	let userNotes = JSON.parse(localStorage.getItem('notes'));
+	let userNotes = JSON.parse(localStorage.getItem("notes"));
 	if (userNotes === null) {
-		localStorage.setItem('notes', '[]');
+		localStorage.setItem("notes", "[]");
 	}
 
 	const handleNoteSubmit = (event) => {
@@ -24,10 +24,10 @@ export default function Notes() {
 			timestamp: currentTime,
 		};
 
-		localStorage.setItem('notes', JSON.stringify([...userNotes, noteObject]));
+		localStorage.setItem("notes", JSON.stringify([...userNotes, noteObject]));
 
-		setCurrentNote('');
-		setCurrentNoteTitle('N/A');
+		setCurrentNote("");
+		setCurrentNoteTitle("N/A");
 		event.target.reset();
 	};
 
@@ -40,7 +40,7 @@ export default function Notes() {
 	const deleteNote = (index) => {
 		userNotes = userNotes.filter((el, i) => i !== index);
 		setNoteHistory(userNotes);
-		localStorage.setItem('notes', JSON.stringify(userNotes));
+		localStorage.setItem("notes", JSON.stringify(userNotes));
 	};
 
 	const hideForm = () => {
@@ -60,16 +60,16 @@ export default function Notes() {
 		let hour = time.getHours();
 		let min = time.getMinutes();
 		if (hour < 10) {
-			hour = '0' + hour;
+			hour = "0" + hour;
 		}
 		if (min < 10) {
-			min = '0' + min;
+			min = "0" + min;
 		}
 
 		if (twelveHourFormat) {
-			let meridiem = hour < 12 ? 'AM' : 'PM';
+			let meridiem = hour < 12 ? "AM" : "PM";
 			hour = hour > 12 ? hour - 12 : hour;
-			if (hour == '00') hour = 12;
+			if (hour === "00") hour = 12;
 			let time12hrFormat = `${hour}:${min} ${meridiem}`;
 			return time12hrFormat;
 		}
@@ -77,36 +77,56 @@ export default function Notes() {
 	};
 
 	return (
-		<div className='note-section'>
-			<button className='btn note-section__show-archive' onClick={showArchive}>
-				{visibility ? <i className='fas fa-archive' /> : <i className='fas fa-times' />}
+		<div className="note-section">
+			<button className="btn note-section__show-archive" onClick={showArchive}>
+				{visibility ? (
+					<i className="fas fa-archive" />
+				) : (
+					<i className="fas fa-times" />
+				)}
 			</button>
 			{visibility ? (
-				<form className='note-section__form' onSubmit={handleNoteSubmit}>
-					<div className='note-section__title-container'>
-						<input className='note-section__title' type='text' placeholder='Title your note' onChange={populateTitle} name='title' id='title' />
-						<button type='submit' className='btn note-section__save-note'>
-							<i className='far fa-save' />
+				<form className="note-section__form" onSubmit={handleNoteSubmit}>
+					<div className="note-section__title-container">
+						<input
+							className="note-section__title"
+							type="text"
+							placeholder="Title your note"
+							onChange={populateTitle}
+							name="title"
+							id="title"
+						/>
+						<button type="submit" className="btn note-section__save-note">
+							<i className="far fa-save" />
 						</button>
 					</div>
-					<textarea className='note-section__note' placeholder='Write your note here' onChange={populateNote} name='note' id='note'></textarea>
+					<textarea
+						className="note-section__note"
+						placeholder="Write your note here"
+						onChange={populateNote}
+						name="note"
+						id="note"
+					></textarea>
 				</form>
 			) : (
-				<div className='note-section__history'>
+				<div className="note-section__history">
 					{noteHistory.map((note, i) => (
-						<div className='note-card'>
+						<div className="note-card">
 							<div>
-								<h2 className='note-card__title'>
-									{note.title} <span className='note-card__timestamp'>{timeFormatter(note.timestamp)}</span>{' '}
+								<h2 className="note-card__title">
+									{note.title}{" "}
+									<span className="note-card__timestamp">
+										{timeFormatter(note.timestamp)}
+									</span>{" "}
 									<i
 										onClick={() => {
 											deleteNote(i);
 										}}
-										className='far fa-trash-alt note-card__delete'
+										className="far fa-trash-alt note-card__delete"
 									/>
 								</h2>
 							</div>
-							<p className='note-card__note'>{note.note}</p>
+							<p className="note-card__note">{note.note}</p>
 						</div>
 					))}
 				</div>
