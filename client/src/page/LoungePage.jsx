@@ -8,7 +8,6 @@ import InformationFrame from "../Frames/Information/InformationFrame";
 import MainFrame from "../Frames/Main/MainFrame";
 import SideFrame from "../Frames/Side/SideFrame";
 import UserFrame from "../Frames/User/UserFrame";
-import Settings from "../components/Settings/Settings";
 
 export default function LoungePage() {
 	const [isShowItems, setShowItems] = useState({});
