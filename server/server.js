@@ -3,7 +3,7 @@ const http = require('http');
 const dotenv = require('dotenv');
 
 const morgan = require('morgan');
-const { messageHandler, leaveChatHandlerrs, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler } = require('./socketHandlers');
+const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler } = require('./socketHandlers');
 
 // config
 dotenv.config();
