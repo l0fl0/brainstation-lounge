@@ -8,8 +8,22 @@
 	border-radius: $border-raduis;
 
 	&__header {
-		text-align: left;
+		display: flex;
+		align-items: center;
 		margin-bottom: 1rem;
 		text-shadow: $text-shadow-white;
+	}
+
+	&__heading {
+		margin-right: auto;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 1rem;
+	}
+
+	&__action {
+		padding: 0.1rem 0.3rem;
 	}
 }
