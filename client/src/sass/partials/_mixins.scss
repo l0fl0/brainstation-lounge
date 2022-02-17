@@ -1,5 +1,17 @@
+@use "./variables" as *;
+
 @mixin tablet-breakpoint {
-  @media (min-width: 780px) {
-    @content;
-  }
+	@media (min-width: 780px) {
+		@content;
+	}
+}
+
+@mixin icon {
+	text-shadow: $text-shadow-white;
+	font-size: 0.8rem;
+	margin: 0.4rem;
+	display: block;
+}
+
+@mixin button {
 }
