@@ -3,7 +3,7 @@ const http = require('http');
 const dotenv = require('dotenv');
 
 const morgan = require('morgan');
-const { newUserHandler, messageHandler, unmountHandler, disconnectHandler } = require('./socketHandlers');
+const { messageHandler, leaveChatHandlerrs, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler } = require('./socketHandlers');
 
 // config
 dotenv.config();
@@ -30,16 +30,22 @@ if (process.env.NODE_ENV === 'production') {
 let users = {};
 //Whenever someone connects this gets executed
 io.on('connection', (socket) => {
-	// attached to event "send-chat-message"
+	// Joining Lounge
+	socket.on('join-lounge', (username) => joinLoungeHandler(username, users, socket));
+
+	// Sending Chat Message
 	socket.on('send-chat-message', (message) => messageHandler(message, socket));
 
-	// listen for new user when chat component mounts
-	socket.on('new-user', (username) => newUserHandler(username, users, socket));
+	// Joining Chat
+	socket.on('join-chat', (username) => joinChatHandler(username, users, socket));
 
-	// when unmounted then delete user from list and broadcast message to the chatroom
-	socket.on('unmount', () => unmountHandler(users, socket));
+	// Receiving User List
+	socket.on('get-users', () => sendUsers(users, socket));
 
-	// On disonnect
+	// Leaving Chat
+	socket.on('leave-chat', () => leaveChatHandler(users, socket));
+
+	// Leaving Lounge
 	socket.on('disconnect', () => disconnectHandler(users, socket));
 });
 
