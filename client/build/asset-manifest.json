@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ad97119b.css",
+    "main.js": "/static/js/main.d3835c79.js",
+    "static/media/cruising.gif": "/static/media/cruising.e60c81ee72079a611025.gif",
+    "static/media/googling.gif": "/static/media/googling.6cf3b4d28ef06a30e437.gif",
+    "static/media/homer.gif": "/static/media/homer.92114c34bfd36c4fe9b2.gif",
+    "static/media/photos.gif": "/static/media/photos.da5333807ebdb6a2f1fb.gif",
+    "static/media/studying.gif": "/static/media/studying.2eee7cc1dc517906987c.gif",
+    "index.html": "/index.html",
+    "main.ad97119b.css.map": "/static/css/main.ad97119b.css.map",
+    "main.d3835c79.js.map": "/static/js/main.d3835c79.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ad97119b.css",
+    "static/js/main.d3835c79.js"
+  ]
+}
