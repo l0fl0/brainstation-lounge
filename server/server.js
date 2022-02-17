@@ -1,8 +1,9 @@
 const express = require('express');
 const http = require('http');
 const dotenv = require('dotenv');
-const { v4: uuidv4 } = require('uuid');
+
 const morgan = require('morgan');
+const { newUserHandler, messageHandler, unmountHandler, disconnectHandler } = require('./socketHandlers');
 
 // config
 dotenv.config();
@@ -30,25 +31,16 @@ let users = {};
 //Whenever someone connects this gets executed
 io.on('connection', (socket) => {
 	// attached to event "send-chat-message"
-	socket.on('send-chat-message', (message) => {
-		socket.broadcast.emit('chat-message', message);
-	});
+	socket.on('send-chat-message', (message) => messageHandler(message, socket));
 
 	// listen for new user when chat component mounts
-	socket.on('new-user', (username) => {
-		users[socket.id] = username;
-		console.log(users[socket.id], 'joined the chat');
-		socket.emit('chat-message', { key: uuidv4(), text: `Welcome to the  Lounge Chat ${users[socket.id]}`, type: 'server' });
-		socket.broadcast.emit('chat-message', { key: uuidv4(), text: `${users[socket.id]} has joined the chat`, type: 'server' });
-	});
+	socket.on('new-user', (username) => newUserHandler(username, users, socket));
 
 	// when unmounted then delete user from list and broadcast message to the chatroom
-	socket.on('unmount', (username) => {
-		console.log(users);
-		console.log(users[socket.id], 'left the chat');
-		socket.broadcast.emit('chat-message', { key: uuidv4(), text: `${users[socket.id]} left the chat`, type: 'server' });
-		delete users[socket.id];
-	});
+	socket.on('unmount', () => unmountHandler(users, socket));
+
+	// On disonnect
+	socket.on('disconnect', () => disconnectHandler(users, socket));
 });
 
 // listen default to 8000 if env variable port is taken or busy
