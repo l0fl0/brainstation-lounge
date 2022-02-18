@@ -16,10 +16,10 @@ export default function Todos() {
 				<h1 className="todos__heading">Tasks</h1>
 				<div className="todos__actions">
 					<button className="todos__action" onClick={newTask}>
-						+ Task
+						<i className="fa-solid fa-plus" title="add tasks"></i>
 					</button>
 					<button className="todos__action" onClick={editTasks}>
-						<i className="fas fa-solid fa-pen" title="edit tasks"></i>
+						<i className="fa-solid fa-pen" title="edit tasks"></i>
 					</button>
 				</div>
 			</header>
