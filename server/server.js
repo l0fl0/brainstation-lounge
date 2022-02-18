@@ -31,13 +31,13 @@ let users = {};
 //Whenever someone connects this gets executed
 io.on('connection', (socket) => {
 	// Joining Lounge
-	socket.on('join-lounge', (username) => joinLoungeHandler(username, users, socket));
+	socket.on('join-lounge', (res) => joinLoungeHandler(res, users, socket));
 
 	// Sending Chat Message
 	socket.on('send-chat-message', (message) => messageHandler(message, socket));
 
 	// Joining Chat
-	socket.on('join-chat', (username) => joinChatHandler(username, users, socket));
+	socket.on('join-chat', () => joinChatHandler(users, socket));
 
 	// Receiving User List
 	socket.on('get-users', () => sendUsers(users, socket));

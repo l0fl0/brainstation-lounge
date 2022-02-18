@@ -1,4 +1,5 @@
 import Chat from '../components/Chat/Chat';
+import DMs from '../components/DMs/DMs';
 import Notes from '../components/Notes/Notes';
 import Radio from '../components/Radio/Radio';
 import Settings from '../components/Settings/Settings';
@@ -79,5 +80,14 @@ export const items = [
 			return <Users {...props} />;
 		},
 		frame: 'Side',
+	},
+	{
+		name: 'dms',
+		title: 'Messages',
+		iconClass: 'fas fa-message user__icon',
+		component: function render(props) {
+			return <DMs {...props} />;
+		},
+		frame: 'User',
 	},
 ];

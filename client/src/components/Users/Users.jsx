@@ -12,11 +12,11 @@ export default function Users() {
 	}, []);
 
 	useEffect(() => {
-		socket.on('get-users', (users) => {
+		socket.on('send-users', (users) => {
 			console.log(users);
 			setUsers(users);
 		});
-		return socket.offAny('get-users');
+		return socket.offAny('send-users');
 	}, [socket]);
 
 	const userListBuilder = () => {

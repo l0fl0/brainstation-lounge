@@ -66,12 +66,9 @@ export default function Chat() {
 		if (!sessionStorage.getItem('messages')) {
 			sessionStorage.setItem('messages', '[]');
 		}
-		// sets username on component mount for chat / saves username per session
-		if (!sessionStorage.getItem('username')) {
-			sessionStorage.setItem('username', prompt('What is your name? '));
-		}
+
 		// send new user event
-		socket.emit('join-chat', sessionStorage.getItem('username'));
+		socket.emit('join-chat', localStorage.getItem('username'));
 
 		// Subscribe to events
 		socket.on('chat-message', (data) => {
@@ -80,7 +77,7 @@ export default function Chat() {
 
 		return () => {
 			socket.offAny('chat-message');
-			socket.emit('leave-chat', sessionStorage.getItem('username'));
+			socket.emit('leave-chat', localStorage.getItem('username'));
 		};
 	}, [socket]);
 
@@ -88,7 +85,7 @@ export default function Chat() {
 		<div className='chat'>
 			<div
 				onClick={() => {
-					socket.emit('unmount', sessionStorage.getItem('username'));
+					socket.emit('leave-chat', localStorage.getItem('username'));
 				}}>
 				Close
 			</div>

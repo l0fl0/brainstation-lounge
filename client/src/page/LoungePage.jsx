@@ -33,8 +33,21 @@ export default function LoungePage() {
 	};
 
 	useEffect(() => {
-		socket.emit('join-lounge', sessionStorage.getItem('username') || null);
+		let token = localStorage.getItem('token');
+
+		if (!token) {
+			const username = prompt('What is your name?');
+			socket.emit('join-lounge', { username });
+		} else {
+			socket.emit('join-lounge', { token });
+		}
 	}, []);
+
+	useEffect(() => {
+		socket.on('joined', (token) => {
+			localStorage.setItem('token', token);
+		});
+	}, [socket]);
 
 	return (
 		<main className='parent-container'>
