@@ -1,17 +1,19 @@
-import { useState } from "react";
-import { items } from "../data/items";
-import { gifs } from "../data/gifs";
+import { useContext, useEffect, useState } from 'react';
+import { items } from '../data/items';
+import { gifs } from '../data/gifs';
 
-import "./LoungePage.scss";
-import HeaderFrame from "../Frames/Header/HeaderFrame";
-import InformationFrame from "../Frames/Information/InformationFrame";
-import MainFrame from "../Frames/Main/MainFrame";
-import SideFrame from "../Frames/Side/SideFrame";
-import UserFrame from "../Frames/User/UserFrame";
+import './LoungePage.scss';
+import HeaderFrame from '../Frames/Header/HeaderFrame';
+import InformationFrame from '../Frames/Information/InformationFrame';
+import MainFrame from '../Frames/Main/MainFrame';
+import SideFrame from '../Frames/Side/SideFrame';
+import UserFrame from '../Frames/User/UserFrame';
+import { SocketContext } from '../context/socket';
 
 export default function LoungePage() {
 	const [isShowItems, setShowItems] = useState({});
 	const [gifIndex, setGifIndex] = useState(0);
+	const socket = useContext(SocketContext);
 
 	const frames = {};
 	items.forEach((item) => {
@@ -30,21 +32,18 @@ export default function LoungePage() {
 		setShowItems(bools);
 	};
 
+	useEffect(() => {
+		socket.emit('join-lounge', sessionStorage.getItem('username') || null);
+	}, []);
+
 	return (
-		<main className="parent-container">
-			<img src={gifs[gifIndex]} alt="gifs" className="gifs" />
+		<main className='parent-container'>
+			<img src={gifs[gifIndex]} alt='gifs' className='gifs' />
 			<HeaderFrame gifIndex={gifIndex} toggleItems={toggleItems} />
-			<MainFrame isShowItems={isShowItems} frames={frames["Main"]} />
-			<SideFrame isShowItems={isShowItems} frames={frames["Side"]} />
-			<UserFrame
-				setGifIndex={setGifIndex}
-				isShowItems={isShowItems}
-				frames={frames["User"]}
-			/>
-			<InformationFrame
-				isShowItems={isShowItems}
-				frames={frames["Information"]}
-			/>
+			<MainFrame isShowItems={isShowItems} frames={frames['Main']} />
+			<SideFrame isShowItems={isShowItems} frames={frames['Side']} />
+			<UserFrame setGifIndex={setGifIndex} isShowItems={isShowItems} frames={frames['User']} />
+			<InformationFrame isShowItems={isShowItems} frames={frames['Information']} />
 			{/* <ModalFrame frames={frames['Modal']/> */}
 		</main>
 	);
