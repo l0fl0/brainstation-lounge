@@ -16,6 +16,7 @@
 		cursor: pointer;
 
 		&--done {
+			cursor: pointer;
 			text-shadow: none;
 			text-decoration: line-through;
 			color: $light-grey;
@@ -23,8 +24,16 @@
 	}
 
 	&__actions-container {
-		width: 0;
+		height: 0;
+		transition: height 2s;
 		display: none;
+
+		&--show {
+			height: auto;
+			display: flex;
+			flex-direction: column;
+			gap: 0.3rem;
+		}
 	}
 
 	&__action {

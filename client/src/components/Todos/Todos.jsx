@@ -1,14 +1,35 @@
+import { useState } from "react";
 import "./Todos.scss";
 import TodoTaskList from "./TodoTaskList/TodoTaskList";
 
 export default function Todos() {
+	const [isEditContainer, setIsEditContainer] = useState(false);
+	let [todos, setTodos] = useState([
+		{
+			id: 1,
+			text: "Talk to rep from BS to become a developer",
+			completed: false,
+		},
+		{
+			id: 0,
+			text: "Talk to rep from BS to become a developer",
+			completed: true,
+		},
+	]);
+
 	const newTask = (e) => {
 		e.preventDefault();
-		alert("new task", "Louis");
+		const task = {
+			id: 2,
+			text: "Test",
+			completed: false,
+		};
+		setTodos([task, ...todos]);
 	};
+
 	const editTasks = (e) => {
 		e.preventDefault();
-		alert("edit Tasks");
+		setIsEditContainer(!isEditContainer);
 	};
 	return (
 		<div className="todos">
@@ -23,7 +44,11 @@ export default function Todos() {
 					</button>
 				</div>
 			</header>
-			<TodoTaskList />
+			<TodoTaskList
+				todos={todos}
+				setTodos={setTodos}
+				isEditContainer={isEditContainer}
+			/>
 		</div>
 	);
 }
