@@ -4,7 +4,7 @@
 .todos {
 	text-align: right;
 	background-color: rgba(0, 0, 0, 0.2);
-	padding: 1rem;
+	padding: 1rem 1rem 0.5rem;
 	border-radius: $border-raduis;
 
 	&__header {
@@ -24,6 +24,15 @@
 	}
 
 	&__action {
-		padding: 0.1rem 0.3rem;
+		@include icon-button;
+		&:hover {
+			color: green;
+		}
+		&--active {
+			color: $error;
+			&:hover {
+				color: $error;
+			}
+		}
 	}
 }

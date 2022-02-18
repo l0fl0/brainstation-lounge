@@ -1,27 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./Todos.scss";
 import TodoTaskList from "./TodoTaskList/TodoTaskList";
 
 export default function Todos() {
+	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
-	let [todos, setTodos] = useState([
-		{
-			id: 1,
-			text: "Talk to rep from BS to become a developer",
-			completed: false,
-		},
-		{
-			id: 0,
-			text: "Talk to rep from BS to become a developer",
-			completed: true,
-		},
-	]);
 
 	const newTask = (e) => {
 		e.preventDefault();
 		const task = {
-			id: 2,
-			text: "Test",
+			id: uuidv4(),
+			text: prompt("Please enter task"),
 			completed: false,
 		};
 		setTodos([task, ...todos]);
@@ -29,18 +19,48 @@ export default function Todos() {
 
 	const editTasks = (e) => {
 		e.preventDefault();
+
 		setIsEditContainer(!isEditContainer);
 	};
+
+	useEffect(() => {
+		// set up localstorage
+		if (!localStorage.getItem("tasks")) {
+			localStorage.setItem("tasks", "[]");
+		}
+		setTodos(JSON.parse(localStorage.getItem("tasks")));
+
+		return () => {
+			setIsEditContainer(false);
+		};
+	}, []);
+
+	//To update storage (componentWillUpdate)
+	useEffect(() => {
+		localStorage.setItem("tasks", JSON.stringify(todos));
+	}, [todos]);
+
 	return (
 		<div className="todos">
 			<header className="todos__header">
 				<h1 className="todos__heading">Tasks</h1>
 				<div className="todos__actions">
+					{/* if no todos remove edit button */}
+					{todos.length < 1 ? null : (
+						<button
+							className={
+								isEditContainer
+									? "todos__action todos__action--active"
+									: "todos__action"
+							}
+							onClick={editTasks}
+						>
+							<i className="fa-solid fa-pen" title="edit tasks"></i>
+						</button>
+					)}
+
 					<button className="todos__action" onClick={newTask}>
 						<i className="fa-solid fa-plus" title="add tasks"></i>
-					</button>
-					<button className="todos__action" onClick={editTasks}>
-						<i className="fa-solid fa-pen" title="edit tasks"></i>
 					</button>
 				</div>
 			</header>

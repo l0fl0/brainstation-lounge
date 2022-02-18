@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import "./TodoTaskList.scss";
 
+// TODO: add modal popup for delete confirmation
+// TODO: add edit modal for new tasks
 export default function TodoTaskList({ todos, setTodos, isEditContainer }) {
 	const strikeTask = (id) => {
 		// change the strike then rerender
-		console.log("Selected id: ", id);
 		const task = todos.find((obj) => obj.id === id);
 		task.selected = !task.selected;
 
 		setTodos([...todos]);
+	};
+
+	const editTask = (id) => {
+		// change selected task with modal then rerender
+
+		setTodos([...todos]);
+	};
+
+	const deleteTask = (id) => {
+		// delete the task then rerender list
+		const filteredTasks = todos.filter((obj) => obj.id !== id);
+		setTodos([...filteredTasks]);
 	};
 
 	return (
@@ -31,8 +44,13 @@ export default function TodoTaskList({ todos, setTodos, isEditContainer }) {
 								: "task__actions-container"
 						}
 					>
-						<i className="fas fa-solid fa-pen task__action"></i>
-						<i className="far fa-trash-alt task__action"></i>
+						{/* <div onClick={() => editTask(task.id)}>
+							<i className="fas fa-solid fa-pen task__action"></i>
+						</div> */}
+
+						<div onClick={() => deleteTask(task.id)}>
+							<i className="far fa-trash-alt task__action"></i>
+						</div>
 					</div>
 				</li>
 			))}

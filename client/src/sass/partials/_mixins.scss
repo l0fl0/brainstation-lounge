@@ -11,7 +11,12 @@
 	font-size: 0.8rem;
 	margin: 0.4rem;
 	display: block;
+	cursor: pointer;
 }
 
-@mixin button {
+@mixin icon-button {
+	border-radius: $border-raduis;
+	padding: 0.1rem 0.3rem;
+	display: flex;
+	cursor: pointer;
 }
