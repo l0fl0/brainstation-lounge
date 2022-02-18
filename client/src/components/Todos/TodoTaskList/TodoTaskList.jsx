@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import "./TodoTaskList.scss";
 
 export default function TodoTaskList() {
-	const [todos, setTodos] = useState([
+	let [todos, setTodos] = useState([
 		{
 			id: 0,
-			text: "Talk to rep from BS to become a developer",
+			task: "Talk to rep from BS to become a developer",
 			selected: false,
 		},
 		{
 			id: 1,
-			text: "Talk to rep from BS to become a developer",
+			task: "Talk to rep from BS to become a developer",
 			selected: true,
 		},
 	]);
@@ -18,9 +18,6 @@ export default function TodoTaskList() {
 	const strikeTask = (id) => {
 		// strike the todo that is cheked
 		todos[id].selected = !todos[id].selected;
-		setTodos([, ...todos]);
-
-		console.log(todos);
 	};
 
 	return (
