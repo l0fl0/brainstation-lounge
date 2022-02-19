@@ -26,8 +26,9 @@
 	&__action {
 		@include icon-button;
 		&:hover {
-			color: green;
+			color: $success;
 		}
+
 		&--active {
 			color: $error;
 			&:hover {
