@@ -7,7 +7,7 @@ const JWT_Secret = process.env.JWT_SECRET;
 
 // send user list to socket user
 const sendUsers = (users, socket) => {
-	const userList = { ...users };
+	const userList = JSON.parse(JSON.stringify(users));
 	for (const key in userList) {
 		delete userList[key].token;
 	}
@@ -16,7 +16,7 @@ const sendUsers = (users, socket) => {
 
 // send user list to all other socket users
 const broadcastUsers = (users, socket) => {
-	const userList = { ...users };
+	const userList = JSON.parse(JSON.stringify(users));
 	for (const key in userList) {
 		delete userList[key].token;
 	}
@@ -24,15 +24,16 @@ const broadcastUsers = (users, socket) => {
 };
 
 // User joins Lounge
-const joinLoungeHandler = (res, users, socket) => {
+const joinLoungeHandler = (req, users, socket) => {
 	// add user to uses based on whether token exists or not
-	if (!res.token && res.username) {
-		let token = jwt.sign({ username: res.username }, JWT_Secret);
-		users[socket.id] = { username: res.username, token };
-		socket.emit('joined', token);
-	} else if (res.token && !res.username) {
-		const decoded = jwt.verify(res.token, JWT_Secret);
-		users[socket.id] = { username: decoded.username, token: res.token };
+	if (!req.token && req.username) {
+		let token = jwt.sign({ username: req.username }, JWT_Secret);
+		users[socket.id] = { username: req.username, id: uuidv4() };
+		socket.emit('joined', { token: token, username: req.username });
+	} else if (req.token && !req.username) {
+		const decoded = jwt.verify(req.token, JWT_Secret);
+		users[socket.id] = { username: decoded.username, id: decoded.id };
+		socket.emit('joined', { token: req.token, username: decoded.username });
 	}
 
 	// Broadcast Users
@@ -49,7 +50,7 @@ const joinChatHandler = (users, socket) => {
 	// Send message to Room
 	socket.broadcast.emit('chat-message', { key: uuidv4(), text: `${users[socket.id].username} has joined the chat`, type: 'server' });
 
-	console.log(users[socket.id], 'joined the chat');
+	console.log(users[socket.id].username, 'joined the chat');
 };
 
 // User sends a message
@@ -57,6 +58,19 @@ const messageHandler = (message, socket) => {
 	socket.broadcast.emit('chat-message', message);
 
 	console.log(message);
+};
+
+// User sends a DM
+
+const directMessageHandler = (message, users, socket) => {
+	// get sender id from JWT
+	const decoded = jwt.verify(message.token, JWT_Secret);
+	const senderID = decoded.id;
+
+	// get receiver id from message
+	const receiverID = message.id;
+	// get socket id from Users object based on receiver id
+	// send message directly to receiver based on socket id
 };
 
 // User leaves chat
@@ -68,7 +82,7 @@ const leaveChatHandler = (users, socket) => {
 
 // User leaves Lounge
 const disconnectHandler = (users, socket) => {
-	console.log(users[socket.id].username, 'left the site');
+	console.log(users[socket.id].username, 'left the lounge');
 
 	// delete user from object
 	delete users[socket.id];

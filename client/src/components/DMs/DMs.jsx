@@ -13,22 +13,22 @@ export default function DMs() {
 
 	useEffect(() => {
 		socket.on('send-users', (users) => {
-			console.log(users);
 			setUsers(users);
 		});
 		return socket.offAny('send-users');
 	}, [socket]);
 
 	const sendMessage = (userID) => {};
-	const buildUserDropDown = () => {
-		const userNames = Object.values(users);
-		const userIDs = Object.keys(users);
-		const userList = [];
 
-		for (let i = 0; i < userNames.length; i++) {
+	const buildUserDropDown = () => {
+		const userKeys = Object.keys(users);
+		const userList = [];
+		console.log(userKeys);
+
+		for (let i = 0; i < userKeys.length; i++) {
 			userList.push(
-				<option value={userIDs[i]} key={userIDs[i]}>
-					{userNames[i]}
+				<option value={userKeys[i]} key={userKeys[i]}>
+					{users[userKeys[i]].username}
 				</option>
 			);
 		}

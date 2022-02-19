@@ -44,8 +44,9 @@ export default function LoungePage() {
 	}, []);
 
 	useEffect(() => {
-		socket.on('joined', (token) => {
-			localStorage.setItem('token', token);
+		socket.on('joined', (res) => {
+			localStorage.setItem('token', res.token);
+			sessionStorage.setItem('username', res.username);
 		});
 	}, [socket]);
 

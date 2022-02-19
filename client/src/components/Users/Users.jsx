@@ -4,7 +4,6 @@ import { SocketContext } from '../../context/socket';
 export default function Users() {
 	const socket = useContext(SocketContext);
 	const [users, setUsers] = useState({});
-	console.log(Object.keys(socket));
 
 	useEffect(() => {
 		socket.emit('get-users');
@@ -13,18 +12,17 @@ export default function Users() {
 
 	useEffect(() => {
 		socket.on('send-users', (users) => {
-			console.log(users);
 			setUsers(users);
 		});
 		return socket.offAny('send-users');
 	}, [socket]);
 
 	const userListBuilder = () => {
-		const userNames = Object.values(users);
+		const userKeys = Object.keys(users);
 		const userList = [];
 
-		for (let i = 0; i < userNames.length; i++) {
-			userList.push(<p key={i}>{userNames[i]}</p>);
+		for (let i = 0; i < userKeys.length; i++) {
+			userList.push(<p key={i}>{users[userKeys[i]].username}</p>);
 		}
 		return userList;
 	};

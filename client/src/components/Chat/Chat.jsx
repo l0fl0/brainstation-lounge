@@ -76,7 +76,7 @@ export default function Chat() {
 		});
 
 		return () => {
-			socket.offAny('chat-message');
+			socket.off('chat-message');
 			socket.emit('leave-chat', localStorage.getItem('username'));
 		};
 	}, [socket]);
