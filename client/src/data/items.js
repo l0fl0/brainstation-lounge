@@ -3,7 +3,7 @@ import Notes from '../components/Notes/Notes';
 import Radio from '../components/Radio/Radio';
 import Settings from '../components/Settings/Settings';
 import Stack from '../components/Stack/Stack';
-import Tasks from '../components/Tasks/Tasks';
+import Todos from '../components/Todos/Todos';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
 
@@ -54,11 +54,11 @@ export const items = [
 		frame: 'Side',
 	},
 	{
-		name: 'tasks',
-		title: 'Tasks',
+		name: 'todos',
+		title: 'Todos',
 		iconClass: 'fas fa-tasks user__icon',
 		component: function render(props) {
-			return <Tasks {...props} />;
+			return <Todos {...props} />;
 		},
 		frame: 'Side',
 	},
