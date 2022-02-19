@@ -3,14 +3,14 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: inherit;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: inherit;
 }
 
 body {
-  background-color: variables.$black;
-  color: variables.$white;
-  font-family: monospace;
+	background-color: variables.$black;
+	color: variables.$white;
+	font-family: "Courier New", Courier, monospace;
 }

@@ -77,27 +77,21 @@ export default function Chat() {
 
 		return () => {
 			socket.off('chat-message');
-			socket.emit('leave-chat', localStorage.getItem('username'));
+			socket.emit('leave-chat', sessionStorage.getItem('username'));
 		};
 	}, [socket]);
 
 	return (
 		<div className='chat'>
-			<div
-				onClick={() => {
-					socket.emit('leave-chat', localStorage.getItem('username'));
-				}}>
-				Close
-			</div>
 			<div className='chat__text'>
 				{msgs.map((message) => (
 					<Message key={message.key} message={message} isSelf={message.currentUser} />
 				))}
 			</div>
 			<div className='chat__input'>
-				<i className='fas fa-user' />
+				<i className='fa-solid fa-chevron-right' />
 				<form onSubmit={messageHandler} className='chat__form' autoComplete='off'>
-					<input onChange={onChangeHandler} name='chatText' id='chatText' className='chat__input-field' type='text' />
+					<input onChange={onChangeHandler} name='chatText' id='chatText' className='chat__input-field' type='text' autoFocus />
 					<button type='submit' className='button button-chat'>
 						send
 					</button>

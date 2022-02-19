@@ -1,9 +1,9 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
 
 .UserFrame {
 	// Style
 	background-color: rgba($color: yellow, $alpha: 0.25);
-	border: 2px dashed black;
+	border: $frame-border;
 
 	// Position
 	position: fixed;

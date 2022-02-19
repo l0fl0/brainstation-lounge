@@ -17,6 +17,7 @@ const io = require('socket.io')(server, {
 	cors: { origin: process.env.DOMAIN },
 });
 
+
 // Logger for development using cross-env to track the node environment
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
