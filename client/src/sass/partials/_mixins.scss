@@ -8,10 +8,15 @@
 
 @mixin icon {
 	text-shadow: $text-shadow-white;
-	font-size: 0.8rem;
-	margin: 0.4rem;
+	font-size: 1rem;
+	margin: 0.4rem 0.5rem;
 	display: block;
+	position: relative;
 	cursor: pointer;
+	&:hover {
+		text-shadow: $text-shadow-green;
+		color: $success;
+	}
 }
 
 @mixin icon-button {
