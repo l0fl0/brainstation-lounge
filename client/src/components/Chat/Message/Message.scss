@@ -2,44 +2,50 @@
 @use "../../../sass/partials/animations" as *;
 
 .message {
-	width: 66%;
+	position: relative;
+	max-width: 66%;
+	width: auto;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	margin-bottom: 0.5rem;
+	align-self: flex-start;
+	margin-bottom: 0.7rem;
+	background-color: $black;
+	border-radius: $border-raduis;
+	padding: 0.25rem 0.4rem;
 
 	&--self {
-		align-items: flex-end;
+		background-color: forestgreen;
 		align-self: flex-end;
 	}
 
-	&__time {
-		margin-top: 0.25rem;
-		text-align: right;
-	}
-
 	&__user {
+		color: $success;
+		align-self: flex-start;
 		font-size: 0.825rem;
-		background-color: #333;
-		padding: 0.25rem;
-		border-radius: 3px;
-		margin-bottom: 0.3333rem;
+		border-radius: $border-raduis;
 	}
 
 	&__text {
 		font-size: 1rem;
-		background-color: #fff;
-		color: #333;
-		padding: 0.25rem;
-		border-radius: 3px;
+		display: flex;
+	}
+
+	&__time {
+		font-size: 0.65rem;
+		color: $white;
+		text-shadow: none;
+		background-color: transparent;
+		padding-left: 1rem;
+		align-self: flex-end;
+		margin-bottom: -0.2rem;
+		margin-right: -0.1rem;
 	}
 
 	&__announcement {
-		font-size: 0.8rem;
-		text-shadow: $text-shadow-white;
-		color: $white;
+		background-color: transparent;
+		font-size: 1.05rem;
+		color: $success;
 		font-style: italic;
-		padding: 0.25rem;
-		border-radius: 3px;
+		margin-bottom: 0.7rem;
 	}
 }
