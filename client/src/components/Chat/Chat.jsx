@@ -120,7 +120,7 @@ export default function Chat() {
 						autoFocus
 					/>
 					<button type="submit" className="button button-chat">
-						send
+						return
 					</button>
 				</form>
 			</div>

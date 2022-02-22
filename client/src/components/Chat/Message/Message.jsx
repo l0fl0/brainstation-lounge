@@ -9,7 +9,7 @@ export default function Message({ message, isSelf }) {
 
 	if (isSelf) {
 		return (
-			<div className="message message--self">
+			<div className="message__self">
 				<p className="message__text">
 					{text}
 					<span className="message__time">{timestamp}</span>

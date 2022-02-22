@@ -1,4 +1,5 @@
 @use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
 
 .chat {
 	height: 100%;
@@ -61,10 +62,5 @@
 }
 
 .button-chat {
-	margin: 0 0 0 0.5rem;
-	background-color: #555;
-
-	&:hover {
-		background-color: rgb(19, 107, 24);
-	}
+	@include button;
 }
