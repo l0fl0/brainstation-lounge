@@ -6,16 +6,17 @@
 	}
 }
 
+// TODO Add function for icon to pass color for shadow effects corisponding to color;
 @mixin icon {
-	text-shadow: $text-shadow-white;
+	filter: drop-shadow(0px 0px 3px $white);
 	font-size: 1rem;
-	margin: 0.4rem 0.5rem;
 	display: block;
 	position: relative;
+	margin: 0.2rem 0;
 	cursor: pointer;
+
 	&:hover {
-		text-shadow: $text-shadow-green;
-		color: $success;
+		filter: drop-shadow(0px 0px 3px $success);
 	}
 }
 
@@ -24,4 +25,26 @@
 	padding: 0.1rem 0.3rem;
 	display: flex;
 	cursor: pointer;
+
+	&:hover {
+		color: $success;
+		filter: drop-shadow(0px 0px 5px $success);
+	}
+}
+
+@mixin button {
+	margin-right: 0.5rem;
+	padding: 0 0.5rem;
+	width: 6.5rem;
+	height: 2rem;
+	border-radius: 3px;
+	font-size: 1.1rem;
+	font-weight: bold;
+	cursor: pointer;
+
+	&:hover {
+		color: $success;
+		font-weight: normal;
+		filter: drop-shadow(0px 0px 5px $success);
+	}
 }
