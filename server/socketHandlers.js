@@ -27,13 +27,15 @@ const broadcastUsers = (users, socket) => {
 const joinLoungeHandler = (req, users, socket) => {
 	// add user to uses based on whether token exists or not
 	if (!req.token && req.username) {
-		let token = jwt.sign({ username: req.username }, JWT_Secret);
-		users[socket.id] = { username: req.username, id: uuidv4() };
-		socket.emit('joined', { token: token, username: req.username });
+		let id = uuidv4();
+		console.log(id);
+		let token = jwt.sign({ username: req.username, id }, JWT_Secret);
+		users[socket.id] = { username: req.username, id };
+		socket.emit('joined', { token: token, username: req.username, id });
 	} else if (req.token && !req.username) {
 		const decoded = jwt.verify(req.token, JWT_Secret);
 		users[socket.id] = { username: decoded.username, id: decoded.id };
-		socket.emit('joined', { token: req.token, username: decoded.username });
+		socket.emit('joined', { token: req.token, username: decoded.username, id: decoded.id });
 	}
 
 	// Broadcast Users
@@ -65,12 +67,27 @@ const messageHandler = (message, socket) => {
 const directMessageHandler = (message, users, socket) => {
 	// get sender id from JWT
 	const decoded = jwt.verify(message.token, JWT_Secret);
-	const senderID = decoded.id;
 
-	// get receiver id from message
+	const senderID = decoded.id;
+	const senderName = decoded.username;
 	const receiverID = message.id;
+
 	// get socket id from Users object based on receiver id
+
+	let socketID;
+	for (let key in users) {
+		if (users[key].id === receiverID) {
+			socketID = key;
+		}
+	}
+	const dm = {
+		name: senderName,
+		id: senderID,
+		body: message.body,
+	};
+
 	// send message directly to receiver based on socket id
+	socket.to(socketID).emit('receive-dm', dm);
 };
 
 // User leaves chat
@@ -98,4 +115,5 @@ module.exports = {
 	disconnectHandler,
 	sendUsers,
 	joinLoungeHandler,
+	directMessageHandler,
 };

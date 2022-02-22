@@ -47,6 +47,7 @@ export default function LoungePage() {
 		socket.on('joined', (res) => {
 			localStorage.setItem('token', res.token);
 			sessionStorage.setItem('username', res.username);
+			sessionStorage.setItem('id', res.id);
 		});
 	}, [socket]);
 

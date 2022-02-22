@@ -3,7 +3,7 @@ const http = require('http');
 const dotenv = require('dotenv');
 
 const morgan = require('morgan');
-const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler } = require('./socketHandlers');
+const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler, directMessageHandler } = require('./socketHandlers');
 
 // config
 dotenv.config();
@@ -16,7 +16,6 @@ const server = http.createServer(app);
 const io = require('socket.io')(server, {
 	cors: { origin: process.env.DOMAIN },
 });
-
 
 // Logger for development using cross-env to track the node environment
 if (process.env.NODE_ENV === 'development') {
@@ -39,6 +38,9 @@ io.on('connection', (socket) => {
 
 	// Joining Chat
 	socket.on('join-chat', () => joinChatHandler(users, socket));
+
+	// Handling DMs
+	socket.on('send-dm', (message) => directMessageHandler(message, users, socket));
 
 	// Receiving User List
 	socket.on('get-users', () => sendUsers(users, socket));

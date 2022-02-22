@@ -1,0 +1,54 @@
+@use '../../sass/partials/variables' as *;
+.DMs {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	&__Messages {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 0.25rem;
+		overflow-y: scroll;
+		//firefox
+		scrollbar-width: none;
+		// Edge
+		-ms-overflow-style: none;
+		//chrome, safari, oprea
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	&__Message {
+		width: 90%;
+		padding: 0.25rem;
+		border-radius: 5px;
+		background: rgba($color: white, $alpha: 0.3);
+
+		&--self {
+			background: rgba($color: red, $alpha: 0.2);
+			text-align: right;
+			align-self: flex-end;
+		}
+	}
+
+	&__Form {
+		margin-top: 0.25rem;
+		display: flex;
+	}
+
+	&__Input {
+		background: rgba($color: white, $alpha: 0.3);
+		font-size: 1.2rem;
+		width: 6.5rem;
+		height: 2rem;
+		border: none;
+		border-radius: 3px;
+		color: $white;
+
+		&:focus,
+		&:focus-visible {
+			outline: none;
+		}
+		flex-grow: 1;
+	}
+}

@@ -7,14 +7,15 @@ export default function Users() {
 
 	useEffect(() => {
 		socket.emit('get-users');
-		return socket.offAny('get-users');
 	}, []);
 
 	useEffect(() => {
 		socket.on('send-users', (users) => {
 			setUsers(users);
 		});
-		return socket.offAny('send-users');
+		return () => {
+			socket.off('send-users');
+		};
 	}, [socket]);
 
 	const userListBuilder = () => {
