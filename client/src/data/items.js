@@ -3,7 +3,7 @@ import Notes from '../components/Notes/Notes';
 import Radio from '../components/Radio/Radio';
 import Settings from '../components/Settings/Settings';
 import Stack from '../components/Stack/Stack';
-import Todos from '../components/Todos/Todos';
+import ToDos from '../components/ToDos/ToDos';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
 
@@ -11,7 +11,7 @@ export const items = [
 	{
 		name: 'chat',
 		title: 'Chat',
-		iconClass: 'fas fa-comment-dots user__icon',
+		iconClass: 'fa-solid fa-comment-dots user__icon',
 		component: function render(props) {
 			return <Chat {...props} />;
 		},
@@ -20,7 +20,7 @@ export const items = [
 	{
 		name: 'stack',
 		title: 'Stack Overflow',
-		iconClass: 'fas fa-question user__icon',
+		iconClass: 'fa-solid fa-question user__icon',
 		component: function render(props) {
 			return <Stack {...props} />;
 		},
@@ -29,7 +29,7 @@ export const items = [
 	{
 		name: 'radio',
 		title: 'Radio',
-		iconClass: 'fas fa-broadcast-tower user__icon',
+		iconClass: 'fa-solid fa-broadcast-tower user__icon',
 		component: function render(props) {
 			return <Radio {...props} />;
 		},
@@ -38,7 +38,7 @@ export const items = [
 	{
 		name: 'notes',
 		title: 'Notes',
-		iconClass: 'far fa-sticky-note user__icon',
+		iconClass: 'fa-solid fa-sticky-note user__icon',
 		component: function render(props) {
 			return <Notes {...props} />;
 		},
@@ -47,7 +47,7 @@ export const items = [
 	{
 		name: 'timer',
 		title: 'Timer',
-		iconClass: 'far fa-clock user__icon',
+		iconClass: 'fa-solid fa-clock user__icon',
 		component: function render(props) {
 			return <Timer {...props} />;
 		},
@@ -55,17 +55,17 @@ export const items = [
 	},
 	{
 		name: 'todos',
-		title: 'Todos',
-		iconClass: 'fas fa-tasks user__icon',
+		title: 'Task\'s',
+		iconClass: 'fa-solid fa-tasks user__icon',
 		component: function render(props) {
-			return <Todos {...props} />;
+			return <ToDos {...props} />;
 		},
 		frame: 'Side',
 	},
 	{
 		name: 'settings',
 		title: 'Settings',
-		iconClass: 'fas fa-user-cog user__icon',
+		iconClass: 'fa-solid fa-user-cog user__icon',
 		component: function render(props) {
 			return <Settings {...props} />;
 		},
@@ -74,7 +74,7 @@ export const items = [
 	{
 		name: 'users',
 		title: 'Users',
-		iconClass: 'fas fa-users user__icon',
+		iconClass: 'fa-solid fa-users user__icon',
 		component: function render(props) {
 			return <Users {...props} />;
 		},

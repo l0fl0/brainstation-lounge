@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import "./Todos.scss";
-import TodoTaskList from "./TodoTaskList/TodoTaskList";
+import "./ToDos.scss";
+import ToDoList from "./ToDoList/ToDoList";
 
-export default function Todos() {
+export default function ToDos() {
 	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
 
@@ -64,7 +64,7 @@ export default function Todos() {
 					</button>
 				</div>
 			</header>
-			<TodoTaskList
+			<ToDoList
 				todos={todos}
 				setTodos={setTodos}
 				isEditContainer={isEditContainer}
