@@ -23,7 +23,7 @@ export default function UserNav(props) {
 							toggleItems(item.name, item.frame);
 						}}
 						onMouseEnter={() => toggleTitle(item.name, true)}
-						onMouseLeave={() => toggleTitle(item.name, false)}
+						onMouseLeave={() => setShowTitles({})}
 					>
 						<i className={item.iconClass} />
 						{isShowTitles[item.name] ? (

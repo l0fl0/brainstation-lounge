@@ -1,16 +1,13 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
 
 .user {
 	&__navigation {
 		display: flex;
-		text-shadow: $text-shadow-white;
 	}
 
 	&__icon-container {
-		position: relative;
-		padding: 0.3rem;
-		margin-right: 0.5rem;
-		cursor: pointer;
+		@include icon;
 	}
 
 	&__icon-title {
