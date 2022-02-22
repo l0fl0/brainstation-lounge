@@ -1,8 +1,9 @@
 @use "../../sass/partials/variables" as *;
+@use "../../sass/partials/functions" as *;
 
 .MainFrame {
 	// Style
-	background-color: rgba($color: grey, $alpha: 0.55);
+	background-color: frameColor(main);
 	border: $frame-border;
 
 	// Position
