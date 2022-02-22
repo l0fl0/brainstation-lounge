@@ -8,6 +8,7 @@ export default function ToDos() {
 	const [isEditContainer, setIsEditContainer] = useState(false);
 
 	const newTask = (e) => {
+		setIsEditContainer(false);
 		e.preventDefault();
 		const task = {
 			id: uuidv4(),
@@ -19,7 +20,6 @@ export default function ToDos() {
 
 	const editTasks = (e) => {
 		e.preventDefault();
-
 		setIsEditContainer(!isEditContainer);
 	};
 
