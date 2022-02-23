@@ -1,5 +1,4 @@
 @use "../../../sass/partials/variables" as *;
-@use "../../../sass/partials/animations" as *;
 
 .message {
 	position: relative;
@@ -49,6 +48,7 @@
 
 	&__announcement {
 		background-color: transparent;
+		text-shadow: $text-shadow-dark;
 		font-size: 1.05rem;
 		color: $success;
 		font-style: italic;
