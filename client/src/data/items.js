@@ -6,6 +6,7 @@ import Stack from '../components/Stack/Stack';
 import ToDos from '../components/ToDos/ToDos';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
+import ModalTemplate from "../components/ModalTemplate/ModalTemplate";
 
 export const items = [
 	{
@@ -79,5 +80,14 @@ export const items = [
 			return <Users {...props} />;
 		},
 		frame: 'Side',
+	},
+	{
+		name: 'addedittask',
+		title: 'AddEditTask',
+		iconClass: 'fa-solid fa-medal user__icon',
+		component: function render(props) {
+			return <ModalTemplate {...props} />;
+		},
+		frame: 'Modal',
 	},
 ];
