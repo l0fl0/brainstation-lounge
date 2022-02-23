@@ -42,5 +42,10 @@ $frame-colors: (
 			$color: transparent,
 			$alpha: 0.25,
 		),
+	modal:
+		rgba(
+			$color: $white,
+			$alpha: 0.25,
+		),
 	default: transparent,
 );
