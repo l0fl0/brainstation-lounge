@@ -5,47 +5,22 @@ $black: #181a18; // Black
 $light-grey: #c4c3c3; // grey
 $success: #14b914; //green
 $error: #cc0000; // error
-
+$alpha: 0;
 // Shadows
-$text-shadow-white: 0 0 10px $white, 0 0 20px $black;
-$text-shadow-dark: 0 0 5px $black, 0 0 70px $white;
+$text-shadow-white: 0 0 10px $white, 0 0 10px $black;
+$text-shadow-dark: 0 0 10px $black, 0 0 10px $white;
 $text-shadow-green: 0 0 10px $success, 0 0 10px lime;
 
 // Borders
 $border-raduis: 0.25rem;
 $frame-border: none;
 
-// Map
+// Maps
 $frame-colors: (
-	header:
-		rgba(
-			$color: transparent,
-			$alpha: 0.25,
-		),
-	main:
-		rgba(
-			$color: transparent,
-			$alpha: 0.25,
-		),
-	aside:
-		rgba(
-			$color: transparent,
-			$alpha: 0.25,
-		),
-	information:
-		rgba(
-			$color: transparent,
-			$alpha: 0.25,
-		),
-	user:
-		rgba(
-			$color: transparent,
-			$alpha: 0.25,
-		),
-	modal:
-		rgba(
-			$color: $white,
-			$alpha: 0.25,
-		),
-	default: transparent,
+	header: rgba(transparent, $alpha),
+	main: rgba(transparent, $alpha),
+	aside: rgba(transparent, $alpha),
+	information: rgba(transparent, $alpha),
+	user: rgba(transparent, $alpha),
+	modal: rgba($white, 0.25),
 );
