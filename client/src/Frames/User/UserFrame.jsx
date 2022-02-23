@@ -1,7 +1,7 @@
 import './UserFrame.scss';
 
 export default function UserFrame({ frames, isShowItems, setGifIndex }) {
-	let frameItem = null;
+	const frameItems = [];
 
 	const propSettings = {
 		settings: { setGifIndex },
@@ -9,9 +9,11 @@ export default function UserFrame({ frames, isShowItems, setGifIndex }) {
 
 	for (let bool in isShowItems) {
 		if (!frames[bool]) continue;
+		let className = 'UserFrame__Container';
 		if (isShowItems[bool]) {
-			frameItem = frames[bool].component(propSettings[bool]);
+			className += ' UserFrame__Container--Show';
 		}
+		frameItems.push(<div className={className}>{frames[bool].component(propSettings[bool])}</div>);
 	}
-	return <div className='UserFrame'>{frameItem}</div>;
+	return <div className='UserFrame'>{frameItems}</div>;
 }

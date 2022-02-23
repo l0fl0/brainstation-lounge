@@ -1,4 +1,4 @@
-@use "../../sass/partials/variables" as *;
+@use '../../sass/partials/variables' as *;
 
 .UserFrame {
 	// Style
@@ -17,4 +17,21 @@
 
 	// Children
 	padding: 1rem;
+
+	&__Container {
+		// Style
+		opacity: 0;
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+
+		// Size
+		height: calc(100% - 2rem);
+		width: calc(100% - 2rem);
+
+		&--Show {
+			// Style
+			opacity: 1;
+		}
+	}
 }
