@@ -7,13 +7,17 @@ export default function UserFrame({ frames, isShowItems, setGifIndex }) {
 		settings: { setGifIndex },
 	};
 
-	for (let bool in isShowItems) {
-		if (!frames[bool]) continue;
+	for (let app in isShowItems) {
+		if (!frames[app]) continue;
 		let className = 'UserFrame__Container';
-		if (isShowItems[bool]) {
+		if (isShowItems[app]) {
 			className += ' UserFrame__Container--Show';
 		}
-		frameItems.push(<div className={className}>{frames[bool].component(propSettings[bool])}</div>);
+		frameItems.push(
+			<div key={app} className={className}>
+				{frames[app].component(propSettings[app])}
+			</div>
+		);
 	}
 	return <div className='UserFrame'>{frameItems}</div>;
 }

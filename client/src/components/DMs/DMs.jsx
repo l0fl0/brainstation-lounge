@@ -3,8 +3,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { SocketContext } from '../../context/socket';
 
 /*  TODOs
-1. DMs still received when Online but DMs are closed.
-2. Offline DMs but can't send messages.
+1. DONE - DMs still received when Online but DMs are closed.
+2. DONE - Offline DMs but can't send messages.
 3. Offline DMs but can send messages.
 4. Notifications in Banner.
 */
@@ -64,7 +64,7 @@ export default function DMs() {
 		event.preventDefault();
 
 		const token = localStorage.getItem('token');
-		if (!token || !currentDM || !currentUser) return;
+		if (!token || !currentDM || !currentUser || !isOnline(currentUser)) return;
 
 		const userValues = Object.values(users);
 		const user = userValues.find((user) => user.id === currentUser);
@@ -83,6 +83,12 @@ export default function DMs() {
 	const onChangeHandler = (event) => {
 		const msg = event.target.value;
 		setCurrentDM(msg);
+	};
+
+	const isOnline = (user) => {
+		const userValues = Object.values(users);
+		const userIDs = userValues.map((user) => user.id);
+		return userIDs.includes(user);
 	};
 
 	const buildUserList = () => {
@@ -108,7 +114,7 @@ export default function DMs() {
 			if (userIDs[userID]) continue;
 
 			userList.push(
-				<div className='DMs__User DMs__User--online' onClick={() => selectUser(userID)} key={userID}>
+				<div className='DMs__User' onClick={() => selectUser(userID)} key={userID}>
 					{username}
 				</div>
 			);
@@ -140,7 +146,7 @@ export default function DMs() {
 				<form className='DMs__Form' onSubmit={sendMessage}>
 					<input className='DMs__Input' value={currentDM} onChange={onChangeHandler} type='text' />
 					<button className='DMs__Submit' type='submit'>
-						Send
+						{isOnline(currentUser) ? 'Send' : 'Offline'}
 					</button>
 				</form>
 			)}
