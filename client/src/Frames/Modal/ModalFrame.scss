@@ -23,13 +23,14 @@
 		margin: auto;
 		border: 1px solid $black;
 		border-radius: $border-raduis;
-		padding: 2rem 1rem;
+		padding: 1.5rem 1rem 1rem;
+		background: $light-grey;
 	}
 
 	&__close {
 		position: absolute;
-		top: 0;
-		right: 0;
+		top: 0.3rem;
+		right: 0.3rem;
 		@include icon-button;
 	}
 }
