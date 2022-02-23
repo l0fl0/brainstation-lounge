@@ -2,30 +2,57 @@ import './DMs.scss';
 import React, { useContext, useState, useEffect } from 'react';
 import { SocketContext } from '../../context/socket';
 
+/*  TODOs
+1. DMs still received when Online but DMs are closed.
+2. Offline DMs but can't send messages.
+3. Offline DMs but can send messages.
+4. Notifications in Banner.
+*/
+
 export default function DMs() {
 	const socket = useContext(SocketContext);
 	const [users, setUsers] = useState([]);
 	const [currentUser, setCurrentUser] = useState('');
 	const [currentDM, setCurrentDM] = useState('');
-	const [me, setMe] = useState('');
-	const [alert, setAlert] = useState(false);
+	const [me, setMe] = useState({});
 	const [dms, setDMs] = useState({});
+
+	const messageHandler = (userID, senderID, username, senderName, messageBody) => {
+		const newDM = {
+			senderName,
+			senderID,
+			body: messageBody,
+		};
+
+		setDMs((prevDMs) => {
+			const newDMs = JSON.parse(JSON.stringify(prevDMs));
+
+			console.table(newDMs);
+			if (!newDMs[userID]) newDMs[userID] = { username, messages: [] };
+			const msgArr = newDMs[userID].messages;
+
+			newDMs[userID].messages = [newDM, ...msgArr];
+
+			localStorage.setItem('dms', JSON.stringify(newDMs));
+			return newDMs;
+		});
+	};
 
 	useEffect(() => {
 		socket.emit('get-users');
 		const storedDMs = JSON.parse(localStorage.getItem('dms')) || {};
-		const me = sessionStorage.getItem('id');
+		const me = { id: sessionStorage.getItem('id'), name: sessionStorage.getItem('username') };
 		setMe(me);
 		setDMs(storedDMs);
-	}, [socket]);
+	}, []);
 
 	useEffect(() => {
 		socket.on('send-users', (users) => {
 			setUsers(users);
 		});
 		socket.on('receive-dm', (msg) => {
-			alertHandler(msg);
-			messageHandler(msg.id, msg.id, msg.body);
+			console.log(msg);
+			messageHandler(msg.id, msg.id, msg.name, msg.name, msg.body);
 		});
 		return () => {
 			socket.off('receive-dm');
@@ -33,39 +60,24 @@ export default function DMs() {
 		};
 	}, [socket]);
 
-	const alertHandler = (msg) => {
-		setAlert(`${msg.name} says: ${msg.body}`);
-		setTimeout(() => {
-			setAlert('');
-		}, 1000);
-	};
-
-	const messageHandler = (userID, senderID, messageBody) => {
-		setDMs((prevDMs) => {
-			const newDMs = { ...prevDMs };
-			const msgArr = newDMs[userID] || [];
-			const newDM = { id: senderID, body: messageBody };
-			newDMs[userID] = [newDM, ...msgArr];
-			localStorage.setItem('dms', JSON.stringify(newDMs));
-			return newDMs;
-		});
-	};
-
 	const sendMessage = (event) => {
 		event.preventDefault();
 
 		const token = localStorage.getItem('token');
 		if (!token || !currentDM || !currentUser) return;
 
-		messageHandler(currentUser, me, currentDM);
+		const userValues = Object.values(users);
+		const user = userValues.find((user) => user.id === currentUser);
+		console.log(user.username, user.id, currentUser);
+
+		messageHandler(currentUser, me.id, user.username, me.name, currentDM);
 
 		socket.emit('send-dm', { token, body: currentDM, id: currentUser });
 		setCurrentDM('');
 	};
 
-	const selectUser = (event) => {
-		const userID = event.target.value;
-		setCurrentUser(userID);
+	const selectUser = (user) => {
+		setCurrentUser(user);
 	};
 
 	const onChangeHandler = (event) => {
@@ -73,31 +85,44 @@ export default function DMs() {
 		setCurrentDM(msg);
 	};
 
-	const buildUserDropDown = () => {
-		const userKeys = Object.keys(users);
+	const buildUserList = () => {
+		const dmKeys = Object.keys(dms);
+		const userValues = Object.values(users);
 		const userList = [];
-
-		userList.push(
-			<option key={420420} value={''}>
-				Select a User:
-			</option>
-		);
-		for (let i = 0; i < userKeys.length; i++) {
+		const userIDs = {};
+		for (let i = 0; i < userValues.length; i++) {
+			const { id, username } = userValues[i];
+			if (id === me.id) continue;
+			userIDs[id] = id;
 			userList.push(
-				<option value={users[userKeys[i]].id} key={userKeys[i]}>
-					{users[userKeys[i]].username}
-				</option>
+				<div className='DMs__User DMs__User--online' onClick={() => selectUser(id)} key={id}>
+					{username}
+				</div>
 			);
 		}
+
+		for (let i = 0; i < dmKeys.length; i++) {
+			const userID = dmKeys[i];
+			const { username } = dms[userID];
+
+			if (userIDs[userID]) continue;
+
+			userList.push(
+				<div className='DMs__User DMs__User--online' onClick={() => selectUser(userID)} key={userID}>
+					{username}
+				</div>
+			);
+		}
+
 		return userList;
 	};
 
 	const messageBuilder = () => {
-		const msgArr = dms[currentUser] || [];
+		const msgArr = dms[currentUser]?.messages || [];
 		const msgList = [];
 		for (let i = 0; i < msgArr.length; i++) {
 			let className = 'DMs__Message ';
-			if (msgArr[i].id === me) className += 'DMs__Message--self';
+			if (msgArr[i].senderID === me.id) className += 'DMs__Message--self';
 			msgList.push(
 				<div key={i} className={className}>
 					{msgArr[i].body}
@@ -109,9 +134,7 @@ export default function DMs() {
 
 	return (
 		<div className='DMs'>
-			<select onChange={selectUser} className='DMs__Select-User'>
-				{buildUserDropDown()}
-			</select>
+			<div className='DMs__User-List'>{buildUserList()}</div>
 			<div className='DMs__Messages'>{messageBuilder()}</div>
 			{currentUser && (
 				<form className='DMs__Form' onSubmit={sendMessage}>

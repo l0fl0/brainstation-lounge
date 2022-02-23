@@ -7,20 +7,12 @@ const JWT_Secret = process.env.JWT_SECRET;
 
 // send user list to socket user
 const sendUsers = (users, socket) => {
-	const userList = JSON.parse(JSON.stringify(users));
-	for (const key in userList) {
-		delete userList[key].token;
-	}
-	socket.emit('send-users', userList);
+	socket.emit('send-users', users);
 };
 
 // send user list to all other socket users
 const broadcastUsers = (users, socket) => {
-	const userList = JSON.parse(JSON.stringify(users));
-	for (const key in userList) {
-		delete userList[key].token;
-	}
-	socket.broadcast.emit('send-users', userList);
+	socket.broadcast.emit('send-users', users);
 };
 
 // User joins Lounge
@@ -33,9 +25,9 @@ const joinLoungeHandler = (req, users, socket) => {
 		users[socket.id] = { username: req.username, id };
 		socket.emit('joined', { token: token, username: req.username, id });
 	} else if (req.token && !req.username) {
-		const decoded = jwt.verify(req.token, JWT_Secret);
-		users[socket.id] = { username: decoded.username, id: decoded.id };
-		socket.emit('joined', { token: req.token, username: decoded.username, id: decoded.id });
+		const { username, id } = jwt.verify(req.token, JWT_Secret);
+		users[socket.id] = { username, id };
+		socket.emit('joined', { token: req.token, username, id });
 	}
 
 	// Broadcast Users
