@@ -2,7 +2,7 @@ import "./ToolBar.scss";
 import { useState } from "react";
 import { items } from "../../data/items";
 
-export default function UserNav(props) {
+export default function ToolBar(props) {
 	const { toggleItems } = props;
 	const [isShowTitles, setShowTitles] = useState({});
 
