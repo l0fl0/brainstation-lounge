@@ -20,11 +20,12 @@
 	// Children
 	&__modal {
 		position: relative;
+		width: 30%;
 		margin: auto;
 		border: 1px solid $black;
 		border-radius: $border-raduis;
 		padding: 1.5rem 1rem 1rem;
-		background: $light-grey;
+		background: $app-background-dark;
 	}
 
 	&__close {

@@ -6,6 +6,8 @@ $light-grey: #c4c3c3; // grey
 $success: #14b914; //green
 $error: #cc0000; // error
 $alpha: 0;
+$app-background-dark: rgba($black, 0.55);
+
 // Shadows
 $text-shadow-white: 0 0 10px $white, 0 0 10px $black;
 $text-shadow-dark: 0 0 10px $black, 0 0 10px $white;
@@ -22,5 +24,5 @@ $frame-colors: (
 	aside: rgba(transparent, $alpha),
 	information: rgba(transparent, $alpha),
 	user: rgba(transparent, $alpha),
-	modal: rgba($white, 0.25),
+	modal: rgba($light-grey, 0.25),
 );
