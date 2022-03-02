@@ -3,16 +3,17 @@ import { v4 as uuidv4 } from "uuid";
 import "./ToDos.scss";
 import ToDoList from "./ToDoList/ToDoList";
 
-export default function ToDos() {
+export default function ToDos({ toggleItem }) {
 	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
+	const [showform, setShowform] = useState(false);
 
 	const newTask = (e) => {
-		setIsEditContainer(false);
 		e.preventDefault();
+		setIsEditContainer(false);
 		const task = {
 			id: uuidv4(),
-			text: prompt("Please enter task"),
+			text: createNewTask(),
 			completed: false,
 		};
 		setTodos([task, ...todos]);
@@ -21,6 +22,11 @@ export default function ToDos() {
 	const editTasks = (e) => {
 		e.preventDefault();
 		setIsEditContainer(!isEditContainer);
+	};
+
+	const createNewTask = (taskText) => {
+		toggleItems("addedittask", "Modal");
+		return taskText;
 	};
 
 	useEffect(() => {

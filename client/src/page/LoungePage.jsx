@@ -42,6 +42,7 @@ export default function LoungePage() {
 			<img src={gifs[gifIndex]} alt="gifs" className="gifs" />
 			<HeaderFrame gifIndex={gifIndex} toggleItems={toggleItems} />
 			<MainFrame isShowItems={isShowItems} frames={frames["Main"]} />
+
 			<SideFrame isShowItems={isShowItems} frames={frames["Side"]} />
 			<UserFrame
 				setGifIndex={setGifIndex}
@@ -54,8 +55,8 @@ export default function LoungePage() {
 			/>
 			<ModalFrame
 				isShowItems={isShowItems}
-				toggleItems={toggleItems}
 				frames={frames["Modal"]}
+				toggleItems={toggleItems}
 			/>
 		</main>
 	);
