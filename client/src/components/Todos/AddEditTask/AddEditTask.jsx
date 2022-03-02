@@ -14,7 +14,6 @@ export default function AddEditTask({ createNewTask }) {
 				name="task"
 				id="task"
 				placeholder="please enter new task"
-				// onChange={textChangeHandler}
 				autoFocus
 			></textarea>
 			<button className="modal__task-button">Done</button>

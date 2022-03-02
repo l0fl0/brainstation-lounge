@@ -15,22 +15,24 @@ export default function ToolBar(props) {
 	return (
 		<nav className="user__navigation">
 			{items.map((item, i) => {
-				return (
-					<div
-						key={i}
-						className="user__icon-container"
-						onClick={() => {
-							toggleItems(item.name, item.frame);
-						}}
-						onMouseEnter={() => toggleTitle(item.name, true)}
-						onMouseLeave={() => setShowTitles({})}
-					>
-						<i className={item.iconClass} />
-						{isShowTitles[item.name] ? (
-							<p className="user__icon-title">{item.title}</p>
-						) : null}
-					</div>
-				);
+				if (item.iconClass) {
+					return (
+						<div
+							key={i}
+							className="user__icon-container"
+							onClick={() => {
+								toggleItems(item.name, item.frame);
+							}}
+							onMouseEnter={() => toggleTitle(item.name, true)}
+							onMouseLeave={() => setShowTitles({})}
+						>
+							<i className={item.iconClass} />
+							{isShowTitles[item.name] ? (
+								<p className="user__icon-title">{item.title}</p>
+							) : null}
+						</div>
+					);
+				}
 			})}
 		</nav>
 	);

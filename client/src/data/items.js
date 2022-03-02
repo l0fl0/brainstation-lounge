@@ -85,19 +85,11 @@ export const items = [
 	{
 		name: 'addedittask',
 		title: 'AddEditTask',
-		iconClass: "",
+		iconClass: null,
 		component: function render(props) {
 			return <AddEditTask {...props} />;
 		},
 		frame: 'Modal',
 	},
-	{
-		name: 'addeditnote',
-		title: 'AddEditNote',
-		iconClass: 'fa-solid fa-medal user__icon',
-		component: function render(props) {
-			return <AddEditNote {...props} />;
-		},
-		frame: 'Modal',
-	},
+
 ];
