@@ -1,4 +1,25 @@
-@use "../../sass/partials/variables" as *;
+@use '../../sass/partials/variables' as *;
+
+$out-of-bounds-top: calc(27vh + 1rem);
+$out-of-bounds-left: calc(25vw + 1rem);
+
+@keyframes app-transition-in {
+	from {
+		top: $out-of-bounds-top;
+	}
+	to {
+		top: 1rem;
+	}
+}
+
+@keyframes app-transition-out {
+	from {
+		left: 1rem;
+	}
+	to {
+		left: $out-of-bounds-left;
+	}
+}
 
 .UserFrame {
 	// Style
@@ -12,9 +33,32 @@
 	z-index: 0;
 
 	// Size
-	width: 25%;
+	width: 25vw;
 	height: 27vh;
 
 	// Children
 	padding: 1rem;
+
+	&__Container {
+		// Position
+		position: absolute;
+		top: 1rem;
+		left: $out-of-bounds-left;
+
+		// Size
+		height: calc(100% - 2rem);
+		width: calc(100% - 2rem);
+
+		// Animation
+		animation: app-transition-out 0.3s ease-in;
+
+		&--Show {
+			// Position
+			top: 1rem;
+			left: 1rem;
+
+			// Animation
+			animation: app-transition-in 0.7s ease-in;
+		}
+	}
 }
