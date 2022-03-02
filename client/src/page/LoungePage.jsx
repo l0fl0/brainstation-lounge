@@ -43,7 +43,11 @@ export default function LoungePage() {
 			<HeaderFrame gifIndex={gifIndex} toggleItems={toggleItems} />
 			<MainFrame isShowItems={isShowItems} frames={frames["Main"]} />
 
-			<SideFrame isShowItems={isShowItems} frames={frames["Side"]} />
+			<SideFrame
+				isShowItems={isShowItems}
+				frames={frames["Side"]}
+				toggleItems={toggleItems}
+			/>
 			<UserFrame
 				setGifIndex={setGifIndex}
 				isShowItems={isShowItems}

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./ToDos.scss";
 import ToDoList from "./ToDoList/ToDoList";
 
-export default function ToDos({ toggleItem }) {
+export default function ToDos({ toggleItems }) {
 	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
 	const [showform, setShowform] = useState(false);
@@ -25,6 +25,8 @@ export default function ToDos({ toggleItem }) {
 	};
 
 	const createNewTask = (taskText) => {
+		console.log(taskText);
+		console.log(toggleItems);
 		toggleItems("addedittask", "Modal");
 		return taskText;
 	};

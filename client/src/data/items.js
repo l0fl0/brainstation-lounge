@@ -7,6 +7,7 @@ import ToDos from '../components/ToDos/ToDos';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
 import AddEditTask from "../components/ToDos/AddEditTask/AddEditTask";
+import AddEditNote from "../components/Notes/AddEditNote/AddEditNote";
 
 export const items = [
 	{
@@ -59,7 +60,7 @@ export const items = [
 		title: 'Task\'s',
 		iconClass: 'fa-solid fa-tasks user__icon',
 		component: function render(props) {
-			return <ToDos {...props} toggleItem={toggleItems} />;
+			return <ToDos {...props} />;
 		},
 		frame: 'Side',
 	},
@@ -84,9 +85,18 @@ export const items = [
 	{
 		name: 'addedittask',
 		title: 'AddEditTask',
-		iconClass: 'fa-solid fa-medal user__icon',
+		iconClass: "",
 		component: function render(props) {
 			return <AddEditTask {...props} />;
+		},
+		frame: 'Modal',
+	},
+	{
+		name: 'addeditnote',
+		title: 'AddEditNote',
+		iconClass: 'fa-solid fa-medal user__icon',
+		component: function render(props) {
+			return <AddEditNote {...props} />;
 		},
 		frame: 'Modal',
 	},
