@@ -1,6 +1,6 @@
-import "./ToolBar.scss";
-import { useState } from "react";
-import { items } from "../../data/items";
+import './ToolBar.scss';
+import { useState } from 'react';
+import { apps } from '../../data/apps';
 
 export default function UserNav(props) {
 	const { toggleItems } = props;
@@ -13,22 +13,19 @@ export default function UserNav(props) {
 	};
 
 	return (
-		<nav className="user__navigation">
-			{items.map((item, i) => {
+		<nav className='user__navigation'>
+			{apps.map((item, i) => {
 				return (
 					<div
 						key={i}
-						className="user__icon-container"
+						className='user__icon-container'
 						onClick={() => {
 							toggleItems(item.name, item.frame);
 						}}
 						onMouseEnter={() => toggleTitle(item.name, true)}
-						onMouseLeave={() => toggleTitle(item.name, false)}
-					>
+						onMouseLeave={() => toggleTitle(item.name, false)}>
 						<i className={item.iconClass} />
-						{isShowTitles[item.name] ? (
-							<p className="user__icon-title">{item.title}</p>
-						) : null}
+						{isShowTitles[item.name] ? <p className='user__icon-title'>{item.title}</p> : null}
 					</div>
 				);
 			})}

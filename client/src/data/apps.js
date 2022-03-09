@@ -8,7 +8,7 @@ import Todos from '../components/Todos/Todos';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
 
-export const items = [
+export const apps = [
 	{
 		name: 'chat',
 		title: 'Chat',
