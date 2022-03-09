@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import "./ToDos.scss";
-import ToDoList from "./ToDoList/ToDoList";
+import "./Tasks.scss";
+import ToDoList from "./TaskList/TaskList";
 
-export default function ToDos({ toggleItems }) {
+export default function Tasks({ toggleItems }) {
 	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
 	const [showform, setShowform] = useState(false);

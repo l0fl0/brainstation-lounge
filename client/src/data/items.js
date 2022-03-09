@@ -3,10 +3,10 @@ import Notes from '../components/Notes/Notes';
 import Radio from '../components/Radio/Radio';
 import Settings from '../components/Settings/Settings';
 import Stack from '../components/Stack/Stack';
-import ToDos from '../components/ToDos/ToDos';
+import Tasks from '../components/Tasks/Tasks';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
-import AddEditTask from "../components/ToDos/AddEditTask/AddEditTask";
+import AddEditTask from "../components/Tasks/AddEditTask/AddEditTask";
 import AddEditNote from "../components/Notes/AddEditNote/AddEditNote";
 
 export const items = [
@@ -56,11 +56,11 @@ export const items = [
 		frame: 'Side',
 	},
 	{
-		name: 'todos',
+		name: 'tasks',
 		title: 'Task\'s',
 		iconClass: 'fa-solid fa-tasks user__icon',
 		component: function render(props) {
-			return <ToDos {...props} />;
+			return <Tasks {...props} />;
 		},
 		frame: 'Side',
 	},

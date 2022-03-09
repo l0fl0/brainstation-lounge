@@ -6,24 +6,11 @@
 	height: 100%;
 
 	&__show-archive {
+		@include icon-button;
 		position: absolute;
 		z-index: 1;
 		right: 1rem;
 		top: 0.5rem;
-		text-shadow: $text-shadow-white;
-	}
-
-	.fa-archive {
-		&:hover {
-			scale: 1.1;
-			color: green;
-		}
-	}
-
-	.fa-times {
-		&:hover {
-			color: #df1717;
-		}
 	}
 
 	&__history {
@@ -33,20 +20,6 @@
 		border-radius: 0.25rem;
 		opacity: 0.8;
 		overflow-x: hidden;
-	}
-}
-
-.btn {
-	border: none;
-	width: auto;
-	color: $white;
-	background-color: inherit;
-	margin: 0 0.3rem;
-	padding: 0.3rem;
-	width: 1rem;
-
-	i {
-		font-size: 1.1rem;
 	}
 }
 
@@ -64,11 +37,7 @@
 	}
 
 	&__delete {
+		@include icon;
 		font-size: 0.8rem;
-		text-shadow: $text-shadow-white;
-		cursor: pointer;
-		&:hover {
-			color: #df1717;
-		}
 	}
 }

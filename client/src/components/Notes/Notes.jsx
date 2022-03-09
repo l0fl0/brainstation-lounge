@@ -2,6 +2,12 @@ import "./Notes.scss";
 import { useEffect, useState } from "react";
 import AddEditNote from "./AddEditNote/AddEditNote";
 
+// TODO: Complete styles
+// TODO: title on form needs to end before the actions
+// TODO: delete needs to be fixed
+// TODO: add edit button to form
+//! BUG: icon is not changing when visibility state is changed
+
 export default function Notes() {
 	const [noteHistory, setNoteHistory] = useState([]);
 	const [twelveHourFormat, setTwelveHourFormat] = useState(true);
@@ -36,7 +42,9 @@ export default function Notes() {
 	};
 
 	const hideForm = () => {
-		visibility ? setVisibility(false) : setVisibility(true);
+		console.log(visibility);
+		if (visibility) return setVisibility(false);
+		else return setVisibility(true);
 	};
 
 	const timeFormatter = (timestamp) => {
@@ -62,16 +70,12 @@ export default function Notes() {
 
 	useEffect(() => {
 		setNoteHistory(JSON.parse(localStorage.getItem("notes")));
-	}, [noteHistory]);
+	}, []);
 
 	return (
 		<div className="note-section">
 			<button className="btn note-section__show-archive" onClick={showArchive}>
-				{visibility ? (
-					<i className="fa-solid fa-archive" />
-				) : (
-					<i className="fa-solid fa-times" />
-				)}
+				<i className={visibility ? "fa-solid fa-pen" : "fa-solid fa-archive"} />
 			</button>
 			{visibility ? (
 				<div className="note-section__history">

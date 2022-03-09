@@ -1,5 +1,5 @@
 import React from "react";
-import "./ToDoList.scss";
+import "./TaskList.scss";
 
 // TODO: add modal popup for delete confirmation
 // TODO: add edit modal for new tasks
