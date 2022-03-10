@@ -1,0 +1,40 @@
+@use "../../../sass/partials/variables" as *;
+@use "../../../sass/partials/mixins" as *;
+
+.note-card {
+	margin: 1rem 0;
+	display: grid;
+
+	&__header {
+		display: flex;
+		align-items: flex-start;
+		text-shadow: $text-shadow-dark;
+	}
+
+	&__timestamp {
+		font-size: 0.7rem;
+		text-shadow: $text-shadow-white;
+		margin-bottom: 0.3rem;
+	}
+
+	&__actions {
+		margin-left: auto;
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	&__action {
+		@include icon;
+		font-size: 0.8rem;
+		&:hover {
+			color: rgba($error, 0.8);
+			filter: drop-shadow(0px 0px 3px $error);
+		}
+		&--edit {
+			&:hover {
+				color: rgba($success, 0.8);
+				filter: drop-shadow(0px 0px 3px $success);
+			}
+		}
+	}
+}

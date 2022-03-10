@@ -2,42 +2,38 @@
 @use "../../sass/partials/mixins" as *;
 
 .note-section {
-	position: relative;
+	background-color: $app-background-dark;
+	border-radius: $border-raduis;
+	padding: 0.5rem 1rem;
 	height: 100%;
+	overflow: hidden;
 
-	&__show-archive {
-		@include icon-button;
-		position: absolute;
-		z-index: 1;
-		right: 1rem;
-		top: 0.5rem;
-	}
-
-	&__history {
-		height: 100%;
-		@include invisible-vertical-scroll;
-		background-color: $black;
-		border-radius: 0.25rem;
-		opacity: 0.8;
-		overflow-x: hidden;
-	}
-}
-
-.note-card {
-	padding: 1rem 2rem 0.5rem 1rem;
-	position: relative;
-
-	&__title {
-		margin-bottom: 0.5rem;
-	}
-
-	&__timestamp {
-		font-size: 0.8rem;
+	&__header {
+		position: relative;
 		text-shadow: $text-shadow-white;
 	}
 
-	&__delete {
-		@include icon;
-		font-size: 0.8rem;
+	&__archive {
+		height: 100%;
+	}
+	&__add-note {
+		@include icon-button;
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		top: 0;
+	}
+
+	&__history {
+		@include invisible-vertical-scroll;
+		height: 95%;
+	}
+
+	&__info {
+		text-align: center;
+		margin: auto;
+		padding-top: 3rem;
+		display: grid;
+		gap: 1rem;
 	}
 }
