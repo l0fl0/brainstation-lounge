@@ -7,7 +7,7 @@ import Tasks from '../components/Tasks/Tasks';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
 import AddEditTask from "../components/Tasks/AddEditTask/AddEditTask";
-import AddEditNote from "../components/Notes/AddEditNote/AddEditNote";
+
 
 export const items = [
 	{
