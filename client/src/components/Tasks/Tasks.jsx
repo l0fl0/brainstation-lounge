@@ -3,20 +3,19 @@ import { v4 as uuidv4 } from "uuid";
 import "./Tasks.scss";
 import ToDoList from "./TaskList/TaskList";
 
-export default function Tasks({ toggleItems }) {
+export default function Tasks({ toggleItems, newTask, setNewTask }) {
 	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
-	const [showform, setShowform] = useState(false);
 
-	const newTask = (e) => {
-		e.preventDefault();
+	const createTask = () => {
 		setIsEditContainer(false);
 		const task = {
 			id: uuidv4(),
-			text: createNewTask(),
+			text: newTask,
 			completed: false,
 		};
 		setTodos([task, ...todos]);
+		setNewTask(null);
 	};
 
 	const editTasks = (e) => {
@@ -24,11 +23,8 @@ export default function Tasks({ toggleItems }) {
 		setIsEditContainer(!isEditContainer);
 	};
 
-	const createNewTask = (taskText) => {
-		console.log(taskText);
-		console.log(toggleItems);
+	const promptModal = () => {
 		toggleItems("addedittask", "Modal");
-		return taskText;
 	};
 
 	useEffect(() => {
@@ -47,6 +43,13 @@ export default function Tasks({ toggleItems }) {
 	useEffect(() => {
 		localStorage.setItem("tasks", JSON.stringify(todos));
 	}, [todos]);
+
+	//toDo items by creating new task watching for change in props
+	useEffect(() => {
+		if (newTask) {
+			createTask();
+		}
+	}, [newTask]);
 
 	return (
 		<div className="todos">
@@ -67,7 +70,7 @@ export default function Tasks({ toggleItems }) {
 						</button>
 					)}
 
-					<button className="todos__action" onClick={newTask}>
+					<button className="todos__action" onClick={promptModal}>
 						<i className="fa-solid fa-plus" title="add tasks"></i>
 					</button>
 				</div>

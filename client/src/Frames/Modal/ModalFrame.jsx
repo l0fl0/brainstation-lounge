@@ -1,13 +1,18 @@
 import { useState } from "react";
 import "./ModalFrame.scss";
 
-export default function ModalFrame({ frames, isShowItems, toggleItems }) {
+export default function ModalFrame({
+	frames,
+	isShowItems,
+	toggleItems,
+	setNewTask,
+}) {
 	let frameItem = null;
 
 	for (let bool in isShowItems) {
 		if (!frames[bool]) continue;
 		if (isShowItems[bool]) {
-			frameItem = frames[bool].component(null);
+			frameItem = frames[bool].component({ toggleItems, setNewTask });
 		}
 	}
 

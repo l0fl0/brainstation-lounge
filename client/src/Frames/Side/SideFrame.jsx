@@ -1,6 +1,12 @@
 import "./SideFrame.scss";
 
-export default function SideFrame({ frames, isShowItems, toggleItems }) {
+export default function SideFrame({
+	frames,
+	isShowItems,
+	toggleItems,
+	newTask,
+	setNewTask,
+}) {
 	let frameItem = null;
 
 	const propSettings = {};
@@ -8,7 +14,7 @@ export default function SideFrame({ frames, isShowItems, toggleItems }) {
 	for (let bool in isShowItems) {
 		if (!frames[bool]) continue;
 		if (isShowItems[bool]) {
-			frameItem = frames[bool].component({ toggleItems });
+			frameItem = frames[bool].component({ toggleItems, newTask, setNewTask });
 		}
 	}
 	return <div className="SideFrame">{frameItem}</div>;

@@ -15,6 +15,7 @@ export default function LoungePage() {
 	const [isShowItems, setShowItems] = useState({});
 	const [gifIndex, setGifIndex] = useState(0);
 	const socket = useContext(SocketContext);
+	const [newTask, setNewTask] = useState();
 
 	const frames = {};
 	items.forEach((item) => {
@@ -47,6 +48,8 @@ export default function LoungePage() {
 				isShowItems={isShowItems}
 				frames={frames["Side"]}
 				toggleItems={toggleItems}
+				newTask={newTask}
+				setNewTask={setNewTask}
 			/>
 			<UserFrame
 				setGifIndex={setGifIndex}
@@ -61,6 +64,7 @@ export default function LoungePage() {
 				isShowItems={isShowItems}
 				frames={frames["Modal"]}
 				toggleItems={toggleItems}
+				setNewTask={setNewTask}
 			/>
 		</main>
 	);

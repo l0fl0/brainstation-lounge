@@ -12,12 +12,6 @@ export default function TodoTaskList({ todos, setTodos, isEditContainer }) {
 		setTodos([...todos]);
 	};
 
-	const editTask = (id) => {
-		// change selected task with modal then rerender
-
-		setTodos([...todos]);
-	};
-
 	const deleteTask = (id) => {
 		// delete the task then rerender list
 		const filteredTasks = todos.filter((obj) => obj.id !== id);

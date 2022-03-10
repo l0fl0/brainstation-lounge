@@ -1,11 +1,14 @@
 import React from "react";
 import "./AddEditTask.scss";
-export default function AddEditTask({ createNewTask }) {
+
+export default function AddEditTask({ setNewTask, toggleItems }) {
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setNewTask(e.target[0].value);
+		toggleItems("addedittask", "Modal");
+	};
 	return (
-		<form
-			className="modal__task-form"
-			onSubmit={(e) => createNewTask(e.target[0].value)}
-		>
+		<form className="modal__task-form" onSubmit={handleSubmit}>
 			<label className="modal__task-label" htmlFor="task">
 				New Task
 			</label>
