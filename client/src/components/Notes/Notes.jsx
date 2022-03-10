@@ -19,24 +19,21 @@ export default function Notes() {
 			note: note.note,
 			timestamp: Date.now(),
 		};
-		const updatedNotes = [noteObject, ...noteHistory];
-		localStorage.setItem("notes", JSON.stringify(updatedNotes));
-		setNoteHistory(updatedNotes);
-		setVisibility(true);
+
+		setNoteHistory([noteObject, ...noteHistory]);
+		toggleForm();
 	};
 
 	const editNote = (note) => {
 		const updatedNotes = noteHistory.map(
 			(obj) => [note].find((el) => el.id === obj.id) || obj
 		);
-		setCurrentNote(null);
 		setNoteHistory(updatedNotes);
-		setVisibility(true);
+		toggleForm();
 	};
 
 	const deleteNote = (id) => {
 		let filteredNotes = noteHistory.filter((el) => el.id !== id);
-		localStorage.setItem("notes", JSON.stringify(filteredNotes));
 		setNoteHistory(filteredNotes);
 	};
 
@@ -46,9 +43,9 @@ export default function Notes() {
 	};
 
 	const toggleForm = (event) => {
-		event.preventDefault();
+		if (event) event.preventDefault();
 		setCurrentNote(null);
-		visibility ? setVisibility(false) : setVisibility(true);
+		setVisibility(!visibility);
 	};
 
 	useEffect(() => {
@@ -58,6 +55,10 @@ export default function Notes() {
 		}
 		setNoteHistory(getNotes());
 	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("notes", JSON.stringify(noteHistory));
+	}, [noteHistory]);
 
 	const getNotes = () => {
 		return JSON.parse(localStorage.getItem("notes"));
