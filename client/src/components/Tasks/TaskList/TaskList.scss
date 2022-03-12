@@ -24,22 +24,27 @@
 	}
 
 	&__actions-container {
-		height: 0;
-		transition: height 2s;
 		display: none;
-
+		margin-left: 1rem;
 		&--show {
 			height: auto;
 			display: flex;
-			flex-direction: column;
+			gap: 0.5rem;
 		}
 	}
 
 	&__action {
 		@include icon;
+		font-size: 0.7rem;
 
 		&:hover {
 			color: $error;
+		}
+
+		&--edit {
+			&:hover {
+				color: $success;
+			}
 		}
 	}
 }

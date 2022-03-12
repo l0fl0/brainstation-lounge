@@ -5,14 +5,18 @@ export default function ModalFrame({
 	frames,
 	isShowItems,
 	toggleItems,
-	setNewTask,
+	currentTaskState,
 }) {
 	let frameItem = null;
-
+	const { currentTask, setCurrentTask } = currentTaskState;
 	for (let bool in isShowItems) {
 		if (!frames[bool]) continue;
 		if (isShowItems[bool]) {
-			frameItem = frames[bool].component({ toggleItems, setNewTask });
+			frameItem = frames[bool].component({
+				toggleItems,
+				currentTask,
+				setCurrentTask,
+			});
 		}
 	}
 

@@ -1,11 +1,32 @@
 import React from "react";
 import "./AddEditTask.scss";
 
-export default function AddEditTask({ setNewTask, toggleItems }) {
+export default function AddEditTask({
+	currentTask,
+	setCurrentTask,
+	toggleItems,
+}) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setNewTask(e.target[0].value);
-		toggleItems("addedittask", "Modal");
+
+		if (currentTask) {
+			const { id, completed, edited } = currentTask;
+			const editedTask = {
+				id,
+				text: e.target[0].value,
+				completed,
+				edited,
+			};
+			setCurrentTask(editedTask);
+			toggleItems("addedittask", "Modal");
+		}
+
+		if (!currentTask) {
+			setCurrentTask({
+				text: e.target[0].value,
+			});
+			toggleItems("addedittask", "Modal");
+		}
 	};
 	return (
 		<form className="modal__task-form" onSubmit={handleSubmit}>
@@ -16,8 +37,9 @@ export default function AddEditTask({ setNewTask, toggleItems }) {
 				className="modal__task-input"
 				name="task"
 				id="task"
-				placeholder="please enter new task"
+				placeholder="please enter task"
 				autoFocus
+				defaultValue={currentTask ? currentTask.text : null}
 			></textarea>
 			<button className="modal__task-button">Done</button>
 		</form>

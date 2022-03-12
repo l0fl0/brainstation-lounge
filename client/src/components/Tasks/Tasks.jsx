@@ -3,22 +3,29 @@ import { v4 as uuidv4 } from "uuid";
 import "./Tasks.scss";
 import ToDoList from "./TaskList/TaskList";
 
-export default function Tasks({ toggleItems, newTask, setNewTask }) {
+export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
 	let [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
 
 	const createTask = () => {
 		setIsEditContainer(false);
-		const task = {
+		const newTask = {
 			id: uuidv4(),
-			text: newTask,
+			text: currentTask.text,
 			completed: false,
 		};
-		setTodos([task, ...todos]);
-		setNewTask(null);
+
+		setTodos([newTask, ...todos]);
+		setCurrentTask(null);
 	};
 
-	const editTasks = (e) => {
+	const editTask = () => {
+		setIsEditContainer(false);
+		setTodos([currentTask, ...todos]);
+		setCurrentTask(null);
+	};
+
+	const openEditOptions = (e) => {
 		e.preventDefault();
 		setIsEditContainer(!isEditContainer);
 	};
@@ -44,12 +51,13 @@ export default function Tasks({ toggleItems, newTask, setNewTask }) {
 		localStorage.setItem("tasks", JSON.stringify(todos));
 	}, [todos]);
 
-	//toDo items by creating new task watching for change in props
+	//! BUG FIX THIS FUNCTION
 	useEffect(() => {
-		if (newTask) {
-			createTask();
+		if (currentTask) {
+			if (!currentTask.id) createTask();
+			if (currentTask.edited) editTask();
 		}
-	}, [newTask]);
+	}, [currentTask]);
 
 	return (
 		<div className="todos">
@@ -64,7 +72,7 @@ export default function Tasks({ toggleItems, newTask, setNewTask }) {
 									? "todos__action todos__action--active"
 									: "todos__action"
 							}
-							onClick={editTasks}
+							onClick={openEditOptions}
 						>
 							<i className="fa-solid fa-pen" title="edit tasks"></i>
 						</button>
@@ -75,11 +83,21 @@ export default function Tasks({ toggleItems, newTask, setNewTask }) {
 					</button>
 				</div>
 			</header>
-			<ToDoList
-				todos={todos}
-				setTodos={setTodos}
-				isEditContainer={isEditContainer}
-			/>
+			{todos.length <= 0 ? (
+				<div className="todos__info">
+					<h3>You have no saved Tasks</h3>
+					<p>To add a new task click the button in the top right corner.</p>
+					<p>To complete a Task simply click on the task.</p>
+				</div>
+			) : (
+				<ToDoList
+					todos={todos}
+					setTodos={setTodos}
+					isEditContainer={isEditContainer}
+					setCurrentTask={setCurrentTask}
+					toggleItems={toggleItems}
+				/>
+			)}
 		</div>
 	);
 }
