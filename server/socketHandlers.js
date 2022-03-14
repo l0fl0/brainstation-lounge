@@ -24,6 +24,7 @@ const joinLoungeHandler = (req, users, socket) => {
 		let token = jwt.sign({ username: req.username, id }, JWT_Secret);
 		users[socket.id] = { username: req.username, id };
 		socket.emit('joined', { token: token, username: req.username, id });
+
 	} else if (req.token && !req.username) {
 		const { username, id } = jwt.verify(req.token, JWT_Secret);
 		users[socket.id] = { username, id };

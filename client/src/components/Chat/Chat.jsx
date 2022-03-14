@@ -14,7 +14,7 @@ export default function Chat() {
 			// send message to server for broadcast
 			socket.emit("send-chat-message", {
 				key: message.key,
-				user: localStorage.getItem("username"),
+				user: JSON.parse(localStorage.getItem("identification")).username,
 				currentUser: false,
 				text: message.text,
 				timestamp: message.timestamp,
@@ -53,11 +53,6 @@ export default function Chat() {
 			localStorage.setItem("messages", "[]");
 		}
 		setMsgs(JSON.parse(localStorage.getItem("messages")));
-
-		// sets username on component mount for chat / saves username
-		if (!localStorage.getItem("username")) {
-			localStorage.setItem("username", prompt("What is your name? "));
-		}
 	}, []);
 
 	useEffect(() => {

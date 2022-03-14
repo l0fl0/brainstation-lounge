@@ -28,7 +28,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // store users
 let users = {};
-//Whenever someone connects this gets executed
+
+//Whenever connection is established this gets executed
 io.on('connection', (socket) => {
 	// Joining Lounge
 	socket.on('join-lounge', (res) => joinLoungeHandler(res, users, socket));

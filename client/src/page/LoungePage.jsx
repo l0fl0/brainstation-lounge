@@ -35,21 +35,26 @@ export default function LoungePage() {
 	};
 
 	useEffect(() => {
-		let token = localStorage.getItem("token");
-
-		if (!token) {
+		let identification = JSON.parse(localStorage.getItem("identification"));
+		if (!identification) {
 			const username = prompt("What is your name?");
 			socket.emit("join-lounge", { username });
 		} else {
+			let { token } = identification;
 			socket.emit("join-lounge", { token });
 		}
 	}, []);
 
 	useEffect(() => {
 		socket.on("joined", (res) => {
-			localStorage.setItem("token", res.token);
-			sessionStorage.setItem("username", res.username);
-			sessionStorage.setItem("id", res.id);
+			localStorage.setItem(
+				"identification",
+				JSON.stringify({
+					token: res.token,
+					username: res.username,
+					id: res.id,
+				})
+			);
 		});
 	}, [socket]);
 
