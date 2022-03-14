@@ -1,10 +1,10 @@
+import "./Tasks.scss";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import "./Tasks.scss";
-import ToDoList from "./TaskList/TaskList";
+import TaskCard from "./TaskCard/TaskCard";
 
 export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
-	let [todos, setTodos] = useState([]);
+	const [todos, setTodos] = useState([]);
 	const [isEditContainer, setIsEditContainer] = useState(false);
 
 	const createTask = () => {
@@ -14,24 +14,45 @@ export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
 			text: currentTask.text,
 			completed: false,
 		};
-
 		setTodos([newTask, ...todos]);
 		setCurrentTask(null);
 	};
 
 	const editTask = () => {
-		setIsEditContainer(false);
-		setTodos([currentTask, ...todos]);
+		// find, edit, then rerender
+		let editedTask = todos.find((task) => task.id === currentTask.id);
+		editedTask.text = currentTask.text;
+		setTodos([...todos]);
 		setCurrentTask(null);
 	};
 
-	const openEditOptions = (e) => {
+	const deleteTask = (id) => {
+		// delete the task then rerender list
+		const filteredTasks = todos.filter((obj) => obj.id !== id);
+		setTodos([...filteredTasks]);
+		setCurrentTask(null);
+	};
+
+	const strikeTask = (id) => {
+		// flip the boolean then rerender
+		const task = todos.find((obj) => obj.id === id);
+		task.completed = !task.completed;
+		setTodos([...todos]);
+	};
+
+	const openEditor = (task) => {
+		// sets state on loungePage to pass to modal frame
+		setCurrentTask(task);
+		toggleItems("addedittask");
+	};
+
+	const toggleEditOptions = (e) => {
 		e.preventDefault();
 		setIsEditContainer(!isEditContainer);
 	};
 
 	const promptModal = () => {
-		toggleItems("addedittask", "Modal");
+		toggleItems("addedittask");
 	};
 
 	useEffect(() => {
@@ -46,23 +67,24 @@ export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
 		};
 	}, []);
 
-	//To update storage (componentWillUpdate)
 	useEffect(() => {
+		//To update storage
 		localStorage.setItem("tasks", JSON.stringify(todos));
 	}, [todos]);
 
-	//! BUG FIX THIS FUNCTION
 	useEffect(() => {
+		// If currentTask is updated
 		if (currentTask) {
-			if (!currentTask.id) createTask();
-			if (currentTask.edited) editTask();
+			if (!currentTask.text) deleteTask(currentTask.id);
+			if (!currentTask.id && currentTask.text) createTask();
+			if (currentTask.edited && currentTask.text) editTask();
 		}
 	}, [currentTask]);
 
 	return (
 		<div className="todos">
 			<header className="todos__header">
-				<h1 className="todos__heading">Tasks</h1>
+				<h2 className="todos__heading">Tasks</h2>
 				<div className="todos__actions">
 					{/* if no todos remove edit button */}
 					{todos.length < 1 ? null : (
@@ -72,7 +94,7 @@ export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
 									? "todos__action todos__action--active"
 									: "todos__action"
 							}
-							onClick={openEditOptions}
+							onClick={toggleEditOptions}
 						>
 							<i className="fa-solid fa-pen" title="edit tasks"></i>
 						</button>
@@ -90,13 +112,17 @@ export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
 					<p>To complete a Task simply click on the task.</p>
 				</div>
 			) : (
-				<ToDoList
-					todos={todos}
-					setTodos={setTodos}
-					isEditContainer={isEditContainer}
-					setCurrentTask={setCurrentTask}
-					toggleItems={toggleItems}
-				/>
+				<ul className="task-list">
+					{todos.map((task) => (
+						<TaskCard
+							strikeTask={strikeTask}
+							deleteTask={deleteTask}
+							openEditor={openEditor}
+							isEditContainer={isEditContainer}
+							task={task}
+						/>
+					))}
+				</ul>
 			)}
 		</div>
 	);
