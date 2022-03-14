@@ -9,37 +9,51 @@ export default function AddEditTask({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		// handle on keydown enter or on sumbit
+		let taskValue;
+		if (e.target.id === "taskForm") taskValue = e.target[0].value;
+		if (e.target.id === "taskInput") taskValue = e.target.value;
+
+		// for editing task
 		if (currentTask) {
-			const { id, completed, edited } = currentTask;
 			const editedTask = {
-				id,
-				text: e.target[0].value,
-				completed,
-				edited,
+				id: currentTask.id,
+				text: taskValue,
+				edited: true,
 			};
 			setCurrentTask(editedTask);
-			toggleItems("addedittask", "Modal");
+			toggleItems("addedittask");
 		}
 
+		// for creating new task
 		if (!currentTask) {
 			setCurrentTask({
-				text: e.target[0].value,
+				text: taskValue,
 			});
-			toggleItems("addedittask", "Modal");
+			toggleItems("addedittask");
 		}
 	};
+
+	const onEnter = (e) => {
+		if (e.key === "Enter") {
+			e.stopPropagation();
+			handleSubmit(e);
+		}
+	};
+
 	return (
-		<form className="modal__task-form" onSubmit={handleSubmit}>
-			<label className="modal__task-label" htmlFor="task">
-				New Task
+		<form id="taskForm" className="modal__task-form" onSubmit={handleSubmit}>
+			<label className="modal__task-label" htmlFor="taskInput">
+				{currentTask ? "Edit" : "New"} Task
 			</label>
 			<textarea
 				className="modal__task-input"
-				name="task"
-				id="task"
+				name="taskInput"
+				id="taskInput"
 				placeholder="please enter task"
 				autoFocus
 				defaultValue={currentTask ? currentTask.text : null}
+				onKeyDown={onEnter}
 			></textarea>
 			<button className="modal__task-button">Done</button>
 		</form>
