@@ -40,8 +40,9 @@
 		color: $white;
 		text-shadow: none;
 		background-color: transparent;
-		padding-left: 1rem;
 		align-self: flex-end;
+		margin-left: 1rem;
+		min-width: 3.125rem;
 		margin-bottom: -0.2rem;
 		margin-right: -0.1rem;
 	}
