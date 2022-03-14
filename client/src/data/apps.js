@@ -1,4 +1,5 @@
 import Chat from '../components/Chat/Chat';
+import DMs from '../components/DMs/DMs';
 import Notes from '../components/Notes/Notes';
 import Radio from '../components/Radio/Radio';
 import Settings from '../components/Settings/Settings';
@@ -9,7 +10,7 @@ import Users from '../components/Users/Users';
 import AddEditTask from "../components/Tasks/AddEditTask/AddEditTask";
 
 
-export const items = [
+export const apps = [
 	{
 		name: 'chat',
 		title: 'Chat',
@@ -91,5 +92,13 @@ export const items = [
 		},
 		frame: 'Modal',
 	},
-
+	{
+		name: 'dms',
+		title: 'Messages',
+		iconClass: 'fas fa-message user__icon',
+		component: function render(props) {
+			return <DMs {...props} />;
+		},
+		frame: 'User',
+	},
 ];

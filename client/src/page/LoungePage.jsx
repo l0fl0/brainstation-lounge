@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { items } from "../data/items";
+import { apps } from "../data/apps";
 import { gifs } from "../data/gifs";
 
 import "./LoungePage.scss";
@@ -18,9 +18,9 @@ export default function LoungePage() {
 	const [currentTask, setCurrentTask] = useState();
 
 	const frames = {};
-	items.forEach((item) => {
-		if (!frames[item.frame]) frames[item.frame] = {};
-		frames[item.frame][item.name] = item;
+	apps.forEach((app) => {
+		if (!frames[app.frame]) frames[app.frame] = {};
+		frames[app.frame][app.name] = app;
 	});
 
 	const toggleItems = (item, frame) => {
@@ -35,8 +35,23 @@ export default function LoungePage() {
 	};
 
 	useEffect(() => {
-		socket.emit("join-lounge", sessionStorage.getItem("username") || null);
+		let token = localStorage.getItem("token");
+
+		if (!token) {
+			const username = prompt("What is your name?");
+			socket.emit("join-lounge", { username });
+		} else {
+			socket.emit("join-lounge", { token });
+		}
 	}, []);
+
+	useEffect(() => {
+		socket.on("joined", (res) => {
+			localStorage.setItem("token", res.token);
+			sessionStorage.setItem("username", res.username);
+			sessionStorage.setItem("id", res.id);
+		});
+	}, [socket]);
 
 	return (
 		<main className="parent-container">

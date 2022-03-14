@@ -1,6 +1,6 @@
 import "./ToolBar.scss";
 import { useState } from "react";
-import { items } from "../../data/items";
+import { apps } from "../../data/apps";
 
 export default function ToolBar(props) {
 	const { toggleItems } = props;
@@ -14,21 +14,21 @@ export default function ToolBar(props) {
 
 	return (
 		<nav className="user__navigation">
-			{items.map((item, i) => {
-				if (item.iconClass) {
+			{apps.map((app, i) => {
+				if (app.iconClass) {
 					return (
 						<div
 							key={i}
 							className="user__icon-container"
 							onClick={() => {
-								toggleItems(item.name, item.frame);
+								toggleItems(app.name, app.frame);
 							}}
-							onMouseEnter={() => toggleTitle(item.name, true)}
+							onMouseEnter={() => toggleTitle(app.name, true)}
 							onMouseLeave={() => setShowTitles({})}
 						>
-							<i className={item.iconClass} />
-							{isShowTitles[item.name] ? (
-								<p className="user__icon-title">{item.title}</p>
+							<i className={app.iconClass} />
+							{isShowTitles[app.name] ? (
+								<p className="user__icon-title">{app.title}</p>
 							) : null}
 						</div>
 					);

@@ -4,27 +4,26 @@ import { SocketContext } from '../../context/socket';
 export default function Users() {
 	const socket = useContext(SocketContext);
 	const [users, setUsers] = useState({});
-	console.log(Object.keys(socket));
 
 	useEffect(() => {
 		socket.emit('get-users');
-		return socket.offAny('get-users');
 	}, []);
 
 	useEffect(() => {
-		socket.on('get-users', (users) => {
-			console.log(users);
+		socket.on('send-users', (users) => {
 			setUsers(users);
 		});
-		return socket.offAny('get-users');
+		return () => {
+			socket.off('send-users');
+		};
 	}, [socket]);
 
 	const userListBuilder = () => {
-		const userNames = Object.values(users);
+		const userKeys = Object.keys(users);
 		const userList = [];
 
-		for (let i = 0; i < userNames.length; i++) {
-			userList.push(<p key={i}>{userNames[i]}</p>);
+		for (let i = 0; i < userKeys.length; i++) {
+			userList.push(<p key={i}>{users[userKeys[i]].username}</p>);
 		}
 		return userList;
 	};
