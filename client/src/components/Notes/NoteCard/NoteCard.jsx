@@ -4,7 +4,7 @@ import formatTime from "../../../utils/formatDate";
 import "./NoteCard.scss";
 export default function NoteCard({ note, openEditor, deleteNote }) {
 	return (
-		<article className="note-card">
+		<article className="note-card" key={note.id}>
 			<header className="note-card__header">
 				<h2 className="note-card__title">{note.title}</h2>
 				<div className="note-card__actions">

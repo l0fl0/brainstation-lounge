@@ -32,21 +32,21 @@ export default function AddEditNote({
 	return (
 		<form className="note-form" onSubmit={noteData}>
 			<header className="note-form__header">
-				<div className="note-form__title-container">
-					<textarea
-						className="note-form__title"
-						placeholder="Title your note"
-						name="title"
-						id="title"
-						defaultValue={currentNote ? currentNote.title : null}
-					></textarea>
+				<textarea
+					className="note-form__title"
+					placeholder="Title your note"
+					name="title"
+					id="title"
+					defaultValue={currentNote ? currentNote.title : null}
+				></textarea>
+				<div className="note-form__actions">
+					<button type="submit" className="btn note-form__save-note">
+						<i className="fa-solid fa-save" />
+					</button>
+					<button className="note-form__show-archive" onClick={showArchive}>
+						<i className="fa-solid fa-times" />
+					</button>
 				</div>
-				<button type="submit" className="btn note-form__save-note">
-					<i className="fa-solid fa-save" />
-				</button>
-				<button className="note-form__show-archive" onClick={showArchive}>
-					<i className="fa-solid fa-times" />
-				</button>
 			</header>
 			<textarea
 				className="note-form__note"

@@ -5,29 +5,28 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
 	border-radius: 0.25rem;
 	color: $white;
 
 	&__header {
-		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		border-bottom: ridge $white 2px;
 	}
 
 	&__title {
 		@include invisible-vertical-scroll;
-		outline: green solid 1px;
 		background-color: transparent;
 		color: inherit;
 		border: none;
 		outline: none;
 		resize: none;
+		width: 100%;
 		font-size: 1.1rem;
 		padding: 0.3rem 1rem 0.3rem 0;
 		height: 2rem;
-		max-width: 80%;
-		&-container {
-			border-bottom: ridge $white 2px;
-		}
+		margin-left: auto;
 	}
 
 	&__note {
@@ -41,19 +40,17 @@
 		padding-top: 1rem;
 	}
 
+	&__actions {
+		display: flex;
+		gap: 0.5rem;
+	}
+
 	&__save-note {
 		@include icon-button;
-		position: absolute;
-		right: 2rem;
-		top: 0;
 	}
 
 	&__show-archive {
 		@include icon-button;
-		position: absolute;
-		z-index: 1;
-		right: 0;
-		top: 0;
 
 		&:hover {
 			color: $error;

@@ -11,17 +11,17 @@
 	&__header {
 		position: relative;
 		text-shadow: $text-shadow-white;
+		display: flex;
+		align-items: center;
 	}
 
 	&__archive {
 		height: 100%;
 	}
+
 	&__add-note {
 		@include icon-button;
-		position: absolute;
-		z-index: 1;
-		right: 0;
-		top: 0;
+		margin-left: auto;
 	}
 
 	&__history {
