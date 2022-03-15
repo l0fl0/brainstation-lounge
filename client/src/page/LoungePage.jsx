@@ -37,6 +37,7 @@ export default function LoungePage() {
 	useEffect(() => {
 		let identification = JSON.parse(localStorage.getItem("identification"));
 		if (!identification) {
+			//TODO: add validation so no nulls exist
 			const username = prompt("What is your name?");
 			socket.emit("join-lounge", { username });
 		} else {

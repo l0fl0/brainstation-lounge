@@ -1,0 +1,17 @@
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
+
+.users {
+	background-color: $app-background-dark;
+	border-radius: $border-raduis;
+	padding: 0.5rem;
+	height: 100%;
+
+	&__title {
+		font-size: 2rem;
+	}
+
+	&__list {
+		@include invisible-vertical-scroll;
+	}
+}

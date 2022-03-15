@@ -47,7 +47,7 @@ export default function Notes() {
 
 	useEffect(() => {
 		let userNotes = getNotes();
-		if (userNotes.length === 0) {
+		if (!userNotes) {
 			localStorage.setItem("notes", "[]");
 		}
 		setNoteHistory(getNotes());
