@@ -60,3 +60,38 @@
 		display: none;
 	}
 }
+
+@mixin toggle-switch {
+	&-switch {
+		font-size: 0.5rem;
+		appearance: none;
+		outline: 0;
+		width: 6em;
+		height: 3em;
+		border-radius: 3em;
+		cursor: pointer;
+		background-color: $light-grey;
+		position: relative;
+
+		&::after {
+			content: "";
+			width: 3em;
+			height: 3em;
+			border-radius: 3em;
+			position: absolute;
+			background-color: $white;
+			transform: scale(0.8);
+			left: 0;
+			transition: left 90ms ease-in-out;
+			box-shadow: 0 0.1em rbga($black, 0.4);
+		}
+
+		&:checked {
+			background-color: $success;
+
+			&::after {
+				left: 3em;
+			}
+		}
+	}
+}

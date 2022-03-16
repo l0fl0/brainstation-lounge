@@ -1,21 +1,46 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
 
-.bg-selector {
-	font-size: 1.2rem;
-	text-shadow: $text-shadow-white;
+@keyframes toggle-slide {
+	from {
+		left: 0;
+	}
 
-	&__icon {
-		cursor: pointer;
+	to {
+		left: 24px;
 	}
 }
 
-.settings-wrapper {
-	text-align: center;
-}
+.settings {
+	text-align: left;
+	background-color: $app-background-dark;
+	border-radius: $border-raduis;
+	font-size: 1.2rem;
+	text-shadow: $text-shadow-white;
+	padding: 1rem;
+	display: grid;
+	gap: 1rem;
 
-.time-button {
-	margin-bottom: 1rem;
-	button {
-		margin-left: 1rem;
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	&__toggle {
+		@include toggle-switch;
+	}
+
+	&__bg-selector {
+		&-actions {
+			display: flex;
+			gap: 0.5rem;
+		}
+
+		&-icon {
+			border: solid 1px $white;
+			padding: 0.1rem 0.2rem;
+			border-radius: 4px;
+			cursor: pointer;
+		}
 	}
 }
