@@ -66,15 +66,6 @@ export const apps = [
 		frame: 'Side',
 	},
 	{
-		name: 'settings',
-		title: 'Settings',
-		iconClass: 'fa-solid fa-user-cog user__icon',
-		component: function render(props) {
-			return <Settings {...props} />;
-		},
-		frame: 'User',
-	},
-	{
 		name: 'users',
 		title: 'Users',
 		iconClass: 'fa-solid fa-users user__icon',
@@ -98,6 +89,15 @@ export const apps = [
 		iconClass: 'fas fa-message user__icon',
 		component: function render(props) {
 			return <DMs {...props} />;
+		},
+		frame: 'User',
+	},
+	{
+		name: 'settings',
+		title: 'Settings',
+		iconClass: 'fa-solid fa-user-cog user__icon',
+		component: function render(props) {
+			return <Settings {...props} />;
 		},
 		frame: 'User',
 	},
