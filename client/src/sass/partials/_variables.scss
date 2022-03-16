@@ -9,6 +9,7 @@ $alpha: 0; //
 
 // Background dark
 $app-background-dark: rgba($black, 0.55);
+$app-background-light: rgba($light-grey, 0.45);
 
 // Shadows
 $text-shadow-white: 0 0 10px $white, 0 0 10px $black;
@@ -18,6 +19,9 @@ $text-shadow-green: 0 0 10px $success, 0 0 10px lime;
 // Borders
 $border-raduis: 0.25rem;
 $frame-border: none;
+
+// Padding
+$app-padding: 0.5rem 1rem;
 
 // Maps
 $frame-colors: (

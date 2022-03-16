@@ -4,7 +4,7 @@
 .todos {
 	text-align: right;
 	background: $app-background-dark;
-	padding: 0.5rem 1rem;
+	padding: $app-padding;
 	border-radius: $border-raduis;
 
 	&__header {

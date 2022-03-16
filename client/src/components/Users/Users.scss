@@ -4,7 +4,7 @@
 .users {
 	background-color: $app-background-dark;
 	border-radius: $border-raduis;
-	padding: 0.5rem;
+	padding: $app-padding;
 	height: 100%;
 
 	&__title {

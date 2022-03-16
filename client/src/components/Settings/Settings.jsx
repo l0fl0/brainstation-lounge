@@ -1,6 +1,6 @@
 import "./Settings.scss";
 import { gifLength } from "../../data/gifs";
-import { StrictMode, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 export default function Settings({
 	gifIndex,
@@ -35,7 +35,7 @@ export default function Settings({
 	return (
 		<div className="settings">
 			<h2 className="settings__title">Settings</h2>
-			<div className="settings__item settings__toggle">
+			<section className="settings__item">
 				24 hour Format
 				<input
 					onClick={() => setTwelveHourFormat(!twelveHourFormat)}
@@ -43,15 +43,15 @@ export default function Settings({
 					className="settings__toggle-switch"
 					checked={!twelveHourFormat}
 				/>
-			</div>
+			</section>
 			<section className="settings__item settings__bg-selector">
 				change vibe
 				<div className="settings__bg-selector-actions">
-					<div onClick={prevGif}>
-						<i className="fa-solid fa-arrow-left settings__bg-selector-icon"></i>
+					<div onClick={prevGif} className="settings__bg-selector-icon">
+						<i className="fa-solid fa-arrow-left"></i>
 					</div>
-					<div onClick={nextGif}>
-						<i className="fa-solid fa-arrow-right settings__bg-selector-icon"></i>
+					<div onClick={nextGif} className="settings__bg-selector-icon">
+						<i className="fa-solid fa-arrow-right "></i>
 					</div>
 				</div>
 			</section>

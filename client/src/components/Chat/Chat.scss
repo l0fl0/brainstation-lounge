@@ -8,11 +8,11 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	padding: $app-padding;
 
 	&__text {
 		display: flex;
 		flex-direction: column-reverse;
-		padding: 0.5rem;
 		@include invisible-vertical-scroll;
 	}
 
@@ -23,7 +23,6 @@
 
 	&__input {
 		display: flex;
-		padding: 0.5rem;
 		align-items: center;
 	}
 

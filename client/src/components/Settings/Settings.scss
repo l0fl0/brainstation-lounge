@@ -1,23 +1,15 @@
 @use "../../sass/partials/variables" as *;
 @use "../../sass/partials/mixins" as *;
-
-@keyframes toggle-slide {
-	from {
-		left: 0;
-	}
-
-	to {
-		left: 24px;
-	}
-}
+@use "../../sass/partials/animations" as *;
 
 .settings {
+	@include invisible-vertical-scroll;
 	text-align: left;
 	background-color: $app-background-dark;
 	border-radius: $border-raduis;
 	font-size: 1.2rem;
 	text-shadow: $text-shadow-white;
-	padding: 1rem;
+	padding: $app-padding;
 	display: grid;
 	gap: 1rem;
 
@@ -26,7 +18,8 @@
 		justify-content: space-between;
 		align-items: center;
 	}
-	&__toggle {
+
+	&__toggle-switch {
 		@include toggle-switch;
 	}
 
@@ -37,10 +30,21 @@
 		}
 
 		&-icon {
+			display: grid;
+			align-items: center;
 			border: solid 1px $white;
 			padding: 0.1rem 0.2rem;
 			border-radius: 4px;
 			cursor: pointer;
+
+			&:hover {
+				color: $success;
+				border-color: $success;
+			}
+			&:active {
+				color: $blue;
+				border-color: $blue;
+			}
 		}
 	}
 }
