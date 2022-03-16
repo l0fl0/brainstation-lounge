@@ -1,10 +1,15 @@
-import React from "react";
-import formatTime from "../../../utils/formatDate";
-
 import "./NoteCard.scss";
-export default function NoteCard({ note, openEditor, deleteNote }) {
+import React from "react";
+import { twelveHourTime, twentyFourHourTime } from "../../../utils/formatDate";
+
+export default function NoteCard({
+	note,
+	openEditor,
+	deleteNote,
+	twelveHourFormat,
+}) {
 	return (
-		<article className="note-card" key={note.id}>
+		<article className="note-card">
 			<header className="note-card__header">
 				<h2 className="note-card__title">{note.title}</h2>
 				<div className="note-card__actions">
@@ -26,7 +31,11 @@ export default function NoteCard({ note, openEditor, deleteNote }) {
 					</div>
 				</div>
 			</header>
-			<div className="note-card__timestamp">{formatTime(note.timestamp)}</div>
+			<div className="note-card__timestamp">
+				{twelveHourFormat
+					? twelveHourTime(note.timestamp)
+					: twentyFourHourTime(note.timestamp)}
+			</div>
 			<p className="note-card__note">{note.note}</p>
 		</article>
 	);

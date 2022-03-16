@@ -12,9 +12,11 @@ import ModalFrame from "../Frames/Modal/ModalFrame";
 import { SocketContext } from "../context/socket";
 
 export default function LoungePage() {
+	const socket = useContext(SocketContext);
+
 	const [isShowItems, setShowItems] = useState({});
 	const [gifIndex, setGifIndex] = useState(0);
-	const socket = useContext(SocketContext);
+	const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 	const [currentTask, setCurrentTask] = useState();
 
 	const frames = {};
@@ -36,6 +38,7 @@ export default function LoungePage() {
 
 	useEffect(() => {
 		let identification = JSON.parse(localStorage.getItem("identification"));
+
 		if (!identification) {
 			//TODO: add validation so no nulls exist
 			const username = prompt("What is your name?");
@@ -43,6 +46,14 @@ export default function LoungePage() {
 		} else {
 			let { token } = identification;
 			socket.emit("join-lounge", { token });
+		}
+
+		let storedSettings = JSON.parse(localStorage.getItem("settings"));
+
+		if (storedSettings) {
+			const { gifIndex, twelveHourFormat } = storedSettings;
+			setTwelveHourFormat(twelveHourFormat);
+			setGifIndex(gifIndex);
 		}
 	}, []);
 
@@ -62,28 +73,42 @@ export default function LoungePage() {
 	return (
 		<main className="parent-container">
 			<img src={gifs[gifIndex]} alt="gifs" className="gifs" />
-			<HeaderFrame gifIndex={gifIndex} toggleItems={toggleItems} />
-			<MainFrame isShowItems={isShowItems} frames={frames["Main"]} />
-
+			<HeaderFrame
+				toggleItems={toggleItems}
+				globalState={{ twelveHourFormat }}
+			/>
+			<MainFrame
+				frames={frames["Main"]}
+				globalState={{ isShowItems, twelveHourFormat }}
+			/>
 			<SideFrame
-				isShowItems={isShowItems}
 				frames={frames["Side"]}
 				toggleItems={toggleItems}
-				currentTaskState={{ currentTask, setCurrentTask }}
+				globalState={{
+					isShowItems,
+					twelveHourFormat,
+					currentTask,
+					setCurrentTask,
+				}}
 			/>
 			<UserFrame
-				setGifIndex={setGifIndex}
-				isShowItems={isShowItems}
 				frames={frames["User"]}
+				globalState={{
+					isShowItems,
+					twelveHourFormat,
+					setTwelveHourFormat,
+					gifIndex,
+					setGifIndex,
+				}}
 			/>
 			<InformationFrame
-				isShowItems={isShowItems}
 				frames={frames["Information"]}
+				isShowItems={isShowItems}
 			/>
 			<ModalFrame
-				isShowItems={isShowItems}
 				frames={frames["Modal"]}
 				toggleItems={toggleItems}
+				isShowItems={isShowItems}
 				currentTaskState={{ currentTask, setCurrentTask }}
 			/>
 		</main>

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Message from "./Message/Message";
 import { SocketContext } from "../../context/socket";
 
-export default function Chat() {
+export default function Chat({ twelveHourFormat }) {
 	const socket = useContext(SocketContext);
 	let [msgs, setMsgs] = useState([]);
 	const [msgInput, setMsgInput] = useState("");
@@ -82,6 +82,7 @@ export default function Chat() {
 						key={message.key}
 						message={message}
 						isSelf={message.currentUser}
+						twelveHourFormat={twelveHourFormat}
 					/>
 				))}
 			</div>

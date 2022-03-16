@@ -1,7 +1,7 @@
 import "./Message.scss";
-import formatTime from "../../../utils/formatDate";
+import { twelveHourTime, twentyFourHourTime } from "../../../utils/formatDate";
 
-export default function Message({ message, isSelf }) {
+export default function Message({ message, isSelf, twelveHourFormat }) {
 	const { user, text, timestamp, type } = message;
 
 	if (type === "server") {
@@ -13,7 +13,11 @@ export default function Message({ message, isSelf }) {
 			<div className="message__self">
 				<p className="message__text">
 					{text}
-					<span className="message__time">{formatTime(timestamp)}</span>
+					<span className="message__time">
+						{twelveHourFormat
+							? twelveHourTime(timestamp)
+							: twentyFourHourTime(timestamp)}
+					</span>
 				</p>
 			</div>
 		);
@@ -25,7 +29,11 @@ export default function Message({ message, isSelf }) {
 				<p className="message__user">{user}</p>
 				<p className="message__text">
 					{text}
-					<span className="message__time">{formatTime(timestamp)}</span>
+					<span className="message__time">
+						{twelveHourFormat
+							? twelveHourTime(timestamp)
+							: twentyFourHourTime(timestamp)}
+					</span>
 				</p>
 			</>
 		</div>

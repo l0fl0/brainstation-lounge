@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import AddEditNote from "./AddEditNote/AddEditNote";
 import NoteCard from "./NoteCard/NoteCard";
 
-export default function Notes() {
+export default function Notes({ twelveHourFormat }) {
 	const [noteHistory, setNoteHistory] = useState([]);
 	const [visibility, setVisibility] = useState(true);
 	const [currentNote, setCurrentNote] = useState(null);
@@ -83,9 +83,11 @@ export default function Notes() {
 						<section className="note-section__history">
 							{noteHistory.map((note) => (
 								<NoteCard
+									key={note.id}
 									note={note}
 									deleteNote={deleteNote}
 									openEditor={openEditor}
+									twelveHourFormat={twelveHourFormat}
 								/>
 							))}
 						</section>
