@@ -115,6 +115,7 @@ export default function Tasks({ toggleItems, currentTask, setCurrentTask }) {
 				<ul className="task-list">
 					{todos.map((task) => (
 						<TaskCard
+							key={task.id}
 							strikeTask={strikeTask}
 							deleteTask={deleteTask}
 							openEditor={openEditor}

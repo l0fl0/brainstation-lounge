@@ -10,7 +10,7 @@ export default function TaskCard({
 	task,
 }) {
 	return (
-		<li className="task" key={task.id}>
+		<li className="task">
 			<span
 				className={
 					task.completed ? "task__text task__text--done" : "task__text"

@@ -7,8 +7,14 @@ export default function ModalFrame({
 	toggleItems,
 	currentTaskState,
 }) {
-	let frameItem = null;
 	const { currentTask, setCurrentTask } = currentTaskState;
+
+	let frameItem = null;
+
+	const props = {
+		tasks: { toggleItems, currentTask, setCurrentTask },
+	};
+
 	for (let bool in isShowItems) {
 		if (!frames[bool]) continue;
 		if (isShowItems[bool]) {
