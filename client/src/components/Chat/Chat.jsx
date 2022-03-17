@@ -15,7 +15,6 @@ export default function Chat({ twelveHourFormat }) {
 			socket.emit("send-chat-message", {
 				key: message.key,
 				user: JSON.parse(localStorage.getItem("identification")).username,
-				currentUser: false,
 				text: message.text,
 				timestamp: message.timestamp,
 			});

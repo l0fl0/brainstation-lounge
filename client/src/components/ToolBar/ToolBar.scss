@@ -13,15 +13,20 @@
 	&__icon-container {
 		margin: 0 0.4rem;
 		cursor: pointer;
-		text-shadow: $text-shadow-green;
+		position: relative;
+		text-align: center;
+
 		&:hover {
 			filter: drop-shadow(0px 0px 3px $success);
 		}
 	}
 
 	&__icon-title {
+		font-size: 0.8rem;
 		position: absolute;
-		margin-left: -0.8rem;
+		left: 50%;
+		transform: translateX(-50%);
 		color: $success;
+		text-shadow: $text-shadow-white;
 	}
 }
