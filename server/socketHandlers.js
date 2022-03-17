@@ -17,7 +17,8 @@ const broadcastUsers = (users, socket) => {
 
 // User joins Lounge
 const joinLoungeHandler = (req, users, socket) => {
-	// add user to uses based on whether token exists or not
+
+	// add user to users based on whether token exists or not
 	if (!req.token && req.username) {
 		let id = uuidv4();
 		console.log(id);
@@ -101,6 +102,28 @@ const disconnectHandler = (users, socket) => {
 	broadcastUsers(users, socket);
 };
 
+// Changed Username
+const changedUsernameHandler = (newUsername, users, socket) => {
+	console.log(users[socket.id].username, 'changed their name to', newUsername);
+
+	// Send message to user
+	socket.emit('chat-message', { key: uuidv4(), text: `You decided to change your name to ${newUsername}.. I liked ${users[socket.id].username} better.`, type: 'server' });
+
+	// Send message to Room
+	socket.broadcast.emit('chat-message', { key: uuidv4(), text: `Welcome ${newUsername} who formerly called themselves ${users[socket.id].username}`, type: 'server' });
+
+	// sign new jwt with updated name
+	let id = users[socket.id].id;
+	let token = jwt.sign({ username: newUsername, id }, JWT_Secret);
+	users[socket.id].username = newUsername;
+	socket.emit('joined', { token: token, username: newUsername, id });
+
+	// Broadcast Users
+	broadcastUsers(users, socket);
+};
+
+
+
 module.exports = {
 	joinChatHandler,
 	messageHandler,
@@ -109,4 +132,5 @@ module.exports = {
 	sendUsers,
 	joinLoungeHandler,
 	directMessageHandler,
-};
+	changedUsernameHandler,
+}

@@ -19,6 +19,20 @@
 		align-items: center;
 	}
 
+	&__username-input {
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px ridge $white;
+		color: $white;
+		text-align: end;
+		width: auto;
+		outline: none;
+		min-width: 3rem;
+		&:focus-visible {
+			border-bottom: 1px solid $success;
+		}
+	}
+
 	&__toggle-switch {
 		@include toggle-switch;
 	}

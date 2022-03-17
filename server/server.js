@@ -3,7 +3,7 @@ const http = require('http');
 const dotenv = require('dotenv');
 
 const morgan = require('morgan');
-const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler, directMessageHandler } = require('./socketHandlers');
+const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler, directMessageHandler, changedUsernameHandler } = require('./socketHandlers');
 
 // config
 dotenv.config();
@@ -32,7 +32,7 @@ let users = {};
 //Whenever connection is established this gets executed
 io.on('connection', (socket) => {
 	// Joining Lounge
-	socket.on('join-lounge', (res) => joinLoungeHandler(res, users, socket));
+	socket.on('join-lounge', (req) => joinLoungeHandler(req, users, socket));
 
 	// Sending Chat Message
 	socket.on('send-chat-message', (message) => messageHandler(message, socket));
@@ -45,6 +45,9 @@ io.on('connection', (socket) => {
 
 	// Receiving User List
 	socket.on('get-users', () => sendUsers(users, socket));
+
+	// Change username
+	socket.on('change-username', (newUsername) => changedUsernameHandler(newUsername, users, socket));
 
 	// Leaving Chat
 	socket.on('leave-chat', () => leaveChatHandler(users, socket));

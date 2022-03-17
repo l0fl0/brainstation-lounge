@@ -41,6 +41,7 @@ export default function LoungePage() {
 
 		if (!identification) {
 			//TODO: add validation so no nulls exist
+			//Random name Gen
 			const username = prompt("What is your name?");
 			socket.emit("join-lounge", { username });
 		} else {
