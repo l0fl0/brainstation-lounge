@@ -5,9 +5,8 @@
 	max-width: 66%;
 	width: auto;
 	display: flex;
-	flex-direction: column;
 	align-self: flex-start;
-	margin-bottom: 0.7rem;
+	margin-bottom: 0.3rem;
 	background-color: rgba(17, 17, 17, 0.452);
 	border-radius: $border-raduis;
 	border-top-left-radius: 0%;
@@ -32,7 +31,8 @@
 	&__text {
 		font-size: 1rem;
 		display: flex;
-		margin-bottom: 0.1rem;
+		justify-content: space-between;
+		padding-bottom: 0.1rem;
 	}
 
 	&__time {
@@ -41,10 +41,11 @@
 		text-shadow: none;
 		background-color: transparent;
 		align-self: flex-end;
-		margin-left: 1rem;
-		min-width: 3.125rem;
-		margin-bottom: -0.2rem;
-		margin-right: -0.1rem;
+		margin-left: 0.5rem;
+		margin-bottom: -0.15rem;
+		&--meridian {
+			min-width: 3.2rem;
+		}
 	}
 
 	&__announcement {
