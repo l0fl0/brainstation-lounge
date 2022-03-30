@@ -1,135 +1,105 @@
 import "./Notes.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
+import AddEditNote from "./AddEditNote/AddEditNote";
+import NoteCard from "./NoteCard/NoteCard";
 
-export default function Notes() {
-	const [currentNote, setCurrentNote] = useState("");
-	const [currentNoteTitle, setCurrentNoteTitle] = useState("N/A");
+export default function Notes({ twelveHourFormat }) {
 	const [noteHistory, setNoteHistory] = useState([]);
-	const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 	const [visibility, setVisibility] = useState(true);
+	const [currentNote, setCurrentNote] = useState(null);
 
-	const currentTime = new Date().getTime();
-
-	let userNotes = JSON.parse(localStorage.getItem("notes"));
-	if (userNotes === null) {
-		localStorage.setItem("notes", "[]");
-	}
-
-	const handleNoteSubmit = (event) => {
-		event.preventDefault();
+	const createNote = (note) => {
 		const noteObject = {
-			id: 0,
-			title: currentNoteTitle,
-			note: currentNote,
-			timestamp: currentTime,
+			id: uuid(),
+			title: note.title,
+			note: note.note,
+			timestamp: Date.now(),
 		};
 
-		localStorage.setItem("notes", JSON.stringify([...userNotes, noteObject]));
-
-		setCurrentNote("");
-		setCurrentNoteTitle("N/A");
-		event.target.reset();
+		setNoteHistory([noteObject, ...noteHistory]);
+		toggleForm();
 	};
 
-	const showArchive = (event) => {
-		event.preventDefault();
-		noteHistory.length === 0 ? setNoteHistory(userNotes) : setNoteHistory([]);
-		hideForm();
+	const editNote = (note) => {
+		const updatedNotes = noteHistory.map(
+			(obj) => [note].find((el) => el.id === obj.id) || obj
+		);
+		setNoteHistory(updatedNotes);
+		toggleForm();
 	};
 
-	const deleteNote = (index) => {
-		userNotes = userNotes.filter((el, i) => i !== index);
-		setNoteHistory(userNotes);
-		localStorage.setItem("notes", JSON.stringify(userNotes));
+	const deleteNote = (id) => {
+		let filteredNotes = noteHistory.filter((el) => el.id !== id);
+		setNoteHistory(filteredNotes);
 	};
 
-	const hideForm = () => {
-		visibility ? setVisibility(false) : setVisibility(true);
+	const openEditor = (note) => {
+		setCurrentNote(note);
+		setVisibility(false);
 	};
 
-	const populateNote = (event) => {
-		setCurrentNote(event.target.value);
+	const toggleForm = (event) => {
+		if (event) event.preventDefault();
+		setCurrentNote(null);
+		setVisibility(!visibility);
 	};
 
-	const populateTitle = (event) => {
-		setCurrentNoteTitle(event.target.value);
-	};
-
-	const timeFormatter = (timestamp) => {
-		const time = new Date(timestamp);
-		let hour = time.getHours();
-		let min = time.getMinutes();
-		if (hour < 10) {
-			hour = "0" + hour;
+	useEffect(() => {
+		let userNotes = getNotes();
+		if (!userNotes) {
+			localStorage.setItem("notes", "[]");
 		}
-		if (min < 10) {
-			min = "0" + min;
-		}
+		setNoteHistory(getNotes());
+	}, []);
 
-		if (twelveHourFormat) {
-			let meridiem = hour < 12 ? "AM" : "PM";
-			hour = hour > 12 ? hour - 12 : hour;
-			if (hour === "00") hour = 12;
-			let time12hrFormat = `${hour}:${min} ${meridiem}`;
-			return time12hrFormat;
-		}
-		return `${hour}:${min}`;
+	useEffect(() => {
+		localStorage.setItem("notes", JSON.stringify(noteHistory));
+	}, [noteHistory]);
+
+	const getNotes = () => {
+		return JSON.parse(localStorage.getItem("notes"));
 	};
 
 	return (
 		<div className="note-section">
-			<button className="btn note-section__show-archive" onClick={showArchive}>
-				{visibility ? (
-					<i className="fas fa-archive" />
-				) : (
-					<i className="fas fa-times" />
-				)}
-			</button>
 			{visibility ? (
-				<form className="note-section__form" onSubmit={handleNoteSubmit}>
-					<div className="note-section__title-container">
-						<input
-							className="note-section__title"
-							type="text"
-							placeholder="Title your note"
-							onChange={populateTitle}
-							name="title"
-							id="title"
-						/>
-						<button type="submit" className="btn note-section__save-note">
-							<i className="far fa-save" />
+				<section className="note-section__archive">
+					<header className="note-section__header">
+						<h2>Notes</h2>
+						<button className="note-section__add-note" onClick={toggleForm}>
+							<i className="fa-solid fa-plus" />
 						</button>
-					</div>
-					<textarea
-						className="note-section__note"
-						placeholder="Write your note here"
-						onChange={populateNote}
-						name="note"
-						id="note"
-					></textarea>
-				</form>
-			) : (
-				<div className="note-section__history">
-					{noteHistory.map((note, i) => (
-						<div className="note-card">
-							<div>
-								<h2 className="note-card__title">
-									{note.title}{" "}
-									<span className="note-card__timestamp">
-										{timeFormatter(note.timestamp)}
-									</span>{" "}
-									<i
-										onClick={() => {
-											deleteNote(i);
-										}}
-										className="far fa-trash-alt note-card__delete"
-									/>
-								</h2>
-							</div>
-							<p className="note-card__note">{note.note}</p>
+					</header>
+					{noteHistory.length === 0 ? (
+						// render if there are no notes stored
+						<div className="note-section__info">
+							<h3>You have no stored notes!</h3>
+							<p>
+								Create a note by clicking the button in the top right corner.
+							</p>
 						</div>
-					))}
-				</div>
+					) : (
+						<section className="note-section__history">
+							{noteHistory.map((note) => (
+								<NoteCard
+									key={note.id}
+									note={note}
+									deleteNote={deleteNote}
+									openEditor={openEditor}
+									twelveHourFormat={twelveHourFormat}
+								/>
+							))}
+						</section>
+					)}
+				</section>
+			) : (
+				<AddEditNote
+					createNote={createNote}
+					editNote={editNote}
+					showArchive={toggleForm}
+					currentNote={currentNote}
+				/>
 			)}
 		</div>
 	);

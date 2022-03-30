@@ -1,7 +1,8 @@
 @use "../../sass/partials/variables" as *;
+@use "../../sass/partials/functions" as *;
 
 .HeaderFrame {
-	background-color: rgba($color: red, $alpha: 0.35);
+	background-color: frameColor(header);
 	border: $frame-border;
 	position: fixed;
 	top: 0;
@@ -13,7 +14,7 @@
 	justify-content: space-between;
 	align-items: center;
 
-	padding: 0 1rem;
+	padding: $app-padding;
 }
 
 .logo {
@@ -21,7 +22,4 @@
 		text-shadow: $text-shadow-white;
 		cursor: pointer;
 	}
-}
-
-.banner {
 }

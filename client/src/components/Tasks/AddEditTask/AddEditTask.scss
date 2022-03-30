@@ -1,0 +1,34 @@
+@use "../../../sass/partials/mixins" as *;
+@use "../../../sass/partials/variables" as *;
+
+.modal {
+	&__task-form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	&__task-label {
+		font-size: 1.2rem;
+		display: block;
+		text-shadow: $text-shadow-white;
+	}
+
+	&__task-input {
+		@include invisible-vertical-scroll;
+		resize: none;
+		width: 100%;
+		height: 4rem;
+		padding: 0.3rem 0.4rem;
+		border-radius: $border-raduis;
+
+		&:focus-visible {
+			outline: none;
+		}
+	}
+
+	&__task-button {
+		@include button;
+		margin: 0 auto;
+	}
+}

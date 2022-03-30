@@ -1,35 +1,20 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import './Chat.scss';
-import formatTime from '../../utils/formatDate';
-import Message from './Message/Message';
-import { SocketContext } from '../../context/socket';
+import "./Chat.scss";
+import { useState, useEffect, useContext, useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
+import Message from "./Message/Message";
+import { SocketContext } from "../../context/socket";
 
-export default function Chat() {
+export default function Chat({ twelveHourFormat }) {
 	const socket = useContext(SocketContext);
-
 	let [msgs, setMsgs] = useState([]);
-	const [msgInput, setMsgInput] = useState('');
-
-	const updateMessages = useCallback((message) => {
-		// local storage for messages
-		const oldMessages = JSON.parse(sessionStorage.getItem('messages'));
-
-		sessionStorage.setItem('messages', JSON.stringify([message, ...oldMessages]));
-
-		// live render of messages
-		let incommingMessage = <Message key={message.key} message={message} isSelf={message.currentUser} />;
-
-		setMsgs(JSON.parse(sessionStorage.getItem('messages')));
-	}, []);
+	const [msgInput, setMsgInput] = useState("");
 
 	const broadcastMessage = useCallback(
 		(message) => {
 			// send message to server for broadcast
-			socket.emit('send-chat-message', {
+			socket.emit("send-chat-message", {
 				key: message.key,
-				user: sessionStorage.getItem('username'),
-				currentUser: false,
+				user: JSON.parse(localStorage.getItem("identification")).username,
 				text: message.text,
 				timestamp: message.timestamp,
 			});
@@ -46,15 +31,15 @@ export default function Chat() {
 			key: uuidv4(),
 			currentUser: true,
 			text: msgInput,
-			timestamp: formatTime(Date()),
+			timestamp: Date.now(),
 		};
 
-		updateMessages(userMessage);
+		setMsgs([userMessage, ...msgs]);
 		broadcastMessage(userMessage);
 
 		// sets both state and form input to empty string no empty messages
-		event.target.chatText.value = '';
-		setMsgInput('');
+		event.target.chatText.value = "";
+		setMsgInput("");
 		event.target.chatText.focus();
 	};
 
@@ -63,38 +48,58 @@ export default function Chat() {
 	};
 
 	useEffect(() => {
-		if (!sessionStorage.getItem('messages')) {
-			sessionStorage.setItem('messages', '[]');
+		if (!localStorage.getItem("messages")) {
+			localStorage.setItem("messages", "[]");
 		}
+		setMsgs(JSON.parse(localStorage.getItem("messages")));
+	}, []);
 
+	useEffect(() => {
 		// send new user event
-		socket.emit('join-chat', localStorage.getItem('username'));
+		socket.emit("join-chat", localStorage.getItem("username"));
 
 		// Subscribe to events
-		socket.on('chat-message', (data) => {
-			updateMessages(data);
+		socket.on("chat-message", (data) => {
+			setMsgs([data, ...JSON.parse(localStorage.getItem("messages"))]);
 		});
 
 		return () => {
-			socket.off('chat-message');
-			socket.emit('leave-chat', sessionStorage.getItem('username'));
+			socket.off("chat-message");
+			socket.emit("leave-chat", localStorage.getItem("username"));
 		};
 	}, [socket]);
 
+	useEffect(() => {
+		localStorage.setItem("messages", JSON.stringify(msgs));
+	}, [msgs]);
+
 	return (
-		<div className='chat'>
-			<div className='chat__text'>
+		<div className="chat">
+			<div className="chat__text">
 				{msgs.map((message) => (
-					<Message key={message.key} message={message} isSelf={message.currentUser} />
+					<Message
+						key={message.key}
+						message={message}
+						isSelf={message.currentUser}
+						twelveHourFormat={twelveHourFormat}
+					/>
 				))}
 			</div>
-			<div className='chat__input'>
-				<i className='fa-solid fa-chevron-right' />
-				<form onSubmit={messageHandler} className='chat__form' autoComplete='off'>
-					<input onChange={onChangeHandler} name='chatText' id='chatText' className='chat__input-field' type='text' autoFocus />
-					<button type='submit' className='button button-chat'>
-						send
-					</button>
+			<div className="chat__input">
+				<i className="fa-solid fa-chevron-right" />
+				<form
+					onSubmit={messageHandler}
+					className="chat__form"
+					autoComplete="off"
+				>
+					<input
+						onChange={onChangeHandler}
+						name="chatText"
+						id="chatText"
+						className="chat__input-field"
+						type="text"
+						autoFocus
+					/>
 				</form>
 			</div>
 		</div>

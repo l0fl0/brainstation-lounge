@@ -4,15 +4,17 @@ import Notes from '../components/Notes/Notes';
 import Radio from '../components/Radio/Radio';
 import Settings from '../components/Settings/Settings';
 import Stack from '../components/Stack/Stack';
-import Todos from '../components/Todos/Todos';
+import Tasks from '../components/Tasks/Tasks';
 import Timer from '../components/Timer/Timer';
 import Users from '../components/Users/Users';
+import AddEditTask from "../components/Tasks/AddEditTask/AddEditTask";
+
 
 export const apps = [
 	{
 		name: 'chat',
 		title: 'Chat',
-		iconClass: 'fas fa-comment-dots user__icon',
+		iconClass: 'fa-solid fa-comment-dots user__icon',
 		component: function render(props) {
 			return <Chat {...props} />;
 		},
@@ -21,7 +23,7 @@ export const apps = [
 	{
 		name: 'stack',
 		title: 'Stack Overflow',
-		iconClass: 'fas fa-question user__icon',
+		iconClass: 'fa-solid fa-question user__icon',
 		component: function render(props) {
 			return <Stack {...props} />;
 		},
@@ -30,7 +32,7 @@ export const apps = [
 	{
 		name: 'radio',
 		title: 'Radio',
-		iconClass: 'fas fa-broadcast-tower user__icon',
+		iconClass: 'fa-solid fa-broadcast-tower user__icon',
 		component: function render(props) {
 			return <Radio {...props} />;
 		},
@@ -39,7 +41,7 @@ export const apps = [
 	{
 		name: 'notes',
 		title: 'Notes',
-		iconClass: 'far fa-sticky-note user__icon',
+		iconClass: 'fa-solid fa-sticky-note user__icon',
 		component: function render(props) {
 			return <Notes {...props} />;
 		},
@@ -48,38 +50,38 @@ export const apps = [
 	{
 		name: 'timer',
 		title: 'Timer',
-		iconClass: 'far fa-clock user__icon',
+		iconClass: 'fa-solid fa-clock user__icon',
 		component: function render(props) {
 			return <Timer {...props} />;
 		},
 		frame: 'Side',
 	},
 	{
-		name: 'todos',
-		title: 'Todos',
-		iconClass: 'fas fa-tasks user__icon',
+		name: 'tasks',
+		title: 'Task\'s',
+		iconClass: 'fa-solid fa-tasks user__icon',
 		component: function render(props) {
-			return <Todos {...props} />;
+			return <Tasks {...props} />;
 		},
 		frame: 'Side',
-	},
-	{
-		name: 'settings',
-		title: 'Settings',
-		iconClass: 'fas fa-user-cog user__icon',
-		component: function render(props) {
-			return <Settings {...props} />;
-		},
-		frame: 'User',
 	},
 	{
 		name: 'users',
 		title: 'Users',
-		iconClass: 'fas fa-users user__icon',
+		iconClass: 'fa-solid fa-users user__icon',
 		component: function render(props) {
 			return <Users {...props} />;
 		},
 		frame: 'Side',
+	},
+	{
+		name: 'addedittask',
+		title: 'AddEditTask',
+		iconClass: null,
+		component: function render(props) {
+			return <AddEditTask {...props} />;
+		},
+		frame: 'Modal',
 	},
 	{
 		name: 'dms',
@@ -87,6 +89,15 @@ export const apps = [
 		iconClass: 'fas fa-message user__icon',
 		component: function render(props) {
 			return <DMs {...props} />;
+		},
+		frame: 'User',
+	},
+	{
+		name: 'settings',
+		title: 'Settings',
+		iconClass: 'fa-solid fa-user-cog user__icon',
+		component: function render(props) {
+			return <Settings {...props} />;
 		},
 		frame: 'User',
 	},

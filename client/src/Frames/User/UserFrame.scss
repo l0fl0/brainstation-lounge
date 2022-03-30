@@ -1,4 +1,5 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/functions" as *;
+@use "../../sass/partials/variables" as *;
 
 $out-of-bounds-top: calc(27vh + 1rem);
 $out-of-bounds-left: calc(25vw + 1rem);
@@ -23,7 +24,7 @@ $out-of-bounds-left: calc(25vw + 1rem);
 
 .UserFrame {
 	// Style
-	background-color: rgba($color: yellow, $alpha: 0.25);
+	background-color: frameColor(user);
 	border: $frame-border;
 
 	// Position

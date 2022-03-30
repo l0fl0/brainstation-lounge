@@ -1,0 +1,9 @@
+@use "../partials/variables" as *;
+
+@function frameColor($key) {
+	@if map-has-key($frame-colors, $key) {
+		@return map-get($frame-colors, $key);
+	}
+	@warn "Unknown `#{$key}` in $frame-colors.";
+	@return null;
+}
