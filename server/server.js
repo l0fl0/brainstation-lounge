@@ -56,6 +56,12 @@ io.on('connection', (socket) => {
 	socket.on('disconnect', () => disconnectHandler(users, socket));
 });
 
+
+app.get("/", (_req, res) => {
+	res.status(200)
+		.send("Up and running.")
+})
+
 // listen default to 8000 if env variable port is taken or busy
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));

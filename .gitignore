@@ -16,4 +16,4 @@
 *.env
 client/.env
 client/build
-
+*.tar.gz
