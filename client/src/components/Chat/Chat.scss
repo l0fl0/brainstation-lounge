@@ -1,26 +1,19 @@
 @use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
 
 .chat {
 	height: 100%;
-	background-color: rgba($color: #ccc, $alpha: 0.5);
+	background-color: rgba($color: #333, $alpha: 0.5);
 	border-radius: 3px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	padding: $app-padding;
 
 	&__text {
 		display: flex;
 		flex-direction: column-reverse;
-		padding: 0.5rem;
-		overflow-y: scroll;
-		//firefox
-		scrollbar-width: none;
-		// Edge
-		-ms-overflow-style: none;
-		//chrome, safari, oprea
-		&::-webkit-scrollbar {
-			width: 3rem;
-		}
+		@include invisible-vertical-scroll;
 	}
 
 	&__form {
@@ -30,11 +23,11 @@
 
 	&__input {
 		display: flex;
-		padding: 0.5rem;
 		align-items: center;
 	}
 
 	&__input-field {
+		background-color: transparent;
 		margin-left: 0.5rem;
 		padding: 0.5rem;
 		font-size: 1.2rem;
@@ -42,8 +35,7 @@
 		height: 2rem;
 		border: none;
 		border-radius: 3px;
-		background-color: rgba($color: #333, $alpha: 0.5);
-		color: #333;
+		color: $white;
 
 		&:focus,
 		&:focus-visible {
@@ -61,10 +53,5 @@
 }
 
 .button-chat {
-	margin: 0 0 0 0.5rem;
-	background-color: #555;
-
-	&:hover {
-		background-color: rgb(19, 107, 24);
-	}
+	@include button;
 }

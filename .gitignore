@@ -10,9 +10,11 @@
 
 # production
 /build
+*.sh
 
 # misc
 .DS_Store
 *.env
 client/.env
+client/build
 

@@ -1,16 +1,41 @@
 {
-	"short_name": "BrainStation Lounge",
-	"name": "BrainStation Lounge for students",
+	"short_name": "BS Lounge",
+	"name": "BrainStation Lounge",
 	"icons": [
 		{
-			"src": "favicon.ico",
-			"sizes": "64x64 32x32 24x24 16x16",
-			"type": "image/x-icon"
+			"src": "bstn48.png",
+			"type": "image/png",
+			"sizes": "48x48"
+		},
+		{
+			"src": "bstn96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "bstn128.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		},
+		{
+			"src": "bstn144.png",
+			"type": "image/png",
+			"sizes": "144x144"
 		},
 		{
 			"src": "bstn192.png",
 			"type": "image/png",
 			"sizes": "192x192"
+		},
+		{
+			"src": "bstn256.png",
+			"type": "image/png",
+			"sizes": "256x256"
+		},
+		{
+			"src": "bstn384.png",
+			"type": "image/png",
+			"sizes": "384x384"
 		},
 		{
 			"src": "bstn512.png",
@@ -20,6 +45,6 @@
 	],
 	"start_url": ".",
 	"display": "standalone",
-	"theme_color": "#000000",
-	"background_color": "#ffffff"
+	"theme_color": "#f5f5f5",
+	"background_color": "#181a18"
 }

@@ -1,17 +1,31 @@
-import './UserFrame.scss';
+import "./UserFrame.scss";
 
-export default function UserFrame({ frames, isShowItems, setGifIndex }) {
-	let frameItem = null;
+export default function UserFrame({ frames, globalState }) {
+	let {
+		isShowItems,
+		twelveHourFormat,
+		setTwelveHourFormat,
+		gifIndex,
+		setGifIndex,
+	} = globalState;
 
-	const propSettings = {
-		settings: { setGifIndex },
+	const props = {
+		settings: { twelveHourFormat, setTwelveHourFormat, gifIndex, setGifIndex },
 	};
 
-	for (let bool in isShowItems) {
-		if (!frames[bool]) continue;
-		if (isShowItems[bool]) {
-			frameItem = frames[bool].component(propSettings[bool]);
+	const frameItems = [];
+
+	for (let app in isShowItems) {
+		if (!frames[app]) continue;
+		let className = "UserFrame__Container";
+		if (isShowItems[app]) {
+			className += " UserFrame__Container--Show";
 		}
+		frameItems.push(
+			<div key={app} className={className}>
+				{frames[app].component(props[app])}
+			</div>
+		);
 	}
-	return <div className='UserFrame'>{frameItem}</div>;
+	return <div className="UserFrame">{frameItems}</div>;
 }

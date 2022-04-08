@@ -1,0 +1,41 @@
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
+@use "../../sass/partials/functions" as *;
+
+.modal-frame {
+	// Default
+	display: flex;
+
+	// Style
+	background-color: frameColor(modal);
+
+	// Position
+	position: fixed;
+	z-index: 10;
+
+	// Size
+	width: 100%;
+	height: 100%;
+
+	// Children
+	&__modal {
+		position: relative;
+		width: 30%;
+		margin: auto;
+		border: 1px solid $black;
+		border-radius: $border-raduis;
+		padding: 1.5rem 1rem 1rem;
+		background: $app-background-dark;
+	}
+
+	&__close {
+		position: absolute;
+		top: 0.3rem;
+		right: 0.3rem;
+		@include icon-button;
+		&:hover {
+			color: $error;
+			filter: drop-shadow(0px 0px 5px $error);
+		}
+	}
+}

@@ -1,9 +1,10 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/functions" as *;
 
 .SideFrame {
 	// Style
-	background-color: rgba($color: green, $alpha: 0.2);
-	border: 2px dashed black;
+	background-color: frameColor(aside);
+	border: $frame-border;
 
 	// Position
 	position: fixed;

@@ -1,75 +1,67 @@
-const express = require("express");
-const http = require("http")
-const dotenv = require("dotenv");
-const { v4: uuidv4 } = require('uuid');
-const morgan = require("morgan");
+const express = require('express');
+const http = require('http');
+const dotenv = require('dotenv');
+
+const morgan = require('morgan');
+const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler, directMessageHandler, changedUsernameHandler } = require('./socketHandlers');
 
 // config
-dotenv.config({ path: "./config/.env" });
-
+dotenv.config();
 
 // initialize the express server
 const app = express();
 // initialize the http server
-const server = http.createServer(app)
+const server = http.createServer(app);
 // initialize websocket to server
-const io = require("socket.io")(server,
-  {
-    cors: { origin: "https://bslounge.netlify.app" }
-  });
-
+const io = require('socket.io')(server, {
+	cors: { origin: process.env.DOMAIN },
+});
 
 // Logger for development using cross-env to track the node environment
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan('dev'))
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
 }
 
-if (process.env.NODE_ENV === "production") {
-  app.use(morgan('combined'))
+if (process.env.NODE_ENV === 'production') {
+	app.use(morgan('combined'));
 }
 
-// store users 
+// store users
 let users = {};
-//Whenever someone connects this gets executed
+
+//Whenever connection is established this gets executed
 io.on('connection', (socket) => {
+	// Joining Lounge
+	socket.on('join-lounge', (req) => joinLoungeHandler(req, users, socket));
 
-  // attached to event "send-chat-message"
-  socket.on("send-chat-message", message => {
-    socket.broadcast.emit("chat-message", message)
-  })
+	// Sending Chat Message
+	socket.on('send-chat-message', (message) => messageHandler(message, socket));
 
-  // listen for new user when chat component mounts 
-  socket.on("new-user", username => {
-    users[socket.id] = username;
-    console.log(users[socket.id], "joined the chat")
-    socket.emit("chat-message", { key: uuidv4(), text: `Welcome to the  Lounge Chat ${users[socket.id]}`, type: "server" })
-    socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${users[socket.id]} has joined the chat`, type: "server" })
-  })
+	// Joining Chat
+	socket.on('join-chat', () => joinChatHandler(users, socket));
 
-  // when unmounted then delete user from list and broadcast message to the chatroom
-  socket.on('unmount', (username) => {
-    console.log(users)
-    console.log(users[socket.id], "left the chat");
-    socket.broadcast.emit("chat-message", { key: uuidv4(), text: `${users[socket.id]} left the chat`, type: "server" });
-    delete users[socket.id];
-  });
+	// Handling DMs
+	socket.on('send-dm', (message) => directMessageHandler(message, users, socket));
+
+	// Receiving User List
+	socket.on('get-users', () => sendUsers(users, socket));
+
+	// Change username
+	socket.on('change-username', (newUsername) => changedUsernameHandler(newUsername, users, socket));
+
+	// Leaving Chat
+	socket.on('leave-chat', () => leaveChatHandler(users, socket));
+
+	// Leaving Lounge
+	socket.on('disconnect', () => disconnectHandler(users, socket));
 });
-// Routes
-app.get("/", (req, res) => {
 
-  res.send("You did it, im alive.")
+
+app.get("/", (_req, res) => {
+	res.status(200)
+		.send("Up and running.")
 })
-
 
 // listen default to 8000 if env variable port is taken or busy
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
-
-
-
-
-
-
-
-
-

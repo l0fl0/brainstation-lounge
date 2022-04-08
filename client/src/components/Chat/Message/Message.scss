@@ -1,45 +1,59 @@
 @use "../../../sass/partials/variables" as *;
-@use "../../../sass/partials/animations" as *;
 
 .message {
-	width: 66%;
+	position: relative;
+	max-width: 66%;
+	width: auto;
 	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	margin-bottom: 0.5rem;
+	align-self: flex-start;
+	margin-bottom: 0.3rem;
+	background-color: rgba(17, 17, 17, 0.452);
+	border-radius: $border-raduis;
+	border-top-left-radius: 0%;
+	padding: 0.25rem 0.4rem;
 
-	&--self {
-		align-items: flex-end;
+	&__self {
+		@extend .message;
+		border-top-right-radius: 0%;
+		border-top-left-radius: $border-raduis;
+		background-color: rgba(34, 139, 34, 0.452);
 		align-self: flex-end;
 	}
 
-	&__time {
-		margin-top: 0.25rem;
-		text-align: right;
-	}
-
 	&__user {
+		color: $success;
+		align-self: flex-start;
 		font-size: 0.825rem;
-		background-color: #333;
-		padding: 0.25rem;
-		border-radius: 3px;
-		margin-bottom: 0.3333rem;
+		border-radius: $border-raduis;
+		border-top-right-radius: 0%;
 	}
 
 	&__text {
 		font-size: 1rem;
-		background-color: #fff;
-		color: #333;
-		padding: 0.25rem;
-		border-radius: 3px;
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 0.1rem;
+	}
+
+	&__time {
+		font-size: 0.65rem;
+		color: $white;
+		text-shadow: none;
+		background-color: transparent;
+		align-self: flex-end;
+		margin-left: 0.5rem;
+		margin-bottom: -0.15rem;
+		&--meridian {
+			min-width: 3.2rem;
+		}
 	}
 
 	&__announcement {
-		font-size: 0.8rem;
-		text-shadow: $text-shadow-white;
-		color: $white;
+		background-color: transparent;
+		text-shadow: $text-shadow-dark;
+		font-size: 1.05rem;
+		color: $success;
 		font-style: italic;
-		padding: 0.25rem;
-		border-radius: 3px;
+		margin-bottom: 0.7rem;
 	}
 }

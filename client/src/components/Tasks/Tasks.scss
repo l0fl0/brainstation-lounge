@@ -1,15 +1,42 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
 
-.tasks {
+.todos {
 	text-align: right;
-	background-color: rgba(0, 0, 0, 0.2);
-	padding: 1rem;
-	h1 {
+	background: $app-background-dark;
+	padding: $app-padding;
+	border-radius: $border-raduis;
+
+	&__header {
+		display: flex;
+		align-items: center;
 		margin-bottom: 1rem;
 		text-shadow: $text-shadow-white;
 	}
-	ul {
-		text-decoration: none;
-		list-style: none;
+
+	&__info {
+		text-align: center;
+		display: grid;
+		gap: 1rem;
+	}
+
+	&__heading {
+		margin-right: auto;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 1rem;
+	}
+
+	&__action {
+		@include icon-button;
+
+		&--active {
+			color: $error;
+			&:hover {
+				color: $error;
+			}
+		}
 	}
 }

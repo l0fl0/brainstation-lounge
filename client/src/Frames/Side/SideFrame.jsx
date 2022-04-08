@@ -1,13 +1,21 @@
-import './SideFrame.scss';
+import "./SideFrame.scss";
 
-export default function SideFrame({ frames, isShowItems }) {
+export default function SideFrame({ frames, toggleItems, globalState }) {
 	let frameItem = null;
 
-	for (let bool in isShowItems) {
-		if (!frames[bool]) continue;
-		if (isShowItems[bool]) {
-			frameItem = frames[bool].component(null);
+	const { isShowItems, twelveHourFormat, currentTask, setCurrentTask } =
+		globalState;
+
+	const props = {
+		tasks: { toggleItems, currentTask, setCurrentTask },
+		notes: { twelveHourFormat },
+	};
+
+	for (let app in isShowItems) {
+		if (!frames[app]) continue;
+		if (isShowItems[app]) {
+			frameItem = frames[app].component(props[app]);
 		}
 	}
-	return <div className='SideFrame'>{frameItem}</div>;
+	return <div className="SideFrame">{frameItem}</div>;
 }

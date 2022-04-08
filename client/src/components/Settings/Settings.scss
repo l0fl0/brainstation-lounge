@@ -1,21 +1,64 @@
-@use '../../sass/partials/variables' as *;
+@use "../../sass/partials/variables" as *;
+@use "../../sass/partials/mixins" as *;
+@use "../../sass/partials/animations" as *;
 
-.bg-selector {
+.settings {
+	@include invisible-vertical-scroll;
+	text-align: left;
+	background-color: $app-background-dark;
+	border-radius: $border-raduis;
 	font-size: 1.2rem;
 	text-shadow: $text-shadow-white;
+	padding: $app-padding;
+	display: grid;
+	gap: 1rem;
 
-	&__icon {
-		cursor: pointer;
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
-}
 
-.settings-wrapper {
-	text-align: center;
-}
+	&__username-input {
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px ridge $white;
+		color: $white;
+		text-align: end;
+		width: auto;
+		outline: none;
+		min-width: 3rem;
+		&:focus-visible {
+			border-bottom: 1px solid $success;
+		}
+	}
 
-.time-button {
-	margin-bottom: 1rem;
-	button {
-		margin-left: 1rem;
+	&__toggle-switch {
+		@include toggle-switch;
+	}
+
+	&__bg-selector {
+		&-actions {
+			display: flex;
+			gap: 0.5rem;
+		}
+
+		&-icon {
+			display: grid;
+			align-items: center;
+			border: solid 1px $white;
+			padding: 0.1rem 0.2rem;
+			border-radius: 4px;
+			cursor: pointer;
+
+			&:hover {
+				color: $success;
+				border-color: $success;
+			}
+			&:active {
+				color: $blue;
+				border-color: $blue;
+			}
+		}
 	}
 }
