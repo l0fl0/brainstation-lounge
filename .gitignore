@@ -10,10 +10,12 @@
 
 # production
 /build
+*.tar.gz
+*.sh.swp
 
 # misc
 .DS_Store
 *.env
 client/.env
 client/build
-*.tar.gz
+
