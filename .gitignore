@@ -10,8 +10,7 @@
 
 # production
 /build
-*.tar.gz
-*.sh.swp
+*.sh
 
 # misc
 .DS_Store
