@@ -13,6 +13,7 @@ const app = express();
 // initialize the http server
 const server = http.createServer(app);
 // initialize websocket to server
+app.use(cors());
 const io = require('socket.io')(server, {
 	cors: { origin: process.env.DOMAIN, credentials: true },
 });
