@@ -14,7 +14,7 @@ const app = express();
 const server = http.createServer(app);
 // initialize websocket to server
 const io = require('socket.io')(server, {
-	cors: { origin: process.env.DOMAIN },
+	cors: { origin: process.env.DOMAIN, credentials: true },
 });
 
 // Logger for development using cross-env to track the node environment
