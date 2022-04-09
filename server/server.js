@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const dotenv = require('dotenv');
-
+const cors = require('cors');
 const morgan = require('morgan');
 const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler, directMessageHandler, changedUsernameHandler } = require('./socketHandlers');
 
@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // initialize websocket to server
 app.use(cors());
 const io = require('socket.io')(server, {
-	cors: { origin: process.env.DOMAIN, credentials: true },
+	cors: { origin: process.env.DOMAIN },
 });
 
 // Logger for development using cross-env to track the node environment
