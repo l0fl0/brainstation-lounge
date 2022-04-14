@@ -23,12 +23,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-        env:
-          PORT: 8080
       - run: |
           cd server
           npm i 
-          echo -e "DOMAIN= ${{ secrets.DOMAIN}} \nPORT= ${{env.PORT}} \nJWT_SECRET=${{ secrets.JWT_SECRET}}" > .env
+          echo -e "DOMAIN=${{secrets.DOMAIN}} \nPORT=8080 \nJWT_SECRET=${{secrets.JWT_SECRET}}" > .env
           pm2 stop 3
           pm2 start 3
           pm2 save
