@@ -28,8 +28,8 @@ jobs:
       - run: |
           cd server
           npm i 
-          echo -e "DOMAIN=${{secrets.DOMAIN}} \nPORT=${{env.PORT}} \nJWT_SECRET=${{secrets.JWT_SECRET}}" > .env
-          pm2 stop bslounge-server
-          pm2 start bslounge-server
+          echo -e "DOMAIN=${{secrets.DOMAIN}} \nPORT=$PORT \nJWT_SECRET=${{secrets.JWT_SECRET}}" > .env
+          pm2 stop bsl-server
+          pm2 start bsl-server
           pm2 save
           sudo service nginx restart
