@@ -59,8 +59,7 @@ io.on('connection', (socket) => {
 
 
 app.get("/", (_req, res) => {
-	res.status(200)
-		.send("Up and running.")
+	res.send("Github actions is set up for deployment.")
 })
 
 // listen default to 8000 if env variable port is taken or busy
