@@ -14,4 +14,6 @@ export const twelveHourFormatSlice = createSlice({
 
 export const { toggle } = twelveHourFormatSlice.actions;
 
+export const selectFormat = (state) => state.twelveHourFormat.value;
+
 export default twelveHourFormatSlice.reducer;

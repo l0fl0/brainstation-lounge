@@ -1,13 +1,14 @@
 import './CurrentTime.scss';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { selectFormat } from './twelveHourFormatSlice';
 import { getDay, twelveHourTime, twentyFourHourTime } from '../../utils/formatDate';
 
 export default function CurrentTime() {
 	const [currentTime, setCurrentTime] = useState('00:00:00');
 	const [dayOfWeek, setDayOfWeek] = useState('TODAY');
 
-	const twelveHourFormat = useSelector((state) => state.twelveHourFormat.value);
+	const twelveHourFormat = useSelector(selectFormat);
 
 	useEffect(() => {
 		const getTime = setInterval(() => {
