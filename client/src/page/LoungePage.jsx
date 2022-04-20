@@ -1,22 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import { apps } from "../data/apps";
-import { gifs } from "../data/gifs";
+import { useContext, useEffect, useState } from 'react';
+import { apps } from '../data/apps';
+import { gifs } from '../data/gifs';
+import { useDispatch } from 'react-redux';
+import { setFormat } from '../components/CurrentTime/twelveHourFormatSlice';
 
-import "./LoungePage.scss";
-import HeaderFrame from "../Frames/Header/HeaderFrame";
-import InformationFrame from "../Frames/Information/InformationFrame";
-import MainFrame from "../Frames/Main/MainFrame";
-import SideFrame from "../Frames/Side/SideFrame";
-import UserFrame from "../Frames/User/UserFrame";
-import ModalFrame from "../Frames/Modal/ModalFrame";
-import { SocketContext } from "../context/socket";
+import './LoungePage.scss';
+import HeaderFrame from '../Frames/Header/HeaderFrame';
+import InformationFrame from '../Frames/Information/InformationFrame';
+import MainFrame from '../Frames/Main/MainFrame';
+import SideFrame from '../Frames/Side/SideFrame';
+import UserFrame from '../Frames/User/UserFrame';
+import ModalFrame from '../Frames/Modal/ModalFrame';
+import { SocketContext } from '../context/socket';
 
 export default function LoungePage() {
 	const socket = useContext(SocketContext);
+	const dispatch = useDispatch();
 
 	const [isShowItems, setShowItems] = useState({});
 	const [gifIndex, setGifIndex] = useState(0);
-	const [twelveHourFormat, setTwelveHourFormat] = useState(true);
 	const [currentTask, setCurrentTask] = useState();
 
 	const frames = {};
@@ -37,31 +39,31 @@ export default function LoungePage() {
 	};
 
 	useEffect(() => {
-		let identification = JSON.parse(localStorage.getItem("identification"));
+		let identification = JSON.parse(localStorage.getItem('identification'));
 
 		if (!identification) {
 			//TODO: add validation so no nulls exist
 			//Random name Gen
-			const username = prompt("What is your name?");
-			socket.emit("join-lounge", { username });
+			const username = prompt('What is your name?');
+			socket.emit('join-lounge', { username });
 		} else {
 			let { token } = identification;
-			socket.emit("join-lounge", { token });
+			socket.emit('join-lounge', { token });
 		}
 
-		let storedSettings = JSON.parse(localStorage.getItem("settings"));
+		let storedSettings = JSON.parse(localStorage.getItem('settings'));
 
 		if (storedSettings) {
 			const { gifIndex, twelveHourFormat } = storedSettings;
-			setTwelveHourFormat(twelveHourFormat);
+			dispatch(setFormat(twelveHourFormat));
 			setGifIndex(gifIndex);
 		}
 	}, []);
 
 	useEffect(() => {
-		socket.on("joined", (res) => {
+		socket.on('joined', (res) => {
 			localStorage.setItem(
-				"identification",
+				'identification',
 				JSON.stringify({
 					token: res.token,
 					username: res.username,
@@ -72,46 +74,29 @@ export default function LoungePage() {
 	}, [socket]);
 
 	return (
-		<main className="parent-container">
-			<img src={gifs[gifIndex]} alt="gifs" className="gifs" />
-			<HeaderFrame
-				toggleItems={toggleItems}
-				globalState={{ twelveHourFormat }}
-			/>
-			<MainFrame
-				frames={frames["Main"]}
-				globalState={{ isShowItems, twelveHourFormat }}
-			/>
+		<main className='parent-container'>
+			<img src={gifs[gifIndex]} alt='gifs' className='gifs' />
+			<HeaderFrame toggleItems={toggleItems} />
+			<MainFrame frames={frames['Main']} globalState={{ isShowItems }} />
 			<SideFrame
-				frames={frames["Side"]}
+				frames={frames['Side']}
 				toggleItems={toggleItems}
 				globalState={{
 					isShowItems,
-					twelveHourFormat,
 					currentTask,
 					setCurrentTask,
 				}}
 			/>
 			<UserFrame
-				frames={frames["User"]}
+				frames={frames['User']}
 				globalState={{
 					isShowItems,
-					twelveHourFormat,
-					setTwelveHourFormat,
 					gifIndex,
 					setGifIndex,
 				}}
 			/>
-			<InformationFrame
-				frames={frames["Information"]}
-				isShowItems={isShowItems}
-			/>
-			<ModalFrame
-				frames={frames["Modal"]}
-				toggleItems={toggleItems}
-				isShowItems={isShowItems}
-				currentTaskState={{ currentTask, setCurrentTask }}
-			/>
+			<InformationFrame frames={frames['Information']} isShowItems={isShowItems} />
+			<ModalFrame frames={frames['Modal']} toggleItems={toggleItems} isShowItems={isShowItems} currentTaskState={{ currentTask, setCurrentTask }} />
 		</main>
 	);
 }
