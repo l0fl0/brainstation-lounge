@@ -1,12 +1,13 @@
 import "./MainFrame.scss";
 
 export default function MainFrame({ frames, globalState }) {
+	const { isShowItems } = globalState;
+
 	let frameItem = null;
 
-	const { isShowItems, twelveHourFormat } = globalState;
-
 	const props = {
-		chat: { twelveHourFormat },
+		// To pass props from parent page to component within frame (if you need to pass state between components use redux).
+		// chat: { twelveHourFormat },
 	};
 
 	for (let app in isShowItems) {
