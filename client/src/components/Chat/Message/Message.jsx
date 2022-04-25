@@ -1,8 +1,12 @@
 import "./Message.scss";
 import { twelveHourTime, twentyFourHourTime } from "../../../utils/formatDate";
+import { useSelector } from "react-redux";
+import { selectFormat } from "../../CurrentTime/twelveHourFormatSlice";
 
-export default function Message({ message, isSelf, twelveHourFormat }) {
+export default function Message({ message, isSelf }) {
 	const { user, text, timestamp, type } = message;
+
+	const twelveHourFormat = useSelector(selectFormat);
 
 	if (type === "server") {
 		return <p className="message__announcement">{text}</p>;

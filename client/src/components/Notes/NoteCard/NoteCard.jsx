@@ -1,13 +1,12 @@
 import "./NoteCard.scss";
 import React from "react";
 import { twelveHourTime, twentyFourHourTime } from "../../../utils/formatDate";
+import { useSelector } from "react-redux";
+import { selectFormat } from "../../CurrentTime/twelveHourFormatSlice";
 
-export default function NoteCard({
-	note,
-	openEditor,
-	deleteNote,
-	twelveHourFormat,
-}) {
+export default function NoteCard({ note, openEditor, deleteNote }) {
+	const twelveHourFormat = useSelector(selectFormat);
+
 	return (
 		<article className="note-card">
 			<header className="note-card__header">
