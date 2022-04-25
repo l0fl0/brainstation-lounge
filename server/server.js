@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const dotenv = require('dotenv');
-
+const cors = require('cors');
 const morgan = require('morgan');
 const { messageHandler, leaveChatHandler, disconnectHandler, sendUsers, joinLoungeHandler, joinChatHandler, directMessageHandler, changedUsernameHandler } = require('./socketHandlers');
 
@@ -13,6 +13,7 @@ const app = express();
 // initialize the http server
 const server = http.createServer(app);
 // initialize websocket to server
+app.use(cors());
 const io = require('socket.io')(server, {
 	cors: { origin: process.env.DOMAIN },
 });
@@ -58,8 +59,7 @@ io.on('connection', (socket) => {
 
 
 app.get("/", (_req, res) => {
-	res.status(200)
-		.send("Up and running.")
+	res.send("Github actions is set up for deployment.")
 })
 
 // listen default to 8000 if env variable port is taken or busy
