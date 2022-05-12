@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./ModalFrame.scss";
 
 export default function ModalFrame({

@@ -3,12 +3,10 @@ import "./SideFrame.scss";
 export default function SideFrame({ frames, toggleItems, globalState }) {
 	let frameItem = null;
 
-	const { isShowItems, twelveHourFormat, currentTask, setCurrentTask } =
-		globalState;
+	const { isShowItems, currentTask, setCurrentTask } = globalState;
 
 	const props = {
 		tasks: { toggleItems, currentTask, setCurrentTask },
-		notes: { twelveHourFormat },
 	};
 
 	for (let app in isShowItems) {
