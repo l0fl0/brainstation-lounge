@@ -31,4 +31,4 @@ jobs:
           pm2 stop bsl-server
           pm2 start bsl-server
           pm2 save
-          service nginx restart
+          sudo service nginx restart
