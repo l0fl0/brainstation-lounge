@@ -25,7 +25,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: |
           cd server
-          rm -r node_modules
           rm -r package-lock.json
           npm i 
           echo -e "DOMAIN=${{secrets.DOMAIN}} \nPORT=8080 \nJWT_SECRET=${{secrets.JWT_SECRET}}" > .env
