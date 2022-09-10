@@ -25,6 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: |
           cd server
+          rm -r package-lock.json
           npm i 
           echo -e "DOMAIN=${{secrets.DOMAIN}} \nPORT=8080 \nJWT_SECRET=${{secrets.JWT_SECRET}}" > .env
           pm2 stop bsl-server
